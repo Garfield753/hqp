@@ -151,7 +151,7 @@ Real Hqp_SqpProgram::test()
 	  val = row->elt[idx].val = *ve - row->elt[idx].val;
 	else
 	  val = sp_set_val(_qp->A, j, i, *ve);
-	maxval = max(maxval, fabs(val));
+	maxval = hqp_max(maxval, fabs(val));
       }
     
     v_sub(_qp->d, d_bak, _qp->d);
@@ -165,14 +165,14 @@ Real Hqp_SqpProgram::test()
 	  val = row->elt[idx].val = *ve - row->elt[idx].val;
 	else
 	  val = sp_set_val(_qp->C, j, i, *ve);
-	maxval = max(maxval, fabs(val));
+	maxval = hqp_max(maxval, fabs(val));
       }
   }
   _f = f_bak;
 
   v_sub(dc, _qp->c, _qp->c);
-  maxval = max(maxval, v_max(_qp->c, &i));
-  maxval = max(maxval, -v_min(_qp->c, &i));
+  maxval = hqp_max(maxval, v_max(_qp->c, &i));
+  maxval = hqp_max(maxval, -v_min(_qp->c, &i));
 
   v_copy(b_bak, _qp->b);
   v_copy(d_bak, _qp->d);
@@ -211,7 +211,7 @@ Real Hqp_SqpProgram::norm_inf() const
 
   if ((VEC *)(_qp->d) != VNULL && _qp->d->dim > 0) {
     tmp = -v_min(_qp->d, NULL);
-    ret = max(ret, tmp);
+    ret = hqp_max(ret, tmp);
   }
 
   return ret;

@@ -254,7 +254,7 @@ VEC *v_expand(VEC *v, int nel, int granul)
   VEC *vbak;
   VEC vv;
 
-  granul = max(granul, nel);
+  granul = hqp_max(granul, nel);
     
   if (!v) {
     v = v_get(granul);
@@ -344,7 +344,7 @@ IVEC *iv_expand(IVEC *iv, int nel, int granul)
   IVEC *ivbak;
   IVEC ivv;
 
-  granul = max(granul, nel);
+  granul = hqp_max(granul, nel);
     
   if (!iv) {
     iv = iv_get(granul);
@@ -391,9 +391,9 @@ VEC *bd_mv_mlt(const BAND *A, const VEC *x, VEC *out)
   start_idx = lb;
   end_idx = m + n-1 - ub;
   for (i=0; i<n; i++, start_idx--, end_idx--) {
-    j = max(0, start_idx);
-    k = max(0, -start_idx);
-    j_end = min(m, end_idx);
+    j = hqp_max(0, start_idx);
+    k = hqp_max(0, -start_idx);
+    j_end = hqp_min(m, end_idx);
     x_ve = x->ve + k;
     sum = 0.0;	     
     for (; j<j_end; j++, k++)
@@ -711,7 +711,7 @@ void symsp_extract_mat(const SPMAT *src, int offs, MAT *dst)
 SPMAT *sp_ident(SPMAT *A)
 {
   int i;
-  int i_end = min(A->n, A->m);
+  int i_end = hqp_min(A->n, A->m);
 
   sp_zero(A);
   for (i=0; i<i_end; i++)
@@ -736,7 +736,7 @@ Real sp_norm_inf(SPMAT *A)
     rsum = 0.0;
     for (idx = 0; idx < len; idx++, elt++)
       rsum += fabs((*elt).val);
-    norm = max(norm, rsum);
+    norm = hqp_max(norm, rsum);
   }	
   
   return norm;

@@ -271,7 +271,7 @@ int Hqp_HL_SparseBFGS::next_block(const SPMAT *Q, int *offs, int *size)
       max_col = row->elt[row->len - 1].col;
     else
       max_col = _b_begin;
-    b_end = max(b_end, max_col);
+    b_end = hqp_max(b_end, max_col);
     _b_begin ++;
   }
 

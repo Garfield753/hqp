@@ -347,8 +347,8 @@ int	i, j, lo, hi;
 		m_error(E_NULL,"swap_rows");
 	if ( i < 0 || j < 0 || i >= (int) A->m || j >= (int) A->m )
 		m_error(E_SIZES,"swap_rows");
-	lo = max(0,lo);
-	hi = min(hi,A->n-1);
+	lo = hqp_max(0,lo);
+	hi = hqp_min(hi,A->n-1);
 	A_me = A->me;
 
 	for ( k = lo; k <= hi; k++ )
@@ -372,8 +372,8 @@ int	i, j, lo, hi;
 		m_error(E_NULL,"swap_cols");
 	if ( i < 0 || j < 0 || i >= (int) A->n || j >= (int) A->n )
 		m_error(E_SIZES,"swap_cols");
-	lo = max(0,lo);
-	hi = min(hi,A->m-1);
+	lo = hqp_max(0,lo);
+	hi = hqp_min(hi,A->m-1);
 	A_me = A->me;
 
 	for ( k = lo; k <= hi; k++ )

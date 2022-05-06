@@ -204,7 +204,7 @@ Real Hqp_SqpPowell::phi()
   ve2 = _r->ve;
   i_end = _r->dim;
   for (i=0; i<i_end; i++, ve1++, ve2++)
-    ret -= *ve2 * min(0.0, *ve1);
+    ret -= *ve2 * hqp_min(0.0, *ve1);
 
   return ret;
 }
@@ -236,7 +236,7 @@ Real Hqp_SqpPowell::phi1()
   ve2 = _r->ve;
   i_end = _r->dim;
   for (i=0; i<i_end; i++, ve1++, ve2++)
-    ret -= *ve2 * min(0.0, *ve1);
+    ret -= *ve2 * hqp_min(0.0, *ve1);
 
   v_free(g1);
 
@@ -372,8 +372,8 @@ void Hqp_SqpPowell::update_vals()
     if (fabs(_alpha - n_alpha) < _min_alpha)
       break;
     _alpha *= 0.1;
-    _alpha = max(_alpha, n_alpha);
-    _alpha = max(_alpha, _min_alpha);
+    _alpha = hqp_max(_alpha, n_alpha);
+    _alpha = hqp_max(_alpha, _min_alpha);
   }
 
   _dphi = dphi0;

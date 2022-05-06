@@ -163,7 +163,7 @@ Real Hqp_SqpSolver::norm_inf(const Hqp_Program *qp)
 
   if (qp->d->dim > 0) {
     tmp = -v_min(qp->d, NULL);
-    ret = max(ret, tmp);
+    ret = hqp_max(ret, tmp);
   }
 
   return ret;
@@ -343,7 +343,7 @@ void Hqp_SqpSolver::qp_reinit_bd()
 void Hqp_SqpSolver::feasible_vals()
 {
   Hqp_Program *qp = _prg->qp();
-  Real old_norm_inf = max(_norm_inf, _eps);
+  Real old_norm_inf = hqp_max(_norm_inf, _eps);
 
   v_zero(_y);
   v_zero(_z);

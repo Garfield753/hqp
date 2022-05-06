@@ -156,7 +156,7 @@ void Hqp_IpSpBKP::factor(const Hqp_Program *, const VEC *z, const VEC *w)
     wz = w->ve[j] / z->ve[j];
     k = _QP2J->pe[n_me + j];
     sp_set_val(_J, k, k, wz);	// insert diagonal entry
-    _scale->ve[j] = min(1.0, sqrt(1.0 / wz));
+    _scale->ve[j] = hqp_min(1.0, sqrt(1.0 / wz));
   }
 
   // diagonal scaling

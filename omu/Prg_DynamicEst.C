@@ -253,7 +253,7 @@ void Prg_DynamicEst::setup_stages(IVECP ks, VECP ts)
 
   // setup optimization problem
   if (_multistage) {
-    _K = max(_K, _KK); // assume that one of both has been specified
+    _K = hqp_max(_K, _KK); // assume that one of both has been specified
     _KK = _K;
     stages_alloc(ks, ts, _K, 1);
   }
@@ -262,7 +262,7 @@ void Prg_DynamicEst::setup_stages(IVECP ks, VECP ts)
       m_error(E_FORMAT, "Prg_DynamicEst::setup_stages: "
 	      "prg_nex>1 requires prg_multistage=true");
     }
-    _KK = max(_K, _KK); // assume that one of both has been specified
+    _KK = hqp_max(_K, _KK); // assume that one of both has been specified
     _K = 1;
     stages_alloc(ks, ts, 1, _KK);
   }

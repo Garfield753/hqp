@@ -89,7 +89,7 @@ double	val;
       if ( r->len >= r->maxlen )
       {
 	 r->len = r->maxlen;
-	 new_len = max(2*r->maxlen+1,5);
+	 new_len = hqp_max(2*r->maxlen+1,5);
 	 if (mem_info_is_on()) {
 	    mem_bytes(TYPE_SPMAT,A->row[i].maxlen*sizeof(row_elt),
 			    new_len*sizeof(row_elt));
@@ -206,7 +206,7 @@ int	m, n, maxlen;
    if ( m < 0 || n < 0 )
      m_error(E_NEG,"sp_get");
 
-   maxlen = max(maxlen,1);
+   maxlen = hqp_max(maxlen,1);
    
    A = NEW(SPMAT);
    if ( ! A )		/* can't allocate */
@@ -345,13 +345,13 @@ const SPMAT *A;
    {
       row1 = &(A->row[i]);
       row2 = &(out->row[i]);
-      if ( ! (row2->elt=NEW_A(max(row1->len,3),row_elt)) )
+      if ( ! (row2->elt=NEW_A(hqp_max(row1->len,3),row_elt)) )
 	m_error(E_MEM,"sp_copy");
       else if (mem_info_is_on()) {
-	 mem_bytes(TYPE_SPMAT,0,max(row1->len,3)*sizeof(row_elt));
+	 mem_bytes(TYPE_SPMAT,0,hqp_max(row1->len,3)*sizeof(row_elt));
       }
       row2->len = row1->len;
-      row2->maxlen = max(row1->len,3);
+      row2->maxlen = hqp_max(row1->len,3);
       row2->diag = row1->diag;
       MEM_COPY((char *)(row1->elt),(char *)(row2->elt),
 	       row1->len*sizeof(row_elt));

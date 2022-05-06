@@ -188,7 +188,7 @@ int	n,type;
       return r;
    }
    if ( n <= r->len )
-     newlen = max(2*r->len + 1,MINROWLEN);
+     newlen = hqp_max(2*r->len + 1,MINROWLEN);
    else
      newlen = n;
    if ( newlen <= r->maxlen )
@@ -698,7 +698,7 @@ double  val;
       if ( r->len >= r->maxlen )
       {
          r->len = r->maxlen;
-         new_len = max(2*r->maxlen+1,5);
+         new_len = hqp_max(2*r->maxlen+1,5);
          if (mem_info_is_on()) {
             mem_bytes(TYPE_SPROW,r->maxlen*sizeof(row_elt),
                         new_len*sizeof(row_elt)); 

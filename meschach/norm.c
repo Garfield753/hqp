@@ -114,7 +114,7 @@ const VEC *x, *scale;
 	if ( scale == (VEC *)NULL )
 		for ( i = 0; i < dim; i++ )
 		{	tmp = fabs(x->ve[i]);
-			maxval = max(maxval,tmp);
+			maxval = hqp_max(maxval,tmp);
 		}
 	else if ( (int) scale->dim < dim )
 		m_error(E_SIZES,"_v_norm_inf");
@@ -122,7 +122,7 @@ const VEC *x, *scale;
 		for ( i = 0; i < dim; i++ )
 		{	s = scale->ve[i];
 			tmp = ( s== 0.0 ) ? fabs(x->ve[i]) : fabs(x->ve[i]/s);
-			maxval = max(maxval,tmp);
+			maxval = hqp_max(maxval,tmp);
 		}
 
 	return maxval;
@@ -146,7 +146,7 @@ const MAT *A;
 		sum = 0.0;
 		for ( i = 0; i < m; i ++ )
 			sum += fabs(A->me[i][j]);
-		maxval = max(maxval,sum);
+		maxval = hqp_max(maxval,sum);
 	}
 
 	return maxval;
@@ -170,7 +170,7 @@ const MAT *A;
 		sum = 0.0;
 		for ( j = 0; j < n; j ++ )
 			sum += fabs(A->me[i][j]);
-		maxval = max(maxval,sum);
+		maxval = hqp_max(maxval,sum);
 	}
 
 	return maxval;

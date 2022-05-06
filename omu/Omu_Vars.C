@@ -74,7 +74,7 @@ Omu_SVarVec::~Omu_SVarVec()
 //--------------------------------------------------------------------------
 void Omu_SVarVec::alloc(int n, int n_expand)
 {
-  n_expand = max(n, n_expand);
+  n_expand = hqp_max(n, n_expand);
   Omu_VarVec::alloc(n, n_expand);
   nv = n_expand - n;
   v_resize(D, n_expand);

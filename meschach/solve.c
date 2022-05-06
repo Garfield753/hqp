@@ -54,7 +54,7 @@ Real	diag;
 
 	if ( matrix==(MAT *)NULL || b==(VEC *)NULL )
 		m_error(E_NULL,"Usolve");
-	dim = min(matrix->m,matrix->n);
+	dim = hqp_min(matrix->m,matrix->n);
 	if ( b->dim < dim )
 		m_error(E_SIZES,"Usolve");
 	if ( out==(VEC *)NULL || out->dim < dim )
@@ -104,7 +104,7 @@ Real	diag;
 
 	if ( matrix==(MAT *)NULL || b==(VEC *)NULL )
 		m_error(E_NULL,"Lsolve");
-	dim = min(matrix->m,matrix->n);
+	dim = hqp_min(matrix->m,matrix->n);
 	if ( b->dim < dim )
 		m_error(E_SIZES,"Lsolve");
 	if ( out==(VEC *)NULL || out->dim < dim )
@@ -156,7 +156,7 @@ Real	diag;
     
     if ( ! U || ! b )
 	m_error(E_NULL,"UTsolve");
-    dim = min(U->m,U->n);
+    dim = hqp_min(U->m,U->n);
     if ( b->dim < dim )
 	m_error(E_SIZES,"UTsolve");
     out = v_resize(out,U->n);
@@ -206,7 +206,7 @@ VEC	*b,*x;
     
     if ( ! A || ! b )
 	m_error(E_NULL,"Dsolve");
-    dim = min(A->m,A->n);
+    dim = hqp_min(A->m,A->n);
     if ( b->dim < dim )
 	m_error(E_SIZES,"Dsolve");
     x = v_resize(x,A->n);
@@ -235,7 +235,7 @@ Real	diag;
     
     if ( ! L || ! b )
 	m_error(E_NULL,"LTsolve");
-    dim = min(L->m,L->n);
+    dim = hqp_min(L->m,L->n);
     if ( b->dim < dim )
 	m_error(E_SIZES,"LTsolve");
     out = v_resize(out,L->n);

@@ -168,11 +168,11 @@ Real Hqp_IpMatrix::residuum(const Hqp_Program *qp,
 
   res = v_norm_inf(_r1);
   res_part = v_norm_inf(_r2);
-  res = max(res, res_part);
+  res = hqp_max(res, res_part);
   res_part = v_norm_inf(_r3);
-  res = max(res, res_part);
+  res = hqp_max(res, res_part);
   res_part = v_norm_inf(_r4);
-  res = max(res, res_part);
+  res = hqp_max(res, res_part);
 
   return res;
 }

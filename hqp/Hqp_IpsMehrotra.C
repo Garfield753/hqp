@@ -226,11 +226,11 @@ void Hqp_IpsMehrotra::cold_start()
     // initialization of _z and _w
     if ( _init_method == 1 ) {
       v_set(_z, 1.0);
-      v_set(_w, max(v_norm_inf(_qp->d),1e-10)*sp_norm_inf(_qp->Q)/
+      v_set(_w, hqp_max(v_norm_inf(_qp->d),1e-10)*sp_norm_inf(_qp->Q)/
 	    sp_norm_inf(_qp->C));
     } else if ( _init_method == 2 ) {
       v_set(_z, 1.0);
-      v_set(_w, sp_norm_inf(_qp->C)/max(v_norm_inf(_qp->d),1e-10)/
+      v_set(_w, sp_norm_inf(_qp->C)/hqp_max(v_norm_inf(_qp->d),1e-10)/
 	    sp_norm_inf(_qp->Q));
     } else {
       v_ones(_z);
@@ -300,8 +300,8 @@ void Hqp_IpsMehrotra::cold_start()
       v_set(_dz, 1.0e-10);
     if ( v_norm_inf(_dw) == 0.0 )
       v_set(_dw, 1.0e-10);
-    delz = max(-1.5*v_min(_dz, &i), 0.0);
-    delw = max(-1.5*v_min(_dw, &i), 0.0);
+    delz = hqp_max(-1.5*v_min(_dz, &i), 0.0);
+    delw = hqp_max(-1.5*v_min(_dw, &i), 0.0);
     v_set(_d1, delz);
     v_add(_d1, _dz, _d1);
     v_set(_d2, delw);
@@ -452,11 +452,11 @@ void Hqp_IpsMehrotra::step()
 	   v_min(_z, &i), v_max(_z, &i), v_min(_w, &i), v_max(_w, &i), 
 	   v_min(_r4, &i), v_max(_r4, &i));
   }
-  norm_r = max(max(v_norm_inf(_r1), v_norm_inf(_r2)), v_norm_inf(_r3));
+  norm_r = hqp_max(hqp_max(v_norm_inf(_r1), v_norm_inf(_r2)), v_norm_inf(_r3));
   if ( _iter == 0 ) {
     _mu0 = mu;
     _norm_r0 = norm_r;
-    _norm_data = max(max(max(max(max(sp_norm_inf(_qp->Q), sp_norm_inf(_qp->A)),
+    _norm_data = hqp_max(hqp_max(hqp_max(hqp_max(hqp_max(sp_norm_inf(_qp->Q), sp_norm_inf(_qp->A)),
 				 sp_norm_inf(_qp->C)), v_norm_inf(_qp->c)), 
 			 v_norm_inf(_qp->b)), v_norm_inf(_qp->d));
     if ( _logging )
@@ -487,7 +487,7 @@ void Hqp_IpsMehrotra::step()
   //   check for infeasibility
 
   for ( i = 1, pm = _phimin->ve[0]; i <= _iter; i++ )
-    pm = min(pm, _phimin->ve[i]);
+    pm = hqp_min(pm, _phimin->ve[i]);
   if ( ( phi > _eps ) && ( phi >= 1.0e4*pm ) ) {
     //    _result = Hqp_Infeasible;   // should be "infeasible"
     _result = Hqp_Suboptimal;      // should be "infeasible"
@@ -500,7 +500,7 @@ void Hqp_IpsMehrotra::step()
 
   if ( _iter >= 30 ) {
     for ( i = 2, pm30 = _phimin->ve[1]; i <= _iter-30; i++ )
-      pm30 = min(pm30, _phimin->ve[i]);
+      pm30 = hqp_min(pm30, _phimin->ve[i]);
     if ( pm >= 0.5*pm30 ) {
       _result = Hqp_Suboptimal;   // should be "unknown (slow progress)"
       if ( _logging )
@@ -566,12 +566,12 @@ void Hqp_IpsMehrotra::step()
   alpha_aff = 1.0;
   for ( i = 0; i < _m; i++ ) {
     if ( _dza->ve[i] < 0.0 ) //-
-      alpha_aff = min(alpha_aff, -_z->ve[i]/_dza->ve[i]);
+      alpha_aff = hqp_min(alpha_aff, -_z->ve[i]/_dza->ve[i]);
     if ( _dwa->ve[i] < 0.0 ) //-
-      alpha_aff = min(alpha_aff, -_w->ve[i]/_dwa->ve[i]);
+      alpha_aff = hqp_min(alpha_aff, -_w->ve[i]/_dwa->ve[i]);
   }
 
-  alpha_aff = max(0.0, min(alpha_aff, 1.0));
+  alpha_aff = hqp_max(0.0, hqp_min(alpha_aff, 1.0));
 
   //   centering parameter sigma
 
@@ -586,7 +586,7 @@ void Hqp_IpsMehrotra::step()
     gamma = pow(1.0e-4, 0.25);
     for ( i = 0, t= 0.0; i < _m; i++ )
       if ( _dza->ve[i]*_dwa->ve[i] > 0.0 )
-	t = max(t, _dza->ve[i]*_dwa->ve[i]/_z->ve[i]/_w->ve[i]);
+	t = hqp_max(t, _dza->ve[i]*_dwa->ve[i]/_z->ve[i]/_w->ve[i]);
     sigma = gamma*(t+1.0-alpha_aff)/(1.0-gamma);
   }
   smm = sigma*mu;
@@ -605,11 +605,11 @@ void Hqp_IpsMehrotra::step()
     alpha_corr = 1.0;
     for ( i = 0; i < _m; i++ ) {
       if ( _dz->ve[i] < 0.0 ) //-
-	alpha_corr = min(alpha_corr, -_z->ve[i]/_dz->ve[i]);
+	alpha_corr = hqp_min(alpha_corr, -_z->ve[i]/_dz->ve[i]);
       if ( _dw->ve[i] < 0.0 ) //-
-	alpha_corr = min(alpha_corr, -_w->ve[i]/_dw->ve[i]);
+	alpha_corr = hqp_min(alpha_corr, -_w->ve[i]/_dw->ve[i]);
     }
-    alpha_corr = max(0.0, min(alpha_corr, 1.0));
+    alpha_corr = hqp_max(0.0, hqp_min(alpha_corr, 1.0));
     if ( ( alpha_aff < 0.1 ) || ( alpha_corr < gamma*gamma/2.0/_m/_m ) ) {
       sigma = gamma/(1.0-gamma);
       smm = sigma*mu;
@@ -622,7 +622,7 @@ void Hqp_IpsMehrotra::step()
     }
   }
 
-  //   step size determination (Mehrotra´s adaptive algorithm)
+  //   step size determination (Mehrotra\B4s adaptive algorithm)
 
   zmin = HUGE_VAL;
   izmin = -1;
@@ -653,7 +653,7 @@ void Hqp_IpsMehrotra::step()
     else if ( iwmin < 0 )
       _alpha = zmin;
     else 
-      _alpha = min(zmin, wmin);
+      _alpha = hqp_min(zmin, wmin);
     v_mltadd(_z, _dz, _alpha, _d1); //-
     v_mltadd(_w, _dw, _alpha, _d2); //-
     mu_pl = in_prod(_d1, _d2)/_m;
@@ -665,7 +665,7 @@ void Hqp_IpsMehrotra::step()
 	(_alpha*_dz->ve[izmin]);
     else
       fpd = 0;
-    _alpha = max(0.0, min(max(1.0-_gammaf, fpd)*_alpha, 1.0));
+    _alpha = hqp_max(0.0, hqp_min(hqp_max(1.0-_gammaf, fpd)*_alpha, 1.0));
   }
   if ( _logging ) 
     printf("%8.2g %8.2g %8.2g %8.2g %8.2g\n", 

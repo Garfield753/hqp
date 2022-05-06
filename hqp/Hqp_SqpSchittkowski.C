@@ -125,7 +125,7 @@ VEC *Hqp_SqpSchittkowski::update_sgm(const VEC *r, VEC *sgm)
   sgm_ve = sgm->ve;
   for (i=0; i<m; i++, r_ve++, sgm_ve++) {
     val = (Real)_iter / sqrt(*r_ve);
-    *sgm_ve = min(1.0, val);
+    *sgm_ve = hqp_min(1.0, val);
   }
 
   return sgm;
@@ -320,7 +320,7 @@ void Hqp_SqpSchittkowski::update_vals()
     if (!(n_alpha < _alpha))
       break;
     _alpha *= _beta;
-    _alpha = max(_alpha, n_alpha);
+    _alpha = hqp_max(_alpha, n_alpha);
   }
   _dphi = dphi0;
   _phi = phi0;

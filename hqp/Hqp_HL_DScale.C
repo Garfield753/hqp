@@ -75,7 +75,7 @@ void Hqp_HL_DScale::setup(Hqp_SqpProgram *prg)
       if (elt->col != i)
 	elt->val = 0.0;
       else
-	elt->val = max(elt->val, _eps);
+	elt->val = hqp_max(elt->val, _eps);
       elt++;
     }
   }
@@ -154,7 +154,7 @@ void Hqp_HL_DScale::update(const VEC *s, const VEC *u, Real,
     sp_diag_access(Q);
   
   while(offs < m) {
-    size = min(bsize, m - offs);
+    size = hqp_min(bsize, m - offs);
     _b_q = v_resize(_b_q, size);
     b_s.dim = size;
     b_u.dim = size;

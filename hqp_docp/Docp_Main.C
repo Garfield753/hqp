@@ -13,6 +13,9 @@
 #include <Hqp.h>
 #include "Prg_DID.h"
 
+#include <chrono>
+#include <iostream>
+
 /**
  * Simple main function.
  * First Hqp is initialized using the Docp interface.
@@ -67,6 +70,9 @@ int main(int argc, char *argv[])
   If_Eval("prg_simulate");	// perform initial value simulation
   If_Eval("sqp_init");		// initialize SQP solver
 
+  std::chrono::steady_clock::time_point begin, end;
+
+  begin = std::chrono::steady_clock::now();
   // Solve problem
   if (If_Eval("hqp_solve") != IF_OK) {
     printf("Failed    : %s\n", If_ResultString());
@@ -74,6 +80,8 @@ int main(int argc, char *argv[])
   else {
     printf("Optimal solution found\n");
   }
+  end = std::chrono::steady_clock::now();
+  std::cout << std::chrono::duration_cast<std::chrono::milliseconds>(end - begin).count() << "ms" << std::endl;
 
   // Write solution statistics
   double objective;

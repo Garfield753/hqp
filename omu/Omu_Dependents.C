@@ -136,7 +136,7 @@ void Omu_Jacobian::analyze_struct(bool is_constant)
         break;
       --sbwi;
     }
-    _sbw_lower = max(sbwi, _sbw_lower);
+    _sbw_lower = hqp_max(sbwi, _sbw_lower);
 
     sbwi = ncols - i - 1;// maximum upper sbw in this row
     for (j = ncols - 1; j > i; j--) {
@@ -144,7 +144,7 @@ void Omu_Jacobian::analyze_struct(bool is_constant)
         break;
       --sbwi;
     }
-    _sbw_upper = max(sbwi, _sbw_upper);
+    _sbw_upper = hqp_max(sbwi, _sbw_upper);
   }
 
   // check for zero, ident and scalar
@@ -152,7 +152,7 @@ void Omu_Jacobian::analyze_struct(bool is_constant)
     _is_zero = true;
     _is_ident = true;
     _is_scalar_constant = true;
-    for (i = 0; i < min(nrows, ncols); i++) {
+    for (i = 0; i < hqp_min(nrows, ncols); i++) {
       _is_zero &= ((*this)[i][i] == 0.0);
       _is_ident &= ((*this)[i][i] == 1.0);
       _is_scalar_constant &= ((*this)[i][i] == (*this)[0][0]);

@@ -265,7 +265,7 @@ int Hqp_IpLQDOCP::Get_Dim(const Hqp_Program *qp)
       break;
     }
   }
-  iv_set_val(_nk, 0, min(iv_entry(_nk, 1), iv_entry(_nmk, 1))); // 1999-08-20
+  iv_set_val(_nk, 0, hqp_min(iv_entry(_nk, 1), iv_entry(_nmk, 1))); // 1999-08-20
   for ( k = 0; k <= _kmax; k++ ) 
     if ( ( iv_entry(_nk, k) < 0 ) || ( iv_entry(_nmk, k) < 0 ) )
       return 0;

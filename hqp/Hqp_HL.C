@@ -119,7 +119,7 @@ void Hqp_HL::init(const VEC *y, const VEC *z, Hqp_SqpProgram *prg)
     gL = v_get(n);
 
     // if ||y||==0, estimate multipliers of equality constraints 
-    if ( _init_multipliers && v_norm2(y) <= max(_eps, 0.0) )
+    if ( _init_multipliers && v_norm2(y) <= hqp_max(_eps, 0.0) )
 	est_y(prg, y_appr);
 
     // gradient of Lagrangian
@@ -137,13 +137,13 @@ void Hqp_HL::init(const VEC *y, const VEC *z, Hqp_SqpProgram *prg)
     
     // initial Hessian approximation
     if ( _scale == 2 )
-	val = max(0.5*v_norm2(dgL)/v_norm2(dx), _eps);
+	val = hqp_max(0.5*v_norm2(dgL)/v_norm2(dx), _eps);
     else if ( _scale >= 3 )
-	val = max(fabs(in_prod(dgL, dx)/in_prod(dx, dx)), _eps);
+	val = hqp_max(fabs(in_prod(dgL, dx)/in_prod(dx, dx)), _eps);
     sp_zero(qp->Q);
     for ( i = 0; i < n; i++ ) {
 	if ( _scale == 1 )
-	    val = max(dgL->ve[i] / dx->ve[i], _eps);
+	    val = hqp_max(dgL->ve[i] / dx->ve[i], _eps);
       sp_set_val(qp->Q, i, i, val);
     }
 
@@ -293,7 +293,7 @@ void Hqp_HL::posdef(Hqp_SqpProgram *prg)
   row = Q->row;
   for (i = 0; i < i_end; i++, row++, rs_ve++) {
     elt = row->elt + row->diag;
-    elt->val = max(elt->val, *rs_ve + _eps);
+    elt->val = hqp_max(elt->val, *rs_ve + _eps);
   }
 
 /*

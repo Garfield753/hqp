@@ -93,7 +93,7 @@ void Hqp_HL_BFGS::setup(Hqp_SqpProgram *prg)
   _max_bsize = -1;
 
   while(next_block(Q, &offs, &size)) {
-    _max_bsize = max(_max_bsize, size);
+    _max_bsize = hqp_max(_max_bsize, size);
     if (size != old_size) {
       _b_Q = m_resize(_b_Q, size, size);
       b_Q_ones = m_resize(b_Q_ones, size, size);
@@ -137,10 +137,10 @@ static void restart_Q(MAT *Q, Real eps)
     row_max = eps;
     for (j = 0; j < dim; j++) {
       val = fabs(Q_re[j]);
-      row_max = max(row_max, val);
+      row_max = hqp_max(row_max, val);
       Q_re[j] = 0.0;
     }
-    row_max = min(row_max, 1.0/eps);
+    row_max = hqp_min(row_max, 1.0/eps);
     Q_re[i] = row_max;
   }
 }
@@ -276,7 +276,7 @@ int Hqp_HL_BFGS::next_block(const SPMAT *Q, int *offs, int *size)
 	max_col = row->elt[row->len - 1].col;
       else
 	max_col = _b_begin;
-      b_end = max(b_end, max_col);
+      b_end = hqp_max(b_end, max_col);
       _b_begin ++;
     }
     *size = b_end - *offs + 1;
@@ -284,7 +284,7 @@ int Hqp_HL_BFGS::next_block(const SPMAT *Q, int *offs, int *size)
   else {
     *size = Q->n - _b_begin;
     if (_bsize > 0)
-      *size = min(_bsize, *size);
+      *size = hqp_min(_bsize, *size);
     _b_begin += *size;
   }
 

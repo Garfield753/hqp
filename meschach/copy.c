@@ -128,7 +128,7 @@ int	  i0, j0, m0, n0, i1, j1;
     if ( ! out )
 	out = m_resize(out,i1+m0,j1+n0);
     else if ( i1+m0 > (int) out->m || j1+n0 > (int) out->n )
-	out = m_resize(out,max(out->m,i1+m0),max(out->n,j1+n0));
+	out = m_resize(out,hqp_max(out->m,i1+m0),hqp_max(out->n,j1+n0));
 
     for ( i = 0; i < m0; i++ )
 	MEM_COPY(&(in->me[i0+i][j0]),&(out->me[i1+i][j1]),
@@ -209,7 +209,7 @@ int	  i0, i1, j1, m1, n1;
     if ( ! out )
 	out = m_resize(out,i1+m1,j1+n1);
     else
-	out = m_resize(out,max(i1+m1,out->m),max(j1+n1,out->n));
+	out = m_resize(out,hqp_max(i1+m1,out->m),hqp_max(j1+n1,out->n));
 
     dim0 = m1*n1;
     for ( i = 0; i < m1; i++ )

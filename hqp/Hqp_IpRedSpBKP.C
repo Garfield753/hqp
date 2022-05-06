@@ -127,7 +127,7 @@ SPMAT *Hqp_IpRedSpBKP::sub_CTC(const PERM *px, SPMAT *Q)
     qrow = Q->row + px->pe[i];
     if (crow->len <= 0) {
       val = qrow->elt[qrow->diag].val;
-      _scale->ve[i] = min(1.0, sqrt(-1.0 / val));
+      _scale->ve[i] = hqp_min(1.0, sqrt(-1.0 / val));
     }
     else {
 
@@ -135,7 +135,7 @@ SPMAT *Hqp_IpRedSpBKP::sub_CTC(const PERM *px, SPMAT *Q)
       sum = sprow_inprod(crow, _zw, crow);
       j_idx = qrow->diag;
       val = qrow->elt[j_idx].val -= sum;
-      _scale->ve[i] = min(1.0, sqrt(-1.0 / val));
+      _scale->ve[i] = hqp_min(1.0, sqrt(-1.0 / val));
 
       // calculate resting entries
       neigh->ive = _CTC_neighs->ive + _CTC_neigh_start->ive[i];

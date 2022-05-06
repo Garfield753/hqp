@@ -143,7 +143,7 @@ public:
   bool is_constant() const {return _is_constant;}
 
   /** semi-bandwidth, i.e. number of side diagonals */
-  int sbw() const {return max(_sbw_lower, _sbw_upper);}
+  int sbw() const {return hqp_max(_sbw_lower, _sbw_upper);}
 
   /** lower semi-bandwidth */
   int sbw_lower() const {return _sbw_lower;}

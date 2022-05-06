@@ -28,18 +28,18 @@
 #if !defined(Meschach_H)
 #define Meschach_H
 
-#ifdef min
-#undef min
+#ifdef hqp_min
+#undef hqp_min
 #endif
-#ifdef max
-#undef max
+#ifdef hqp_max
+#undef hqp_max
 #endif
 #include <limits> // for NaN
-#if !defined(max)
-#define	max(a,b)	((a) > (b) ? (a) : (b))
+#if !defined(hqp_max)
+#define	hqp_max(a,b)	((a) > (b) ? (a) : (b))
 #endif
-#if !defined(min)
-#define	min(a,b)	((a) < (b) ? (a) : (b))
+#if !defined(hqp_min)
+#define	hqp_min(a,b)	((a) < (b) ? (a) : (b))
 #endif
 
 #include <string.h> // for sscanf

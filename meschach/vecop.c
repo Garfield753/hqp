@@ -43,7 +43,7 @@ u_int	  i0;
 
 	if ( a==(VEC *)NULL || b==(VEC *)NULL )
 		m_error(E_NULL,"_in_prod");
-	limit = min(a->dim,b->dim);
+	limit = hqp_min(a->dim,b->dim);
 	if ( i0 > limit )
 		m_error(E_BOUNDS,"_in_prod");
 

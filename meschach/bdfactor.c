@@ -63,8 +63,8 @@ int lb, ub, n;
       mem_numvar(TYPE_BAND,1);
    }
 
-   lb = A->lb = min(n-1,lb);
-   ub = A->ub = min(n-1,ub);
+   lb = A->lb = hqp_min(n-1,lb);
+   ub = A->ub = hqp_min(n-1,ub);
    A->mat = m_get(lb+ub+1,n);
    return A;
 }
@@ -110,7 +110,7 @@ int new_lb,new_ub,new_n;
    lb = A->lb;
    ub = A->ub;
    Av = A->mat->me;
-   umin = min(ub,new_ub);
+   umin = hqp_min(ub,new_ub);
 
     /* ensure that unused triangles at edges are zero'd */
 
@@ -121,10 +121,10 @@ int new_lb,new_ub,new_n;
       for ( j = 0; j < l; j++ )
 	Av[i][j] = 0.0; 
 
-   new_lb = A->lb = min(new_lb,new_n-1);
-   new_ub = A->ub = min(new_ub,new_n-1);
-   umin = min(ub,new_ub);
-   A->mat = m_resize(A->mat,max(new_lb+new_ub+1,lb+ub+1),new_n);
+   new_lb = A->lb = hqp_min(new_lb,new_n-1);
+   new_ub = A->ub = hqp_min(new_ub,new_n-1);
+   umin = hqp_min(ub,new_ub);
+   A->mat = m_resize(A->mat,hqp_max(new_lb+new_ub+1,lb+ub+1),new_n);
    Av = A->mat->me;
 
    /* if new_lb != lb then move the rows to get the main diag 
@@ -210,7 +210,7 @@ MAT        *A;
    m_zero(A);
 
    for (j=0; j < n; j++)
-     for (i=min(n1,j+lb),l=lb+j-i; i >= max(0,j-ub); i--,l++)
+     for (i=hqp_min(n1,j+lb),l=lb+j-i; i >= hqp_max(0,j-ub); i--,l++)
        A->me[i][j] = bmat[l][j];
 
    return A;
@@ -234,13 +234,13 @@ int       lb, ub;
      m_error(E_INSITU,"mat2band");
 
    n1 = A->n-1;
-   lb = min(n1,lb);
-   ub = min(n1,ub);
+   lb = hqp_min(n1,lb);
+   ub = hqp_min(n1,ub);
    bA = bd_resize(bA,lb,ub,n1+1);
    bmat = bA->mat->me;
 
    for (j=0; j <= n1; j++)
-     for (i=min(n1,j+lb),l=lb+j-i; i >= max(0,j-ub); i--,l++)
+     for (i=hqp_min(n1,j+lb),l=lb+j-i; i >= hqp_max(0,j-ub); i--,l++)
        bmat[l][j] = A->me[i][j];
 
    return bA;
@@ -286,8 +286,8 @@ BAND       *out;
 
       out_v = out->mat->me;
       for (i=0, l=lub, k=lb-i; i <= lub; i++,l--,k--) {
-	 sh_in = max(-k,0);
-	 sh_out = max(k,0);
+	 sh_in = hqp_max(-k,0);
+	 sh_out = hqp_max(k,0);
 	 MEM_COPY(&(in_v[i][sh_in]),&(out_v[l][sh_out]),(n-sh_in-sh_out)*sizeof(Real));
 	 /**********************************
 	 for (j=n1-sh_out, jj=n1-sh_in; j >= sh_in; j--,jj--) {
@@ -312,18 +312,18 @@ BAND       *out;
       
       for (i=0, l=lub; i < (lub+1)/2; i++,l--) {
 	 lbi = lb-i;
-	 for (j=l-lb, jj=0, p=max(-lbi,0), pp = max(l-ub,0); j <= n1; 
+	 for (j=l-lb, jj=0, p=hqp_max(-lbi,0), pp = hqp_max(l-ub,0); j <= n1; 
 	      j++,jj++,p++,pp++) {
 	    in_v[l][pp] = in_v[i][p];
 	    in_v[i][jj] = in_v[l][j];
 	 }
-	 for (  ; p <= n1-max(lbi,0); p++,pp++)
+	 for (  ; p <= n1-hqp_max(lbi,0); p++,pp++)
 	   in_v[l][pp] = in_v[i][p];
       }
       
       if (lub%2 == 0) { /* shift only */
 	 i = lub/2;
-	 for (j=max(i-lb,0), jj=0; jj <= n1-ub+i; j++,jj++) 
+	 for (j=hqp_max(i-lb,0), jj=0; jj <= n1-ub+i; j++,jj++) 
 	   in_v[i][jj] = in_v[i][j];
       }
    }
@@ -332,18 +332,18 @@ BAND       *out;
 
       for (i=0, l=lub; i < (lub+1)/2; i++,l--) {
 	 ubi = i-ub;
-	 for (j=n1-max(lb-l,0), jj=n1-max(-ubi,0), p=n1-lb+i, pp=n1;
+	 for (j=n1-hqp_max(lb-l,0), jj=n1-hqp_max(-ubi,0), p=n1-lb+i, pp=n1;
 	      p >= 0; j--, jj--, pp--, p--) {
 	    in_v[i][jj] = in_v[l][j];
 	    in_v[l][pp] = in_v[i][p];
 	 }
-	 for (  ; jj >= max(ubi,0); j--, jj--)
+	 for (  ; jj >= hqp_max(ubi,0); j--, jj--)
 	   in_v[i][jj] = in_v[l][j];
       }
 
       if (lub%2 == 0) {  /* shift only */
 	 i = lub/2;
-	 for (j=n1-lb+i, jj=n1-max(ub-i,0); j >= 0; j--, jj--) 
+	 for (j=n1-lb+i, jj=n1-hqp_max(ub-i,0); j >= 0; j--, jj--) 
 	    in_v[i][jj] = in_v[i][j];
       }
    }
@@ -395,7 +395,7 @@ PERM	*pivot;
 
    /* extend band matrix */
    /* extended part is filled with zeros */
-   bA = bd_resize(bA,lb,min(n1,lub),n);
+   bA = bd_resize(bA,lb,hqp_min(n1,lub),n);
    bA_v = bA->mat->me;
 
 
@@ -403,8 +403,8 @@ PERM	*pivot;
 
    for ( k=0; k < n1; k++ )
    {
-      k_end = max(0,lb+k-n1);
-      k_lub = min(k+lub,n1);
+      k_end = hqp_max(0,lb+k-n1);
+      k_lub = hqp_min(k+lub,n1);
 
       /* find the best pivot row */
       
@@ -480,7 +480,7 @@ VEC	*b,*x;
    for (j=0; j < n; j++) {
       jmin = j+1;
       c = x->ve[j];
-      maxj = max(0,j+lb-n1);
+      maxj = hqp_max(0,j+lb-n1);
       for (i=jmin,l=lb-1; l >= maxj; i++,l--) {
 	 if ( (pi = pivot->pe[i]) < jmin) 
 	   pi = pivot->pe[i] = pivot->pe[pi];
@@ -493,7 +493,7 @@ VEC	*b,*x;
    x->ve[n1] /= bA_v[lb][n1];
    for (i=n-2; i >= 0; i--) {
       c = x->ve[i];
-      for (j=min(n1,i+ub), l=lb+j-i; j > i; j--,l--)
+      for (j=hqp_min(n1,i+ub), l=lb+j-i; j > i; j--,l--)
 	c -= bA_v[l][j]*x->ve[j];
       x->ve[i] = c/bA_v[lb][i];
    }
@@ -530,7 +530,7 @@ BAND *A;
 
       /* matrix D */
       c = Av[lb][k];
-      for (j=max(0,-lbkm), jk=lbkm+j; j < k; j++, jk++) {
+      for (j=hqp_max(0,-lbkm), jk=lbkm+j; j < k; j++, jk++) {
 	 cc = Av[jk][j];
 	 c -= Av[lb][j]*cc*cc;
       }
@@ -540,9 +540,9 @@ BAND *A;
 
       /* matrix L */
       
-      for (i=min(n1,lbkp), ki=lbkp-i; i > k; i--,ki++) {
+      for (i=hqp_min(n1,lbkp), ki=lbkp-i; i > k; i--,ki++) {
 	 c = Av[ki][k];
-	 for (j=max(0,i-lb), ji=lb+j-i, jk=lbkm+j; j < k;
+	 for (j=hqp_max(0,i-lb), ji=lb+j-i, jk=lbkm+j; j < k;
 	      j++, ji++, jk++)
 	   c -= Av[lb][j]*Av[ji][j]*Av[jk][j];
 	 Av[ki][k] = c/Av[lb][k];
@@ -579,7 +579,7 @@ VEC    *b, *x;
    for (i=1; i < n; i++) {
       ilb = i-lb;
       c = b->ve[i];
-      for (j=max(0,ilb), l=j-ilb; j < i; j++,l++)
+      for (j=hqp_max(0,ilb), l=j-ilb; j < i; j++,l++)
 	c -= Av[l][j]*x->ve[j];
       x->ve[i] = c;
    }
@@ -592,7 +592,7 @@ VEC    *b, *x;
    for (i=n-2; i >= 0; i--) {
       ilb = i+lb;
       c = x->ve[i];
-      for (j=min(n1,ilb), l=ilb-j; j > i; j--,l++)
+      for (j=hqp_min(n1,ilb), l=ilb-j; j > i; j--,l++)
 	c -= Av[l][i]*x->ve[j];
       x->ve[i] = c;
    }

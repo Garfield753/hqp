@@ -56,7 +56,7 @@ static PERM *bd_relief(const BAND *A, PERM *relief)
     relief = px_resize(relief, n);
 
   for (i = 0; i < n; i++) {
-    j = min(i+ub, n-1);
+    j = hqp_min(i+ub, n-1);
     offs = lb - i + j;
     for (; j >= i; j--, offs--)
       if (A_me[offs][j] != 0.0)
@@ -89,7 +89,7 @@ static void bdBKPchange(BAND *A, int i, int j, PERM *relief)
   offs2 = re_ve[j];
   re_ve[i] = offs2;
   re_ve[j] = offs1;
-  k_end = max(offs1, offs2);
+  k_end = hqp_max(offs1, offs2);
   // check storage limits of the band data structure
   if (k_end > i + 1 + ub2 || i >= j)
     m_error(E_INTERN, "bdBKPchange");
@@ -108,7 +108,7 @@ static void bdBKPchange(BAND *A, int i, int j, PERM *relief)
     tmp = A_me[offs1][k];
     A_me[offs1][k] = A_me[offs2][j];
     A_me[offs2][j] = tmp;
-    re_ve[k] = max((int)re_ve[k], j+1);
+    re_ve[k] = hqp_max((int)re_ve[k], j+1);
   }
   tmp = A_me[lb][i];
   A_me[lb][i] = A_me[lb][j];
@@ -148,7 +148,7 @@ BAND *bdBKPfactor(BAND *A, PERM *pivot, PERM *relief)
   lb = A->lb;
   ub = A->ub;
   ub2 = ub * 2;
-  ub2 = min(ub2, n-1);
+  ub2 = hqp_min(ub2, n-1);
   A = bd_resize(A, lb, ub2, n);
   A_me = A->mat->me;
   A_diag = A_me[lb];
@@ -167,7 +167,7 @@ BAND *bdBKPfactor(BAND *A, PERM *pivot, PERM *relief)
     lambda = 0.0;
     j = i;
     // restrict the pivot row to be within the band width
-    k_end = min((int)re_ve[i], i + ub);
+    k_end = hqp_min((int)re_ve[i], i + ub);
     k = ip1;
     offs1 = lb + 1; /* - i + k */
     for (; k < k_end; k++, offs1++) {
@@ -227,7 +227,7 @@ BAND *bdBKPfactor(BAND *A, PERM *pivot, PERM *relief)
     aiip1 = tmp / det;
     aii = A_diag[i] / det;
     aip1 = A_diag[ip1] / det;
-    k_end = max(re_ve[i], re_ve[ip1]);
+    k_end = hqp_max(re_ve[i], re_ve[ip1]);
     if (k_end > ip1 + ub2)
       m_error(E_INTERN, "bdBKPfactor");
     j = ip2;
@@ -239,12 +239,12 @@ BAND *bdBKPfactor(BAND *A, PERM *pivot, PERM *relief)
       offs2 = lb + k;
       for (; k < k_end; k++, offs2++)
 	A_me[offs2-j][k] -= s * A_me[offs2-i][k] + t * A_me[offs2-ip1][k];
-      re_ve[j] = max((int)re_ve[j], k_end);
+      re_ve[j] = hqp_max((int)re_ve[j], k_end);
       A_me[offs1-i][j] = s;
       A_me[offs1-ip1][j] = t;
     }
-    re_ve[i] = max((int)re_ve[i], k_end);
-    re_ve[ip1] = max((int)re_ve[ip1], k_end);
+    re_ve[i] = hqp_max((int)re_ve[i], k_end);
+    re_ve[ip1] = hqp_max((int)re_ve[ip1], k_end);
     i = ip2;
     continue;
 
@@ -263,10 +263,10 @@ BAND *bdBKPfactor(BAND *A, PERM *pivot, PERM *relief)
 	offs2 = lb + k;
 	for (; k < k_end; k++, offs2++)
 	  A_me[offs2-j][k] -= s * A_me[offs2-i][k];
-	re_ve[j] = max((int)re_ve[j], k_end);
+	re_ve[j] = hqp_max((int)re_ve[j], k_end);
 	A_me[offs1][j] = s;
       }
-      re_ve[i] = max((int)re_ve[i], k_end);
+      re_ve[i] = hqp_max((int)re_ve[i], k_end);
     }
     i = ip1;
   }
@@ -341,7 +341,7 @@ VEC *bdBKPsolve(const BAND *A, const PERM *pivot, const PERM *relief,
 	m_error(E_SING, "bdBKPsolve");
       x_ve[i] = (tmp * aip1 - save * aiip1) / det;
       x_ve[ip1] = (save * aii - tmp * aiip1) / det;
-      j_end = max(re_ve[i], re_ve[ip1]);
+      j_end = hqp_max(re_ve[i], re_ve[ip1]);
       j = i + 2;
       offs1 = lb + j;
       for (; j < j_end; j++, offs1++)

@@ -104,7 +104,7 @@ MAT	*A;
 		m_error(E_NULL,"m_ident");
 
 	m_zero(A);
-	size = min(A->m,A->n);
+	size = hqp_min(A->m,A->n);
 	for ( i = 0; i < size; i++ )
 		A->me[i][i] = 1.0;
 

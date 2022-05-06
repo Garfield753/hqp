@@ -49,7 +49,7 @@ static char *rcsid = "$NetBSD: qsort.c,v 1.6 1996/12/19 07:56:33 cgd Exp $";
 static __inline char	*med3 __P((char *, char *, char *, int (*)()));
 static __inline void	 swapfunc __P((char *, char *, int, int));
 
-#define min(a, b)	(a) < (b) ? a : b
+#define hqp_min(a, b)	(a) < (b) ? a : b
 
 /*
  * Qsort routine from Bentley & McIlroy's "Engineering a Sort Function".

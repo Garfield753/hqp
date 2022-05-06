@@ -614,7 +614,7 @@ void Hqp_Docp::setup_qp()
   mesp = _f_lin->dim + _xu_eq->dim + _cns_eq->dim;
 
   // count initial and final state constraints
-  iend = min(_nxs[0], _nxs[K]);
+  iend = hqp_min(_nxs[0], _nxs[K]);
   for (i = 0; i < iend; i++) {
     if (_x_type[i] & Periodical)
       mesp++;
@@ -928,7 +928,7 @@ void Hqp_Docp::update_bounds()
 
   // update initial/final state constraints
 
-  iend = min(_nxs[0], _nxs[K]);
+  iend = hqp_min(_nxs[0], _nxs[K]);
   v_part(_x, 0, _nxs[0], _xk[0]);
   v_part(_x, _x->dim - _nxs[K], _nxs[K], _fk[0]);
   offs = _f_lin->dim + _xu_eq->dim + _cns_eq->dim;

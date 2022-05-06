@@ -169,16 +169,16 @@ void Hqp_IpsFranke::cold_start()
       Real mean_d_h;
       mean_d_h = 0.5 * v_sum(_qp->d) / (Real) _m;
       _Ltilde = - mean_d_h + sqrt(mean_d_h*mean_d_h + (Real)_m*_rhomin*_mu0);
-      _Ltilde = max(_Ltilde, -min_d);
+      _Ltilde = hqp_max(_Ltilde, -min_d);
     }
     else {
       // choose Ltilde according Wright
       // (rf, 10/29/95: let Ltilde be greater than 1e2*_m)
       Real norm_d;
       norm_d = v_norm_inf(_qp->d);
-//      norm_d = max(1.0, norm_d);
-      _Ltilde = max(norm_d, -min_d);	// actually useless with v_norm_inf()
-      _Ltilde = max(_Ltilde, 1e2*_m);
+//      norm_d = hqp_max(1.0, norm_d);
+      _Ltilde = hqp_max(norm_d, -min_d);	// actually useless with v_norm_inf()
+      _Ltilde = hqp_max(_Ltilde, 1e2*_m);
     }
     _zeta = 1.0;
 
@@ -331,7 +331,7 @@ void Hqp_IpsFranke::step()
   }
   
   val1 *= _beta;
-  _alpha = min(1.0, val1);
+  _alpha = hqp_min(1.0, val1);
 
   _alphabar = 0.5 * _alphabar + 0.5 * _alpha;
 

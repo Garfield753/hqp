@@ -99,11 +99,11 @@ MESCH_API void	m_version MESCH__P((void));
  MEM_COPY((char *)(from),(char *)(to),(unsigned)(n_items)*sizeof(type))
 
 /* type independent min and max operations */
-#ifndef max
-#define	max(a,b)	((a) > (b) ? (a) : (b))
+#ifndef hqp_max
+#define	hqp_max(a,b)	((a) > (b) ? (a) : (b))
 #endif
-#ifndef min
-#define	min(a,b)	((a) > (b) ? (b) : (a))
+#ifndef hqp_min
+#define	hqp_min(a,b)	((a) > (b) ? (b) : (a))
 #endif
 
 

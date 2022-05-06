@@ -102,7 +102,7 @@ void Hqp_HL_Gerschgorin::update(const VEC *, const VEC *, Real,
   row = Q->row;
   for (i = 0; i < i_end; i++, row++, rs_ve++) {
     elt = row->elt + row->diag;
-    elt->val = max(elt->val, *rs_ve + _eps);
+    elt->val = hqp_max(elt->val, *rs_ve + _eps);
   }
 
 /*

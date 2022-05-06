@@ -210,7 +210,7 @@ double	rel_symm(const MAT *in)
 
     for ( r = 0.0, i = 0; i < in->m; i++ )
 	for ( j = i+1; j < in->m; j++ ) {
-	    r = max(r, fabs(in->me[i][j]-in->me[j][i]));
+	    r = hqp_max(r, fabs(in->me[i][j]-in->me[j][i]));
 	}
     return (r/m_norm_inf(in));
 }
@@ -413,7 +413,7 @@ void GE_QP(MAT *A, MAT *S, MAT *Z, MAT *PQ, double eps)
 
     /*   Memory allocation   */
 
-    diag = v_resize(diag, min(A->m, A->n));
+    diag = v_resize(diag, hqp_min(A->m, A->n));
     pivot = px_resize(pivot, A->m);
     R1 = m_resize(R1, m, m);
     Q = m_resize(Q, m, m);
@@ -437,7 +437,7 @@ void GE_QP(MAT *A, MAT *S, MAT *Z, MAT *PQ, double eps)
 
     /*   find rank of A and form Z = Q(:,r+1:m)   */
 
-    for (r = 0; r < min(R->m, R->n); r++)
+    for (r = 0; r < hqp_min(R->m, R->n); r++)
 	if (fabs(R->me[r][r]) < eps)
 	    break;
     /*  printf("\n r = %d\n Q =", r); m_output(Q); */
@@ -582,7 +582,7 @@ double v_dist_inf(const VEC *x, const VEC *y)
 	    m_error(E_SIZES, "v_dist_inf");
 
 	for ( i = 0, maxval = 0.0; i < x->dim; i++ ) 
-	    maxval = max(maxval, fabs(x->ve[i]-y->ve[i]));
+	    maxval = hqp_max(maxval, fabs(x->ve[i]-y->ve[i]));
 
 	return maxval;
 }

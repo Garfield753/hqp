@@ -287,8 +287,8 @@ int	new_m, new_n;
       if ( ! A->me )
 	m_error(E_MEM,"m_resize");
    }
-   new_max_m = max(new_m,A->max_m);
-   new_max_n = max(new_n,A->max_n);
+   new_max_m = hqp_max(new_m,A->max_m);
+   new_max_n = hqp_max(new_n,A->max_n);
    
 #ifndef SEGMENTED
    new_size = new_max_m*new_max_n;
@@ -312,14 +312,14 @@ int	new_m, new_n;
    /* now shift data in matrix */
    if ( old_n > new_n )
    {
-      for ( i = 1; i < min(old_m,new_m); i++ )
+      for ( i = 1; i < hqp_min(old_m,new_m); i++ )
 	MEM_COPY((char *)&(A->base[i*old_n]),
 		 (char *)&(A->base[i*new_n]),
 		 sizeof(Real)*new_n);
    }
    else if ( old_n < new_n )
    {
-      for ( i = (int)(min(old_m,new_m))-1; i > 0; i-- )
+      for ( i = (int)(hqp_min(old_m,new_m))-1; i > 0; i-- )
       {   /* copy & then zero extra space */
 	 MEM_COPY((char *)&(A->base[i*old_n]),
 		  (char *)&(A->base[i*new_n]),

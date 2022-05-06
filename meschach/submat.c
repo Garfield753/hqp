@@ -86,7 +86,7 @@ u_int	  col,i0;
      m_error(E_NULL,"_set_col");
    if ( col >= mat->n )
      m_error(E_RANGE,"_set_col");
-   lim = min(mat->m,vec->dim);
+   lim = hqp_min(mat->m,vec->dim);
    for ( i=i0; i<lim; i++ )
      mat->me[i][col] = vec->ve[i];
    
@@ -105,7 +105,7 @@ u_int	  row,j0;
      m_error(E_NULL,"_set_row");
    if ( row >= mat->m )
      m_error(E_RANGE,"_set_row");
-   lim = min(mat->n,vec->dim);
+   lim = hqp_min(mat->n,vec->dim);
    for ( j=j0; j<lim; j++ )
      mat->me[row][j] = vec->ve[j];
    

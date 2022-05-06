@@ -608,12 +608,12 @@ void Prg_DynamicOpt::setup(int k,
       if (!_multistage && k < _K) {
 	// treat control bounds via general constraints
 	if (_mdl_u.min[idx] > -Inf) {
-	  for (j = max(0, _mdl_u0_nfixed[idx] - _mdl_u_order[idx]); j < upsk; j++)
+	  for (j = hqp_max(0, _mdl_u0_nfixed[idx] - _mdl_u_order[idx]); j < upsk; j++)
 	    c.min[spsk*(_nc+_nsc) + upsk*_nsuc + i + j] =
 	      _mdl_u.min[idx] / _mdl_u_nominal[idx];
 	}
 	if (_mdl_u.max[idx] < Inf) {
-	  for (j = max(0, _mdl_u0_nfixed[idx] - _mdl_u_order[idx]); j < upsk; j++)
+	  for (j = hqp_max(0, _mdl_u0_nfixed[idx] - _mdl_u_order[idx]); j < upsk; j++)
 	    c.max[spsk*(_nc+_nsc) + upsk*_nsuc + i + j] =
 	      _mdl_u.max[idx] / _mdl_u_nominal[idx];
 	}
@@ -667,7 +667,7 @@ void Prg_DynamicOpt::setup(int k,
 	  }
 	}
 	else {
-	  int jend = min(_mdl_u0_nfixed[idx] + _mdl_u_order[idx] - 2, upsk);
+	  int jend = hqp_min(_mdl_u0_nfixed[idx] + _mdl_u_order[idx] - 2, upsk);
 	  for (j = 0; j < jend; j++)
 	    u.min[i+j] = u.max[i+j] = u.initial[i+j];
 	}

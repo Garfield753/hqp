@@ -93,7 +93,7 @@ safe_bcopy (from, to, size)
 #endif
 
 
-#define min(A, B) ((A) < (B) ? (A) : (B))
+#define hqp_min(A, B) ((A) < (B) ? (A) : (B))
 
 /* Debugging hook for realloc.  */
 __ptr_t (*__realloc_hook) __P ((__ptr_t __ptr, __malloc_size_t __size));

@@ -71,7 +71,7 @@ VEC	*diag /* ,*beta */;
     
     if ( ! A || ! diag )
 	m_error(E_NULL,"QRfactor");
-    limit = min(A->m,A->n);
+    limit = hqp_min(A->m,A->n);
     if ( diag->dim < limit )
 	m_error(E_SIZES,"QRfactor");
     
@@ -109,7 +109,7 @@ PERM	*px;
     
     if ( ! A || ! diag || ! px )
 	m_error(E_NULL,"QRCPfactor");
-    limit = min(A->m,A->n);
+    limit = hqp_min(A->m,A->n);
     if ( diag->dim < limit || px->size != A->n )
 	m_error(E_SIZES,"QRCPfactor");
     
@@ -189,7 +189,7 @@ VEC	*diag /* ,*beta */ , *b, *x, *tmp;
     int		k, limit;
     Real	beta, r_ii, tmp_val;
     
-    limit = min(QR->m,QR->n);
+    limit = hqp_min(QR->m,QR->n);
     dynamic = FALSE;
     if ( ! QR || ! diag || ! b )
 	m_error(E_NULL,"_Qsolve");
@@ -231,7 +231,7 @@ VEC	*diag /* , *beta */;
     Real	beta, r_ii, tmp_val;
     int	j;
     
-    limit = min(QR->m,QR->n);
+    limit = hqp_min(QR->m,QR->n);
     if ( ! QR || ! diag )
 	m_error(E_NULL,"makeQ");
     if ( diag->dim < limit )
@@ -300,7 +300,7 @@ VEC	*diag /* , *beta */ , *b, *x;
     
     if ( ! QR || ! diag || ! b )
 	m_error(E_NULL,"QRsolve");
-    limit = min(QR->m,QR->n);
+    limit = hqp_min(QR->m,QR->n);
     if ( (int) diag->dim < limit || b->dim != QR->m )
 	m_error(E_SIZES,"QRsolve");
     tmp = v_resize(tmp,limit);
@@ -347,7 +347,7 @@ VEC	*x, *out;
 
     if ( U == MNULL || x == VNULL )
 	m_error(E_NULL,"Umlt");
-    limit = min(U->m,U->n);
+    limit = hqp_min(U->m,U->n);
     if ( limit != x->dim )
 	m_error(E_SIZES,"Umlt");
     if ( out == VNULL || (int) out->dim < limit )
@@ -368,7 +368,7 @@ VEC	*x, *out;
 
     if ( U == MNULL || x == VNULL )
 	m_error(E_NULL,"UTmlt");
-    limit = min(U->m,U->n);
+    limit = hqp_min(U->m,U->n);
     if ( out == VNULL || (int) out->dim < limit )
 	out = v_resize(out,limit);
 
@@ -395,7 +395,7 @@ VEC *diag, *c, *sc;
 
     if ( ! A || ! diag || ! c )
 	m_error(E_NULL,"QRTsolve");
-    if ( diag->dim < min(A->m,A->n) )
+    if ( diag->dim < hqp_min(A->m,A->n) )
 	m_error(E_SIZES,"QRTsolve");
     sc = v_resize(sc,A->m);
     n = sc->dim;
@@ -458,7 +458,7 @@ MAT	*QR;
     if ( QR->n > QR->m )
 	m_error(E_SIZES,"QRcondest");
 
-    limit = min(QR->m,QR->n);
+    limit = hqp_min(QR->m,QR->n);
     for ( i = 0; i < limit; i++ )
 	if ( QR->me[i][i] == 0.0 )
 	    return HUGE;

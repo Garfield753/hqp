@@ -79,7 +79,7 @@ static double	sp_set_val3(SPMAT *A, int i, int j, double val)
       if ( r->len >= r->maxlen )
       {
 	 r->len = r->maxlen;
-	 new_len = max(2*r->maxlen+1,5);
+	 new_len = hqp_max(2*r->maxlen+1,5);
 	 if (mem_info_is_on()) {
 	    mem_bytes(TYPE_SPMAT,A->row[i].maxlen*sizeof(row_elt),
 			    new_len*sizeof(row_elt));
@@ -198,7 +198,7 @@ SPMAT *Hqp_IpSpSC::sub_CTC(const PERM *px, SPMAT *Q)
     qrow = Q->row + px->pe[i];
     if (crow->len <= 0) {
       val = qrow->elt[qrow->diag].val;
-      _scale->ve[i] = min(1.0, sqrt(-1.0 / val));
+      _scale->ve[i] = hqp_min(1.0, sqrt(-1.0 / val));
     }
     else {
 
@@ -206,7 +206,7 @@ SPMAT *Hqp_IpSpSC::sub_CTC(const PERM *px, SPMAT *Q)
       sum = sprow_inprod(crow, _zw, crow);
       j_idx = qrow->diag;
       val = qrow->elt[j_idx].val -= sum;
-      _scale->ve[i] = min(1.0, sqrt(-1.0 / val));
+      _scale->ve[i] = hqp_min(1.0, sqrt(-1.0 / val));
 
       // calculate resting entries
       neigh->ive = _CTC_neighs->ive + _CTC_neigh_start->ive[i];

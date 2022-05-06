@@ -91,7 +91,7 @@ static Real sprow_ins_val(SPROW *r, int idx, Real val, int j, int type)
     idx = INSERT_IDX(idx);
   if ( r->len >= r->maxlen ) {
     r->len = r->maxlen;
-    new_len = max(2*r->maxlen+1,5);
+    new_len = hqp_max(2*r->maxlen+1,5);
     if (mem_info_is_on()) {
       mem_bytes(type, r->maxlen*sizeof(row_elt),
 		new_len*sizeof(row_elt)); 
