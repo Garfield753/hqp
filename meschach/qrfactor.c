@@ -66,7 +66,7 @@ MAT	*A;
 VEC	*diag /* ,*beta */;
 {
     u_int	k,limit;
-    Real	beta;
+    HQPReal	beta;
     static	VEC	*tmp1=VNULL;
     
     if ( ! A || ! diag )
@@ -105,7 +105,7 @@ PERM	*px;
 {
     u_int	i, i_max, j, k, limit;
     static	VEC	*gamma=VNULL, *tmp1=VNULL, *tmp2=VNULL;
-    Real	beta, maxgamma, sum, tmp;
+    HQPReal	beta, maxgamma, sum, tmp;
     
     if ( ! A || ! diag || ! px )
 	m_error(E_NULL,"QRCPfactor");
@@ -187,7 +187,7 @@ VEC	*diag /* ,*beta */ , *b, *x, *tmp;
 {
     u_int	dynamic;
     int		k, limit;
-    Real	beta, r_ii, tmp_val;
+    HQPReal	beta, r_ii, tmp_val;
     
     limit = hqp_min(QR->m,QR->n);
     dynamic = FALSE;
@@ -228,7 +228,7 @@ VEC	*diag /* , *beta */;
 {
     static	VEC	*tmp1=VNULL,*tmp2=VNULL;
     u_int	i, limit;
-    Real	beta, r_ii, tmp_val;
+    HQPReal	beta, r_ii, tmp_val;
     int	j;
     
     limit = hqp_min(QR->m,QR->n);
@@ -363,7 +363,7 @@ static	VEC	*UTmlt(U,x,out)
 MAT	*U;
 VEC	*x, *out;
 {
-    Real	sum;
+    HQPReal	sum;
     int		i, j, limit;
 
     if ( U == MNULL || x == VNULL )
@@ -391,7 +391,7 @@ MAT *A;
 VEC *diag, *c, *sc;
 {
     int		i, j, k, n, p;
-    Real	beta, r_ii, s, tmp_val;
+    HQPReal	beta, r_ii, s, tmp_val;
 
     if ( ! A || ! diag || ! c )
 	m_error(E_NULL,"QRTsolve");
@@ -445,11 +445,11 @@ VEC *diag, *c, *sc;
 	-- if the matrix is exactly singular, HUGE is returned
 	-- note that QRcondest() is likely to be more reliable for
 		matrices factored using QRCPfactor() */
-Real	QRcondest(QR)
+HQPReal	QRcondest(QR)
 MAT	*QR;
 {
     static	VEC	*y=VNULL;
-    Real	norm1, norm2, sum, tmp1=0.0, tmp2=0.0;
+    HQPReal	norm1, norm2, sum, tmp1=0.0, tmp2=0.0;
     int		i, j, limit;
 
     if ( QR == MNULL )

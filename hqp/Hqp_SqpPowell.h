@@ -41,8 +41,8 @@ class Hqp_SqpPowell: public Hqp_SqpSolver {
   int	_watchdog_iter;   // iteration for backtracking
   bool  _watchdog_logging;
   bool	_damped_multipliers;
-  Real	_phil;
-  Real	_phil_test;
+  HQPReal	_phil;
+  HQPReal	_phil_test;
   VEC	*_re;	// penalty coeffizients for equality constraints
   VEC	*_r;	// penalty coeffizients for inequality constraints
   VEC	*_sy_y;
@@ -56,12 +56,12 @@ class Hqp_SqpPowell: public Hqp_SqpSolver {
   VEC	*_yl;
   VEC	*_zl;
 
-  Real	phi();
-  Real	phi1();
+  HQPReal	phi();
+  HQPReal	phi1();
   VEC	*update_r(const VEC *z, VEC *r);
 
   void	update_vals();
-  Real	val_L();
+  HQPReal	val_L();
 
  public:
   Hqp_SqpPowell();

@@ -49,8 +49,8 @@ class Hqp_IpLQDOCP: public Hqp_IpMatrix {
 
   int _kmax; 
   int _kmax1;
-  Real _wz_tol;
-  Real _ge_tol;
+  HQPReal _wz_tol;
+  HQPReal _ge_tol;
   int _a_sparse;
   int _fixed_x0;
   int _logging;

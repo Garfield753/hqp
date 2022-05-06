@@ -35,9 +35,9 @@
  * sprow_norm2 -- Euclidean norm of a SPROW
  * E. Arnold 12/12/96
  */
-Real sprow_norm2(const SPROW *r)
+HQPReal sprow_norm2(const SPROW *r)
 {
-    Real sum = 0.0;
+    HQPReal sum = 0.0;
     int i;
 
     if ( r == (SPROW *) NULL )
@@ -53,9 +53,9 @@ Real sprow_norm2(const SPROW *r)
  * sprow_norm1 -- L1 norm of a SPROW
  * E. Arnold 2001-08-07
  */
-Real sprow_norm1(const SPROW *r)
+HQPReal sprow_norm1(const SPROW *r)
 {
-    Real sum = 0.0;
+    HQPReal sum = 0.0;
     int i;
 
     if ( r == (SPROW *) NULL )
@@ -112,7 +112,7 @@ void sp_extract_mat_iv(const SPMAT *src, const IVEC *iv, int j_offs, MAT *dst)
 MAT *bspm_mlt(const SPMAT *A, int i0, int j0, int m0, const MAT *B, MAT *C)
 {
     SPROW *row;
-    Real val;
+    HQPReal val;
     int i, j, j_idx;
 
     if ( ( A == SMNULL ) || ( B == MNULL ) )
@@ -156,7 +156,7 @@ MAT *bspm_mlt(const SPMAT *A, int i0, int j0, int m0, const MAT *B, MAT *C)
 MAT *mbsptr_mlt(const MAT *B, const SPMAT *A, int i0, int j0, int n0, MAT *C)
 {
     SPROW *row;
-    Real val;
+    HQPReal val;
     int i, j, j_idx, k;
 
     if ( ( A == SMNULL ) || ( B == MNULL ) )
@@ -198,7 +198,7 @@ MAT *mbsptr_mlt(const MAT *B, const SPMAT *A, int i0, int j0, int n0, MAT *C)
 VEC *bspv_mlt(const SPMAT *A, int i0, int j0, int m0, const VEC *B, VEC *C)
 {
     SPROW *row;
-    Real val;
+    HQPReal val;
     int i, j, j_idx;
 
     if ( ( A == SMNULL ) || ( B == VNULL ) )

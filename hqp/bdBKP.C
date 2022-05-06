@@ -44,7 +44,7 @@ static PERM *bd_relief(const BAND *A, PERM *relief)
 {
   int i, j, n, lb, ub;
   int offs;
-  Real **A_me;
+  HQPReal **A_me;
 
   if (!A)
     m_error(E_NULL,"bd_relief");
@@ -74,7 +74,7 @@ static void bdBKPchange(BAND *A, int i, int j, PERM *relief)
  * - A is the reduced matrix of order n-i+1, i < j
  */
 {
-  Real	tmp, **A_me;
+  HQPReal	tmp, **A_me;
   int	lb, ub2, n;
   int	offs1, offs2;
   int	k, k_end;
@@ -127,9 +127,9 @@ BAND *bdBKPfactor(BAND *A, PERM *pivot, PERM *relief)
   int	i, ip1, ip2, j, k, n;
   int	k_end, ub, ub2, lb;
   u_int	*re_ve;
-  Real	aii, aip1, aiip1, lambda, sigma, tmp;
-  Real	det, s, t;
-  Real	**A_me, *A_diag;
+  HQPReal	aii, aip1, aiip1, lambda, sigma, tmp;
+  HQPReal	det, s, t;
+  HQPReal	**A_me, *A_diag;
   int	offs1, offs2;
 
   if (!A || !pivot || !relief)
@@ -284,9 +284,9 @@ VEC *bdBKPsolve(const BAND *A, const PERM *pivot, const PERM *relief,
   int i, ii, j, k, ip1;
   int n, j_end;
   int lb, offs1;
-  Real det, tmp, save;
-  Real aiip1, aii, aip1;
-  Real *x_ve, **A_me;
+  HQPReal det, tmp, save;
+  HQPReal aiip1, aii, aip1;
+  HQPReal *x_ve, **A_me;
   u_int *p_pe, *re_ve;
 
   if (!A || !pivot || !b) 

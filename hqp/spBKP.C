@@ -79,7 +79,7 @@ static int spmat_size(SPMAT *m)
 /* sprow_ins_val -- insert the idx's entry into sparse row r with col j
  * -- derived frome sprow_set_val (Copyright D.E. Steward, Z. Leyk)
  */
-static Real sprow_ins_val(SPROW *r, int idx, Real val, int j, int type)
+static HQPReal sprow_ins_val(SPROW *r, int idx, HQPReal val, int j, int type)
 {
   int  new_len;
   
@@ -125,7 +125,7 @@ static Real sprow_ins_val(SPROW *r, int idx, Real val, int j, int type)
  * -- returns r_out
  */
 static SPROW *spbkp_mltadd(const SPROW *r1, const SPROW *r2, int r2_idx0,
-			   Real s, SPROW *r_out, int type)
+			   HQPReal s, SPROW *r_out, int type)
 {
   int	idx1, idx2, idx_out, len1, len2, len_out;
   row_elt	*elt1, *elt2, *elt_out;
@@ -192,8 +192,8 @@ static SPROW *spbkp_mltadd(const SPROW *r1, const SPROW *r2, int r2_idx0,
 /* 
  * spbkp_mltadd2 -- sets rowj := rowj + s.row + t.row1
  */
-static SPROW *spbkp_mltadd2(SPROW *rowj, const SPROW *row, int idx, Real s,
-			    const SPROW *row1, int idx1, Real t,
+static SPROW *spbkp_mltadd2(SPROW *rowj, const SPROW *row, int idx, HQPReal s,
+			    const SPROW *row1, int idx1, HQPReal t,
 			    SPROW *swap, int type)
 {
   spbkp_mltadd(rowj, row, idx, s, swap, type);
@@ -215,7 +215,7 @@ static void interchange(SPMAT *A, int i, int j,
   int	idx, idxi, idxj;
   SPROW *row, *rowi, *rowj, tmp_row;
   row_elt *elt;
-  Real 	aii;
+  HQPReal 	aii;
 
   n = A->n;
   rowi = A->row + i;
@@ -366,7 +366,7 @@ static void interchange(SPMAT *A, int i, int j,
 }
 
 
-SPMAT *spBKPfactor(SPMAT *A, PERM *pivot, Real tol)
+SPMAT *spBKPfactor(SPMAT *A, PERM *pivot, HQPReal tol)
 /*
  * -- factorize A in situ into P'AP = MDM'
  * -- P(i+1) == 0 for (i,i+1) is a 2x2 block
@@ -374,13 +374,13 @@ SPMAT *spBKPfactor(SPMAT *A, PERM *pivot, Real tol)
 {
   int	i, ip1, ip2, j, j1, k, k_end, n;
   int  	idx, idx1, len;
-  Real	aii, aip1, aiip1, lambda, sigma, tmp;
-  Real	det, s, t;
+  HQPReal	aii, aip1, aiip1, lambda, sigma, tmp;
+  HQPReal	det, s, t;
   SPMAT *swap_mat;
   SPROW *row, *row1, *swap, tmp_row;
   row_elt *elt, *elt1;
   IVEC	*col_idxs;
-  Real alpha;
+  HQPReal alpha;
 
   if (!A || !pivot)
     m_error(E_NULL, "spBKPfactor");
@@ -652,9 +652,9 @@ VEC *spBKPsolve(const SPMAT *A, const PERM *pivot, const VEC *b, VEC *x)
 {
   int i, ii, k, ip1;
   int n, idx, idx1, len;
-  Real det, tmp, save;
-  Real aiip1, aii, aip1;
-  Real *x_ve;
+  HQPReal det, tmp, save;
+  HQPReal aiip1, aii, aip1;
+  HQPReal *x_ve;
   u_int *p_pe;
   SPROW *row, *row1;
   row_elt *elt;

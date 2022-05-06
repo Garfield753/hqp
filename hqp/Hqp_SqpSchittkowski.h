@@ -48,16 +48,16 @@ class Hqp_SqpSchittkowski: public Hqp_SqpSolver {
   VEC		*_sgme;
   VEC		*_sgm;
 
-  Real		_mu;
-  Real		_eps;
-  Real		_beta;
+  HQPReal		_mu;
+  HQPReal		_eps;
+  HQPReal		_beta;
   bool		_damped_multipliers;
 
-  Real		phi();
-  Real		dphi();
+  HQPReal		phi();
+  HQPReal		dphi();
   VEC		*update_sgm(const VEC *r, VEC *sgm);
   VEC		*update_r(const VEC *u, const VEC *v, const VEC *sgm,
-			  Real dQd, VEC *r);
+			  HQPReal dQd, VEC *r);
 
   void		update_vals();
 

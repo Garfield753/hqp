@@ -36,15 +36,15 @@ static	char	*rcsid = "$Id: machine.c,v 1.1.1.1 2001/03/01 17:18:43 rfranke Exp $
 #include	"machine.h"
 
 /* __ip__ -- inner product */
-Real	__ip__(dp1,dp2,len)
-register Real	*dp1, *dp2;
+HQPReal	__ip__(dp1,dp2,len)
+register HQPReal	*dp1, *dp2;
 int	len;
 {
 #ifdef VUNROLL
     register int	j, k;
 #endif
     register int	i;
-    register Real     sum;
+    register HQPReal     sum;
 
     sum = 0.0;
 #ifdef VUNROLL
@@ -82,8 +82,8 @@ int	len;
 
 /* __mltadd__ -- scalar multiply and add c.f. v_mltadd() */
 void	__mltadd__(dp1,dp2,s,len)
-register Real	*dp1, *dp2;
-register Real s;
+register HQPReal	*dp1, *dp2;
+register HQPReal s;
 register int	len;
 {
     register int	i;
@@ -122,8 +122,8 @@ register int	len;
 
 /* __smlt__ scalar multiply array c.f. sv_mlt() */
 void	__smlt__(dp,s,out,len)
-register Real	*dp, *out;
-register Real s;
+register HQPReal	*dp, *out;
+register HQPReal s;
 register int	len;
 {
     register int	i;
@@ -162,7 +162,7 @@ register int	len;
 
 /* __add__ -- add arrays c.f. v_add() */
 void	__add__(dp1,dp2,out,len)
-register Real	*dp1, *dp2, *out;
+register HQPReal	*dp1, *dp2, *out;
 register int	len;
 {
     register int	i;
@@ -202,7 +202,7 @@ register int	len;
 
 /* __sub__ -- subtract arrays c.f. v_sub() */
 void	__sub__(dp1,dp2,out,len)
-register Real	*dp1, *dp2, *out;
+register HQPReal	*dp1, *dp2, *out;
 register int	len;
 {
     register int	i;
@@ -242,12 +242,12 @@ register int	len;
 
 /* __zero__ -- zeros an array of floating point numbers */
 void	__zero__(dp,len)
-register Real	*dp;
+register HQPReal	*dp;
 register int	len;
 {
 #ifdef CHAR0ISDBL0
     /* if a floating point zero is equivalent to a string of nulls */
-    MEM_ZERO((char *)dp,len*sizeof(Real));
+    MEM_ZERO((char *)dp,len*sizeof(HQPReal));
 #else
     /* else, need to zero the array entry by entry */
     register int	i;

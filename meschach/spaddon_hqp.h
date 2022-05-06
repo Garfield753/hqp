@@ -37,12 +37,12 @@ MESCH__BEGIN_DECLS
 /*
  * sprow_norm2 -- Euclidean norm of a SPROW.
  */
-MESCH_API Real sprow_norm2(const SPROW *r);
+MESCH_API HQPReal sprow_norm2(const SPROW *r);
 
 /* 
  * sprow_norm1 -- L1 norm of a SPROW.
  */
-MESCH_API Real sprow_norm1(const SPROW *r);
+MESCH_API HQPReal sprow_norm1(const SPROW *r);
 
 /*
  * sp_extract_mat_iv -- Copy a block from sparse matrix src to dense matrix dst

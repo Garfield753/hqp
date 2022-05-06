@@ -78,7 +78,7 @@ MAT	*m_copy1(const MAT *in, MAT *out)
 
     for ( i=0; i < in->m; i++ )
 	MEM_COPY(&(in->me[i][0]),&(out->me[i][0]),
-		 (in->n)*sizeof(Real));
+		 (in->n)*sizeof(HQPReal));
     /* for ( j=0; j < in->n; j++ )
        out->me[i][j] = in->me[i][j]; */
 
@@ -101,7 +101,7 @@ VEC	*v_copy1(const VEC *in, VEC *out)
     if ( out==VNULL || out->dim != in->dim )
 	out = v_resize(out,in->dim);
 
-    MEM_COPY(&(in->ve[0]),&(out->ve[0]),(in->dim)*sizeof(Real));
+    MEM_COPY(&(in->ve[0]),&(out->ve[0]),(in->dim)*sizeof(HQPReal));
     /* for ( i=0; i < in->dim; i++ )
 		out->ve[i] = in->ve[i]; */
 

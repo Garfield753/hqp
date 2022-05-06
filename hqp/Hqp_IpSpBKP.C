@@ -143,7 +143,7 @@ void Hqp_IpSpBKP::factor(const Hqp_Program *, const VEC *z, const VEC *w)
   int	i, i_end;
   int	j, j_end, k;
   int 	n_me = _n + _me;
-  Real	wz;
+  HQPReal	wz;
   SPROW *row;
   row_elt *elt;
 

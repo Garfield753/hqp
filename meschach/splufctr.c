@@ -54,7 +54,7 @@ double	alpha;
 	int	i, best_i, k, idx, len, best_len, m, n;
 	SPROW	*r, *r_piv, tmp_row;
 	static	SPROW	*merge = (SPROW *)NULL;
-	Real	max_val, tmp;
+	HQPReal	max_val, tmp;
 	static VEC	*col_vals=VNULL;
 
 	if ( ! A || ! px )
@@ -170,7 +170,7 @@ PERM	*pivot;
 VEC	*b, *x;
 {
 	int	i, idx, len, lim;
-	Real	sum, *x_ve;
+	HQPReal	sum, *x_ve;
 	SPROW	*r;
 	row_elt	*elt;
 
@@ -226,7 +226,7 @@ PERM	*pivot;
 VEC	*b, *x;
 {
 	int	i, idx, lim, rownum;
-	Real	sum, *tmp_ve;
+	HQPReal	sum, *tmp_ve;
 	/* SPROW	*r; */
 	row_elt	*elt;
 	static VEC	*tmp=VNULL;
@@ -309,7 +309,7 @@ double	alpha;
 {
     int		i, k, idx, idx_piv, m, n, old_idx, old_idx_piv;
     SPROW	*r, *r_piv;
-    Real	piv_val, tmp;
+    HQPReal	piv_val, tmp;
     
     /* printf("spILUfactor: entered\n"); */
     if ( ! A )

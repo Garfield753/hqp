@@ -33,7 +33,7 @@
 class Hqp_HL_DScale: public Hqp_HL {
 
  protected:
-  Real _gamma;
+  HQPReal _gamma;
 
   VEC *_b_q;
   VEC *_sq;
@@ -47,7 +47,7 @@ class Hqp_HL_DScale: public Hqp_HL {
   ~Hqp_HL_DScale();
 
   void setup(Hqp_SqpProgram *);
-  void update(const VEC *s, const VEC *u, Real alpha, Hqp_SqpProgram *);
+  void update(const VEC *s, const VEC *u, HQPReal alpha, Hqp_SqpProgram *);
 
   const char *name() {return "DScale";}
 };  

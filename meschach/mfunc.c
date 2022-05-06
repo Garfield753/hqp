@@ -125,7 +125,7 @@ int	p;
 */
 MAT *_m_exp(A,eps,out,q_out,j_out)
 MAT *A,*out;
-Real eps;
+HQPReal eps;
 int *q_out, *j_out;
 {
    static MAT *D = MNULL, *Apow = MNULL, *N = MNULL, *Y = MNULL;
@@ -133,7 +133,7 @@ int *q_out, *j_out;
    VEC y0, y1;  /* additional structures */
    static PERM *pivot = PNULL;
    int j, k, l, q, r, s, j2max, t;
-   Real inf_norm, eqq, power2, c, sign;
+   HQPReal inf_norm, eqq, power2, c, sign;
    
    if ( ! A )
      m_error(E_SIZES,"_m_exp");
@@ -165,7 +165,7 @@ int *q_out, *j_out;
    }
    else {
       j2max = (int) floor(1+log(inf_norm)/log(2.0));
-      j2max = max(0, j2max);
+      j2max = hqp_max(0, j2max);
    }
    
    power2 = 1.0;
@@ -185,12 +185,12 @@ int *q_out, *j_out;
    MEM_STAT_REG(c1,TYPE_VEC);
    c1->ve[0] = 1.0;
    for ( k = 1; k <= q; k++ ) 
-     c1->ve[k] = c1->ve[k-1]*(q-k+1)/((2*q-k+1)*(Real)k);
+     c1->ve[k] = c1->ve[k-1]*(q-k+1)/((2*q-k+1)*(HQPReal)k);
    
    tmp = v_resize(tmp,A->n);
    MEM_STAT_REG(tmp,TYPE_VEC);
    
-   s = (int)floor(sqrt((Real)q/2.0));
+   s = (int)floor(sqrt((HQPReal)q/2.0));
    if ( s <= 0 )  s = 1;
    _m_pow(A,s,out,Apow);
    r = q/s;
@@ -288,7 +288,7 @@ int *q_out, *j_out;
 /* simple interface for _m_exp */
 MAT *m_exp(A,eps,out)
 MAT *A,*out;
-Real eps;
+HQPReal eps;
 {
    int q_out, j_out;
 
@@ -336,7 +336,7 @@ VEC *a;
       return out;
    }
    
-   s = (int)floor(sqrt((Real)q/2.0));
+   s = (int)floor(sqrt((HQPReal)q/2.0));
    if ( s <= 0 ) s = 1;
    _m_pow(A,s,out,Apow);
    r = q/s;

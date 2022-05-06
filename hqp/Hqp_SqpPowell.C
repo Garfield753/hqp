@@ -118,9 +118,9 @@ void Hqp_SqpPowell::init()
 VEC *Hqp_SqpPowell::update_r(const VEC *z, VEC *r)
 {
   int i, m;
-  const Real *ve1;
-  Real *ve2;
-  Real val1, val2;
+  const HQPReal *ve1;
+  HQPReal *ve2;
+  HQPReal val1, val2;
 
   m = z->dim;
 
@@ -155,9 +155,9 @@ VEC *Hqp_SqpPowell::update_r(const VEC *z, VEC *r)
 VEC *Hqp_SqpPowell::update_r(const VEC *z, VEC *r)
 {
   int i, m;
-  const Real *ve1;
-  Real *ve2;
-  Real val1, val2;
+  const HQPReal *ve1;
+  HQPReal *ve2;
+  HQPReal val1, val2;
 
   m = z->dim;
 
@@ -186,11 +186,11 @@ VEC *Hqp_SqpPowell::update_r(const VEC *z, VEC *r)
 #endif
 
 //--------------------------------------------------------------------------
-Real Hqp_SqpPowell::phi()
+HQPReal Hqp_SqpPowell::phi()
 {
   int i, i_end;
-  const Real *ve1, *ve2;
-  Real ret;
+  const HQPReal *ve1, *ve2;
+  HQPReal ret;
 
   ret = _prg->f();
 
@@ -210,12 +210,12 @@ Real Hqp_SqpPowell::phi()
 }
 
 //--------------------------------------------------------------------------
-Real Hqp_SqpPowell::phi1()
+HQPReal Hqp_SqpPowell::phi1()
 {
   Hqp_Program *qp = _prg->qp();
   int i, i_end;
-  const Real *ve1, *ve2;
-  Real ret;
+  const HQPReal *ve1, *ve2;
+  HQPReal ret;
   VEC  *g1 = VNULL;
 
   ret = _prg->f();
@@ -247,8 +247,8 @@ Real Hqp_SqpPowell::phi1()
 void Hqp_SqpPowell::update_vals()
 {
   Hqp_Program *qp = _prg->qp();
-  Real dphi0, phi0, phik;
-  Real n_alpha;
+  HQPReal dphi0, phi0, phik;
+  HQPReal n_alpha;
 
   // update penalty coeffizients
 
@@ -381,10 +381,10 @@ void Hqp_SqpPowell::update_vals()
 }
 
 //--------------------------------------------------------------------------
-Real Hqp_SqpPowell::val_L()
+HQPReal Hqp_SqpPowell::val_L()
 {
   Hqp_Program *qp = _prg->qp();
-  Real ret;
+  HQPReal ret;
 
   ret = _prg->f();
   ret -= in_prod(_y, qp->b);

@@ -42,7 +42,7 @@
 /* basic sparse types */
 
 typedef struct row_elt	{
-	Real	val;
+	HQPReal	val;
 	int	col;
 #ifdef SPARSE_COL_ACCESS
 	int nxt_row, nxt_idx;
@@ -66,7 +66,7 @@ typedef struct SPMAT {
 	This starts the chain down the columns using the nxt_row and nxt_idx
 	fields of each entry in each row. */
 
-typedef struct SPPAIR { int pos; Real val; } SPPAIR;
+typedef struct SPPAIR { int pos; HQPReal val; } SPPAIR;
 
 typedef struct SPVEC {
 	int	dim, max_dim;

@@ -170,7 +170,7 @@ void Omu_Program::setup_stages(IVECP ks, VECP ts)
 }
 
 //--------------------------------------------------------------------------
-static void setup_Jacobian(Real ***Z3, short **nz,
+static void setup_Jacobian(HQPReal ***Z3, short **nz,
 			   Omu_DependentVec &y,
 			   MATP J, int J_flags, int i_offs, int j_offs,
                            bool isFirstCall)
@@ -1033,7 +1033,7 @@ void Omu_Program::update_grds(int kk,
     int nc = c->dim;
     double vi_bak, dvi;
     VECP f_bak = v_copy(f, VNULL);
-    Real f0_bak = f0;
+    HQPReal f0_bak = f0;
     VECP c_bak = v_copy(c, VNULL);
     
     if (!f.Jx.is_constant() ||!f0.gx.is_constant() ||!c.Jx.is_constant()) {

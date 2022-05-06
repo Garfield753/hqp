@@ -130,12 +130,12 @@ u_int	row1,col1,row2,col2;
    if ( new==(MAT *)NULL || new->m < row2-row1+1 )
    {
       new = NEW(MAT);
-      new->me = NEW_A(row2-row1+1,Real *);
-      if ( new==(MAT *)NULL || new->me==(Real **)NULL )
+      new->me = NEW_A(row2-row1+1,HQPReal *);
+      if ( new==(MAT *)NULL || new->me==(HQPReal **)NULL )
 	m_error(E_MEM,"sub_mat");
       else if (mem_info_is_on()) {
 	 mem_bytes(TYPE_MAT,0,sizeof(MAT)+
-		      (row2-row1+1)*sizeof(Real *));
+		      (row2-row1+1)*sizeof(HQPReal *));
       }
       
    }
@@ -143,7 +143,7 @@ u_int	row1,col1,row2,col2;
    
    new->n = col2-col1+1;
    
-   new->base = (Real *)NULL;
+   new->base = (HQPReal *)NULL;
    
    for ( i=0; i < new->m; i++ )
      new->me[i] = (old->me[i+row1]) + col1;

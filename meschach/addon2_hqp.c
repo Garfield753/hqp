@@ -43,7 +43,7 @@ SPMAT	*spLUfactor2(SPMAT *A, PERM *px)
   	int	i, best_i, k, idx, m, n;
 	SPROW	*r, *r_piv, tmp_row;
 	static	SPROW	*merge = (SPROW *)NULL;
-	Real	max_val, tmp;
+	HQPReal	max_val, tmp;
 	static VEC	*col_vals=VNULL;
 #ifdef SPLU_MOD
   	int	piv_max_col;
@@ -170,9 +170,9 @@ SPMAT	*spLUfactor2(SPMAT *A, PERM *px)
 }
 
 //--------------------------------------------------------------------------
-Real sprow_inprod(const SPROW *r1, const VEC *inner, const SPROW *r2)
+HQPReal sprow_inprod(const SPROW *r1, const VEC *inner, const SPROW *r2)
 {
-  Real sum;
+  HQPReal sum;
   int j_idx1, j_idx2, j1, j2;
   int len1, len2;
   row_elt *elt1, *elt2;
@@ -233,10 +233,10 @@ VEC *v_part(VEC *v, int offs, int dim, VEC *head)
 }
 
 //-------------------------------------------------------------------------
-VEC *v_set(VEC *v, Real val)
+VEC *v_set(VEC *v, HQPReal val)
 {
   int i, i_end;
-  Real *ve;
+  HQPReal *ve;
 
   if (v != VNULL) {
     ve = v->ve;
@@ -370,9 +370,9 @@ VEC *bd_mv_mlt(const BAND *A, const VEC *x, VEC *out)
   int i, j, j_end, k;
   int start_idx, end_idx;
   int n, m, lb, ub;
-  Real **A_me;
-  Real *x_ve;
-  Real sum;
+  HQPReal **A_me;
+  HQPReal *x_ve;
+  HQPReal sum;
 
   if (!A || !x)
     m_error(E_NULL,"bd_mv_mlt");
@@ -410,7 +410,7 @@ VEC *bd_mv_mlt(const BAND *A, const VEC *x, VEC *out)
 MAT *m_mltadd(const MAT *IN, const MAT *A, const MAT *B, MAT *OUT)
 {
   u_int	i, k, m, n, p;
-  Real	**A_v, **B_v;
+  HQPReal	**A_v, **B_v;
 
   if (A == (MAT *)NULL || B == (MAT *)NULL || IN == (MAT *)NULL)
     m_error(E_NULL,"m_mltadd");
@@ -472,7 +472,7 @@ SPMAT *sp_copy3(const SPMAT *src, SPMAT *dst)
 //  return  0  if existing entry updated
 //          1  if new entry allocated
 //
-int sp_update_val(SPMAT *A, int i, int j, Real val)
+int sp_update_val(SPMAT *A, int i, int j, HQPReal val)
 {
   SPROW	*row;
   int	idx;
@@ -678,7 +678,7 @@ void sp_extract_mat(const SPMAT *src, int i_offs, int j_offs, MAT *dst)
 void symsp_extract_mat(const SPMAT *src, int offs, MAT *dst)
 {
   SPROW *row;
-  Real val;
+  HQPReal val;
   int i, j;
   int i_end, j_end, j_idx;
 
@@ -721,11 +721,11 @@ SPMAT *sp_ident(SPMAT *A)
 }
 
 /* sp_norm_inf -- \max_i \sum_j |a_{ij}| */
-Real sp_norm_inf(SPMAT *A)
+HQPReal sp_norm_inf(SPMAT *A)
 {
   int	i, idx, len;
   row_elt	*elt;
-  Real rsum, norm = 0.0;
+  HQPReal rsum, norm = 0.0;
   
   if ( ! A )
     m_error(E_NULL,"sp_norm_inf");
@@ -823,10 +823,10 @@ SPMAT *sp_transp(const SPMAT *A, SPMAT *T)
  *  --  if out==NULL on entry then the result vector is created
  */
 VEC	*sp_mv_mltadd(const VEC *v1, const VEC *v2, const SPMAT *A,
-		      Real alpha, VEC *out)
+		      HQPReal alpha, VEC *out)
 {
   int	i, j_idx, m, n, max_idx;
-  Real	sum, *v2_ve;
+  HQPReal	sum, *v2_ve;
   SPROW	*r;
   row_elt	*elts;
   
@@ -866,7 +866,7 @@ VEC	*sp_mv_mltadd(const VEC *v1, const VEC *v2, const SPMAT *A,
 VEC	*sp_mv_symmlt(SPMAT *A, const VEC *v, VEC *out)
 {
   int	i, j_idx, m, n, max_idx;
-  Real	sum, tmp, *v_ve, *out_ve;
+  HQPReal	sum, tmp, *v_ve, *out_ve;
   SPROW	*r;
   row_elt *elts;
   
@@ -918,10 +918,10 @@ VEC	*sp_mv_symmlt(SPMAT *A, const VEC *v, VEC *out)
  *	-- returns out' == v1' + alpha*v2'*A
  */
 VEC *sp_vm_mltadd(const VEC *v1, const VEC *v2, const SPMAT *A,
-		  Real alpha, VEC *out)
+		  HQPReal alpha, VEC *out)
 {
   int	i_idx, j, m, len;
-  Real	tmp, *out_ve;
+  HQPReal	tmp, *out_ve;
   SPROW	*row;
   row_elt *elt;
 
@@ -957,14 +957,14 @@ VEC *sp_vm_mltadd(const VEC *v1, const VEC *v2, const SPMAT *A,
  */
 
 //-------------------------------------------------------------------------
-void sp_into_bd(const SPMAT *sp, Real s, BAND *bd, const PERM *px,
+void sp_into_bd(const SPMAT *sp, HQPReal s, BAND *bd, const PERM *px,
 		 int i_offs, int j_offs)
 {
   int i, i_bd, i_end;
   int j_bd, j_idx, j_end;
   const row_elt *elt;
   int lb = bd->lb;
-  Real **bde = bd->mat->me;
+  HQPReal **bde = bd->mat->me;
 
   i_end = sp->m;
   for (i=0; i<i_end; i++) {
@@ -979,14 +979,14 @@ void sp_into_bd(const SPMAT *sp, Real s, BAND *bd, const PERM *px,
 }
 
 //-------------------------------------------------------------------------
-void spT_into_bd(const SPMAT *sp, Real s, BAND *bd, const PERM *px,
+void spT_into_bd(const SPMAT *sp, HQPReal s, BAND *bd, const PERM *px,
 		 int i_offs, int j_offs)
 {
   int j, j_bd, j_end;
   int i_bd, i_idx, i_end;
   const row_elt *elt;
   int lb = bd->lb;
-  Real **bde = bd->mat->me;
+  HQPReal **bde = bd->mat->me;
 
   j_end = sp->m;
   for (j=0; j<j_end; j++) {
@@ -1001,7 +1001,7 @@ void spT_into_bd(const SPMAT *sp, Real s, BAND *bd, const PERM *px,
 }
 
 //-------------------------------------------------------------------------
-void sp_into_sp(const SPMAT *src, Real s, SPMAT *dst, const PERM *px,
+void sp_into_sp(const SPMAT *src, HQPReal s, SPMAT *dst, const PERM *px,
 		int i_offs, int j_offs)
 {
   int i, i_dst, i_end;
@@ -1021,7 +1021,7 @@ void sp_into_sp(const SPMAT *src, Real s, SPMAT *dst, const PERM *px,
 }
 
 //-------------------------------------------------------------------------
-void spT_into_sp(const SPMAT *src, Real s, SPMAT *dst, const PERM *px,
+void spT_into_sp(const SPMAT *src, HQPReal s, SPMAT *dst, const PERM *px,
 		 int i_offs, int j_offs)
 {
   int j, j_dst, j_end;
@@ -1041,7 +1041,7 @@ void spT_into_sp(const SPMAT *src, Real s, SPMAT *dst, const PERM *px,
 }
 
 //-------------------------------------------------------------------------
-void sp_into_symsp(const SPMAT *src, Real s, SPMAT *dst, const PERM *px,
+void sp_into_symsp(const SPMAT *src, HQPReal s, SPMAT *dst, const PERM *px,
 		   int i_offs, int j_offs)
 {
   int i, i_dst, i_end;
@@ -1062,7 +1062,7 @@ void sp_into_symsp(const SPMAT *src, Real s, SPMAT *dst, const PERM *px,
 }
 
 //-------------------------------------------------------------------------
-void symsp_into_symsp(const SPMAT *src, Real s, SPMAT *dst, const PERM *px,
+void symsp_into_symsp(const SPMAT *src, HQPReal s, SPMAT *dst, const PERM *px,
 		      int offs)
 {
   int i, j, i_dst, i_end;
@@ -1089,7 +1089,7 @@ void symsp_into_symsp(const SPMAT *src, Real s, SPMAT *dst, const PERM *px,
 }
 
 //-------------------------------------------------------------------------
-void spT_into_symsp(const SPMAT *src, Real s, SPMAT *dst, const PERM *px,
+void spT_into_symsp(const SPMAT *src, HQPReal s, SPMAT *dst, const PERM *px,
 		    int i_offs, int j_offs)
 {
   int j, j_dst, j_end;

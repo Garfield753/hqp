@@ -125,7 +125,7 @@ const VEC   *x;
 VEC         *out;
 {
    int	i, j_idx, m, n, max_idx;
-   Real	sum, *x_ve;
+   HQPReal	sum, *x_ve;
    SPROW	*r;
    row_elt	*elts;
    
@@ -162,7 +162,7 @@ const VEC   *x;
 VEC         *out;
 {
    int	i, j_idx, m, n, max_idx;
-   Real	tmp, *x_ve, *out_ve;
+   HQPReal	tmp, *x_ve, *out_ve;
    SPROW	*r;
    row_elt	*elts;
    

@@ -51,7 +51,7 @@ VEC	*d;
 MAT	*U, *V;
 {
     int		i, j, k, l, r, stack[MAX_STACK], sp;
-    Real	tmp, v;
+    HQPReal	tmp, v;
 
     /* make singular values non-negative */
     for ( i = 0; i < d->dim; i++ )
@@ -143,8 +143,8 @@ MAT	*U, *V;
 {
 	int	i, j, n;
 	int	i_min, i_max, split;
-	Real	c, s, shift, size, z;
-	Real	d_tmp, diff, t11, t12, t22, *d_ve, *f_ve;
+	HQPReal	c, s, shift, size, z;
+	HQPReal	d_tmp, diff, t11, t12, t22, *d_ve, *f_ve;
 
 	if ( ! d || ! f )
 		m_error(E_NULL,"bisvd");
@@ -294,7 +294,7 @@ MAT	*A, *U, *V;
 {
 	int	k;
 	static VEC	*tmp1=VNULL, *tmp2=VNULL;
-	Real	beta;
+	HQPReal	beta;
 
 	if ( ! A )
 		m_error(E_NULL,"bifactor");
@@ -366,7 +366,7 @@ VEC	*d;
 	    m_ident(U);
 	if ( V != MNULL )
 	    m_ident(V);
-	limit = min(A_tmp->m,A_tmp->n);
+	limit = hqp_min(A_tmp->m,A_tmp->n);
 	d = v_resize(d,limit);
 	f = v_resize(f,limit-1);
 	MEM_STAT_REG(f,TYPE_VEC);

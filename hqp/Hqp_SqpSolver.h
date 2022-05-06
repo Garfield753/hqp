@@ -57,27 +57,27 @@ class Hqp_SqpSolver {
   VEC		*_z;		// multipiers for inequality constraints
   VEC		*_dL;		// grd_L^(k+1) - grd_L^k
   VEC		*_grd_L;
-  Real		_phi;		// current value of penalty function
-  Real		_dphi;		// (descending) direction of penalty function
-  Real		_sQs;
-  Real		_xQx;
+  HQPReal		_phi;		// current value of penalty function
+  HQPReal		_dphi;		// (descending) direction of penalty function
+  HQPReal		_sQs;
+  HQPReal		_xQx;
 
   int		_iter;
   int		_max_iters;
   int		_inf_iters;
   int		_max_inf_iters;
-  Real		_eps;
-  Real		_norm_dx;
-  Real		_norm_x;
-  Real		_norm_inf;	// infeasibility norm
-  Real		_norm_grd_L;
-  Real		_norm_df;	// change of objective
-  Real		_f_bak;		// objective of last iterate respectively
+  HQPReal		_eps;
+  HQPReal		_norm_dx;
+  HQPReal		_norm_x;
+  HQPReal		_norm_inf;	// infeasibility norm
+  HQPReal		_norm_grd_L;
+  HQPReal		_norm_df;	// change of objective
+  HQPReal		_f_bak;		// objective of last iterate respectively
   Hqp_Result	_status;
   bool		_logging;	// print status messages
 
-  Real		_alpha;		// step length
-  Real		_min_alpha;	// step length, that identifies a stall
+  HQPReal		_alpha;		// step length
+  HQPReal		_min_alpha;	// step length, that identifies a stall
 
   bool		_hot_started;	// indicate a hot start
   SPMAT		*_qp_Q_hot;	// backing store Hessian of last cold start
@@ -85,7 +85,7 @@ class Hqp_SqpSolver {
   virtual void	feasible_vals();// update_xyz for suboptimal
   virtual void	update_vals()=0;// update _alpha,_d,_y,_z, and prg->x,f,b,d
   virtual VEC	*grd_L(const Hqp_Program *, VEC *out);
-  Real		norm_inf(const Hqp_Program *);
+  HQPReal		norm_inf(const Hqp_Program *);
 
  public:
   Hqp_SqpSolver();
@@ -111,9 +111,9 @@ class Hqp_SqpSolver {
   int max_iters() {return _max_iters;}
   void set_max_iters(int val) {_max_iters = val;}
 
-  Real norm_dx() {return _norm_dx;}
-  Real norm_inf() {return _norm_inf;}
-  Real norm_grd_L() {return _norm_grd_L;}
+  HQPReal norm_dx() {return _norm_dx;}
+  HQPReal norm_inf() {return _norm_inf;}
+  HQPReal norm_grd_L() {return _norm_grd_L;}
 };  
 
 HQP_API IF_BASE_DECLARE(Hqp_SqpSolver);

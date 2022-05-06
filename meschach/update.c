@@ -47,10 +47,10 @@ static	char	rcsid[] = "$Id: update.c,v 1.2 2002/12/09 10:57:47 e_arnold Exp $";
 MAT	*LDLupdate(CHmat,w,alpha)
 MAT	*CHmat;
 VEC	*w;
-Real alpha;
+HQPReal alpha;
 {
 	u_int	i,j;
-	Real	diag,new_diag,beta,p;
+	HQPReal	diag,new_diag,beta,p;
 
 	if ( CHmat==(MAT *)NULL || w==(VEC *)NULL )
 		m_error(E_NULL,"LDLupdate");
@@ -88,7 +88,7 @@ MAT	*Q,*R;
 VEC	*u,*v;
 {
 	int	i,j,k;
-	Real	c,s,temp;
+	HQPReal	c,s,temp;
 
 	if ( ! R || ! u || ! v )
 		m_error(E_NULL,"QRupdate");

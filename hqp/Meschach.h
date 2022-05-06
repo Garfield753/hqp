@@ -65,7 +65,7 @@ extern BAND *bdBKPfactor(BAND *A, PERM *pivot, PERM *relief);
 extern VEC *bdBKPsolve(const BAND *A, const PERM *pivot, const PERM *relief,
 		       const VEC *b, VEC *x);
 
-extern SPMAT *spBKPfactor(SPMAT *, PERM *pivot, Real tol);
+extern SPMAT *spBKPfactor(SPMAT *, PERM *pivot, HQPReal tol);
 extern VEC *spBKPsolve(const SPMAT *, const PERM *pivot,
 		       const VEC *b, VEC *x);
 //@}
@@ -125,7 +125,7 @@ class HQP_API VECP {
 
   /// @name Operators for VECP
   //@{
-  Real &operator [] (int j)
+  HQPReal &operator [] (int j)
     {
       MESCH_NULL_CHECK(_v);
       MESCH_BOUNDS_CHECK(j, 0, _v->dim);
@@ -139,7 +139,7 @@ class HQP_API VECP {
 
   /// @name Operators for const VECP
   //@{
-  const Real &operator [] (int j) const
+  const HQPReal &operator [] (int j) const
     {
       MESCH_NULL_CHECK(_v);
       MESCH_BOUNDS_CHECK(j, 0, _v->dim);
@@ -239,33 +239,33 @@ class HQP_API PERMP {
 class MATROWP {
 
  protected:
-  Real *_row; 	///< pointer to data
+  HQPReal *_row; 	///< pointer to data
   int _dim;	///< dimension of row
 
  public:
   /// @name Constructors and assignments
   //@{
-  MATROWP(Real *row, int dim) {_row = row; _dim = dim;}
+  MATROWP(HQPReal *row, int dim) {_row = row; _dim = dim;}
   //@}
 
   /// @name Operators for MATROWP
   //@{
-  Real &operator [] (int j)
+  HQPReal &operator [] (int j)
     {
       MESCH_BOUNDS_CHECK(j, 0, _dim);
       return _row[j];
     }
-  operator Real*() {return _row;}
+  operator HQPReal*() {return _row;}
   //@}
 
   /// @name Operators for const MATROWP
   //@{
-  const Real &operator [] (int j) const
+  const HQPReal &operator [] (int j) const
     {
       MESCH_BOUNDS_CHECK(j, 0, _dim);
       return _row[j];
     }
-  operator const Real*() const {return _row;}
+  operator const HQPReal*() const {return _row;}
   //@}
 };
 
@@ -294,7 +294,7 @@ class HQP_API MATP {
       return MATROWP(_m->me[i], _m->n);
     }
 # else
-  inline Real *operator [] (int i)
+  inline HQPReal *operator [] (int i)
     {
       return _m->me[i];
     }
@@ -315,7 +315,7 @@ class HQP_API MATP {
       return MATROWP(_m->me[i], _m->n);
     }
 # else
-  inline const Real *operator [] (int i) const
+  inline const HQPReal *operator [] (int i) const
     {
       return _m->me[i];
     }
@@ -333,35 +333,35 @@ typedef BAND* BANDP;
 
 #undef Inf
 /** Infinity for non existing constraints and numerical overflow */
-const Real Inf = (Real)std::numeric_limits<double>::infinity();
+const HQPReal Inf = (HQPReal)std::numeric_limits<double>::infinity();
 
 /** check if a number is finite */
-inline bool is_finite(Real x)
+inline bool is_finite(HQPReal x)
 {
   return -Inf < x && x < Inf;
 }
 
 /** check for not a number */
-inline bool is_nan(Real x)
+inline bool is_nan(HQPReal x)
 {
   return (double)x == std::numeric_limits<double>::quiet_NaN();
 }
 
 /** Scan a string for a real number, including infinity (Inf, -Inf);
     Return the number or NaN in case of error. */
-inline Real sscan_real(const char *str)
+inline HQPReal sscan_real(const char *str)
 {
-  Real val;
+  HQPReal val;
   float valf;
   if (sscanf(str, "%g", &valf)) {
-    val = (Real)valf;
+    val = (HQPReal)valf;
   } else {
     if (strncmp(str, "Inf", 3) == 0 || strncmp(str, "+Inf", 4) == 0)
       val = Inf;
     else if (strncmp(str, "-Inf", 4) == 0)
       val = -Inf;
     else
-      val = (Real)std::numeric_limits<double>::quiet_NaN();
+      val = (HQPReal)std::numeric_limits<double>::quiet_NaN();
   }
   return val;
 }

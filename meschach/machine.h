@@ -143,17 +143,17 @@
 
 /* single precision */
 #ifdef REAL_FLT
-#define  Real float
+#define  HQPReal float
 #define  LongReal float
-#define REAL FLOAT
+#define HQPREAL FLOAT
 #define LONGREAL FLOAT
 #endif
 
 /* double precision */
 #ifdef REAL_DBL
-#define Real double
+#define HQPReal double
 #define LongReal double
-#define REAL DOUBLE
+#define HQPREAL DOUBLE
 #define LONGREAL DOUBLE
 #endif
 
@@ -161,11 +161,11 @@
 /* machine epsilon or unit roundoff error */
 /* This is correct on most IEEE Real precision systems */
 #ifdef DBL_EPSILON
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 #define	MACHEPS	DBL_EPSILON
-#elif REAL == FLOAT
+#elif HQPREAL == FLOAT
 #define	MACHEPS	FLT_EPSILON
-#elif REAL == LONGDOUBLE
+#elif HQPREAL == LONGDOUBLE
 #define MACHEPS LDBL_EPSILON
 #endif
 #endif
@@ -174,11 +174,11 @@
 #define D_MACHEPS 2.22045e-16
 
 #ifndef MACHEPS
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 #define	MACHEPS	D_MACHEPS
-#elif REAL == FLOAT  
+#elif HQPREAL == FLOAT  
 #define MACHEPS F_MACHEPS
-#elif REAL == LONGDOUBLE
+#elif HQPREAL == LONGDOUBLE
 #define MACHEPS D_MACHEPS
 #endif
 #endif

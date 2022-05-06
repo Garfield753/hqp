@@ -125,9 +125,9 @@ MAT     *mat;
 		    {   j--;    dynamic = FALSE;        goto redo2;     }
 		    if ( (*line == 'f' || *line == 'F') && j < n-1 )
 		    {   j++;    dynamic = FALSE;        goto redo2;     }
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 	       } while ( *line=='\0' || sscanf(line,"%lf",&mat->me[i][j])<1 );
-#elif REAL == FLOAT
+#elif HQPREAL == FLOAT
 	       } while ( *line=='\0' || sscanf(line,"%f",&mat->me[i][j])<1 );
 #endif
 	  fprintf(stderr,"Continue: ");
@@ -169,9 +169,9 @@ MAT     *mat;
 	  if ( fscanf(fp," row %u:",&dummy) < 1 )
 	       m_error(E_FORMAT,"bm_finput");
 	  for ( j=0; j<n; j++ )
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 	       if ((io_code=fscanf(fp,"%lf",&mat->me[i][j])) < 1 )
-#elif REAL == FLOAT
+#elif HQPREAL == FLOAT
 	       if ((io_code=fscanf(fp,"%f",&mat->me[i][j])) < 1 )
 #endif
 		    m_error(io_code==EOF ? 7 : 6,"bm_finput");
@@ -338,9 +338,9 @@ VEC     *vec;
 	       {        i--;    dynamic = FALSE;        goto redo;         }
 	       if ( (*line == 'f' || *line == 'F') && i < dim-1 )
 	       {        i++;    dynamic = FALSE;        goto redo;         }
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 	  } while ( *line=='\0' || sscanf(line,"%lf",&vec->ve[i]) < 1 );
-#elif REAL == FLOAT
+#elif HQPREAL == FLOAT
           } while ( *line=='\0' || sscanf(line,"%f",&vec->ve[i]) < 1 );
 #endif
      
@@ -368,9 +368,9 @@ VEC     *vec;
      /* get entries */
      skipjunk(fp);
      for ( i=0; i<dim; i++ )
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 	  if ((io_code=fscanf(fp,"%lf",&vec->ve[i])) < 1 )
-#elif REAL == FLOAT
+#elif HQPREAL == FLOAT
 	  if ((io_code=fscanf(fp,"%f",&vec->ve[i])) < 1 )
 #endif
 	       m_error(io_code==EOF ? 7 : 6,"bfin_vec");
@@ -403,7 +403,7 @@ const MAT *a;
      if ( a == (MAT *)NULL )
      {  fprintf(fp,"Matrix: NULL\n");   return;         }
      fprintf(fp,"Matrix: %d by %d\n",a->m,a->n);
-     if ( a->me == (Real **)NULL )
+     if ( a->me == (HQPReal **)NULL )
      {  fprintf(fp,"NULL\n");           return;         }
      for ( i=0; i<a->m; i++ )   /* for each row... */
      {
@@ -445,7 +445,7 @@ const VEC *x;
      if ( x == (VEC *)NULL )
      {  fprintf(fp,"Vector: NULL\n");   return;         }
      fprintf(fp,"Vector: dim: %d\n",x->dim);
-     if ( x->ve == (Real *)NULL )
+     if ( x->ve == (HQPReal *)NULL )
      {  fprintf(fp,"NULL\n");   return;         }
      for ( i=0, tmp=0; i<x->dim; i++, tmp++ )
      {
@@ -467,7 +467,7 @@ const MAT *a;
      fprintf(fp,"Matrix: %d by %d @ 0x%llx\n",a->m,a->n,(long long)a);
      fprintf(fp,"\tmax_m = %d, max_n = %d, max_size = %d\n",
 	     a->max_m, a->max_n, a->max_size);
-     if ( a->me == (Real **)NULL )
+     if ( a->me == (HQPReal **)NULL )
      {  fprintf(fp,"NULL\n");           return;         }
      fprintf(fp,"a->me @ 0x%llx\n",(long long)(a->me));
      fprintf(fp,"a->base @ 0x%llx\n",(long long)(a->base));

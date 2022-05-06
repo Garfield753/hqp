@@ -113,11 +113,11 @@ void Hqp_HL_SparseBFGS::setup(Hqp_SqpProgram *prg)
 }
 
 //--------------------------------------------------------------------------
-void Hqp_HL_SparseBFGS::update_b_Q(const VEC *s, const VEC *u, Real, MAT *Q)
+void Hqp_HL_SparseBFGS::update_b_Q(const VEC *s, const VEC *u, HQPReal, MAT *Q)
 {
-  Real sv, sQs;
-  Real theta;
-  Real *v_ve, *Qs_ve, *sQ_ve, *Q_re;
+  HQPReal sv, sQs;
+  HQPReal theta;
+  HQPReal *v_ve, *Qs_ve, *sQ_ve, *Q_re;
   int i, i_end;
   int j, j_end;
 
@@ -213,7 +213,7 @@ void Hqp_HL_SparseBFGS::update_b_Q(const VEC *s, const VEC *u, Real, MAT *Q)
 }
 
 //--------------------------------------------------------------------------
-void Hqp_HL_SparseBFGS::update(const VEC *s, const VEC *u, Real alpha,
+void Hqp_HL_SparseBFGS::update(const VEC *s, const VEC *u, HQPReal alpha,
 			       Hqp_SqpProgram *prg)
 {
   SPMAT	*Q = prg->qp()->Q;

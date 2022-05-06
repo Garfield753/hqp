@@ -142,7 +142,7 @@ void Hqp_IpPARDISO::reinit_pardiso()
                  _pardiso_parm, &_msglvl, &ddum, &ddum, &_error);
 
   if (_error != 0) {
-    fprintf(stderr, "\nERROR during symbolic factorization: %d", _error);
+    fprintf(stderr, "\nERROR during symbolic factorization: %ld", _error);
     m_error(E_CONV, "PARDISO symbolic factorization");
   }
 
@@ -342,7 +342,7 @@ void Hqp_IpPARDISO::update(const Hqp_Program *qp)
   _reinit = 0;
 
   if (_error != 0) {
-    fprintf(stderr, "\nERROR during symbolic factorization: %d", _error);
+    fprintf(stderr, "\nERROR during symbolic factorization: %ld", _error);
     m_error(E_CONV, "PARDISO symbolic factorization");
   }
 
@@ -389,7 +389,7 @@ void Hqp_IpPARDISO::factor(const Hqp_Program *, const VEC *z, const VEC *w)
   // printf( "Hqp_IpRedPARDISO::factor():  %2.8f seconds\n", duration );
 
   if (_error != 0) {
-    fprintf(stderr, "\nERROR during numerical factorization: %d", _error);
+    fprintf(stderr, "\nERROR during numerical factorization: %ld", _error);
     m_error(E_CONV, "PARDISO numerical factorization");
   }
 
@@ -437,7 +437,7 @@ void Hqp_IpPARDISO::step(const Hqp_Program *qp, const VEC *z, const VEC *w,
   // printf( "Hqp_IpRedPARDISO::solve():  %2.8f seconds\n", duration );
 
   if (_error != 0) {
-    fprintf(stderr, "\nERROR during solution: %d", _error);
+    fprintf(stderr, "\nERROR during solution: %ld", _error);
     m_error(E_CONV, "PARDISO solution");
   }
 

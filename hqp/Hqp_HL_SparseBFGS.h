@@ -35,7 +35,7 @@
 class Hqp_HL_SparseBFGS: public Hqp_HL {
 
  protected:
-  Real _gamma;
+  HQPReal _gamma;
 
   PERM 	*_Q2B;
   PERM 	*_B2Q;
@@ -49,7 +49,7 @@ class Hqp_HL_SparseBFGS: public Hqp_HL {
   VEC	*_b_s;
   int 	_b_begin;
 
-  void	update_b_Q(const VEC *s, const VEC *u, Real alpha, MAT *Q);
+  void	update_b_Q(const VEC *s, const VEC *u, HQPReal alpha, MAT *Q);
   int	next_block(const SPMAT *, int *offs, int *size);
   
  public:
@@ -57,7 +57,7 @@ class Hqp_HL_SparseBFGS: public Hqp_HL {
   ~Hqp_HL_SparseBFGS();
 
   void setup(Hqp_SqpProgram *);
-  void update(const VEC *s, const VEC *u, Real alpha, Hqp_SqpProgram *);
+  void update(const VEC *s, const VEC *u, HQPReal alpha, Hqp_SqpProgram *);
 
   const char *name() {return "SparseBFGS";}
 };  

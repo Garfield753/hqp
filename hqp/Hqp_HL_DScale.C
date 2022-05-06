@@ -91,9 +91,9 @@ void Hqp_HL_DScale::setup(Hqp_SqpProgram *prg)
 //--------------------------------------------------------------------------
 void Hqp_HL_DScale::update_b_Q(const VEC *s, const VEC *u, VEC *q)
 {
-  Real sv, sqs;
-  Real theta;
-  Real *v_ve, *sq_ve, *q_ve;
+  HQPReal sv, sqs;
+  HQPReal theta;
+  HQPReal *v_ve, *sq_ve, *q_ve;
   int i, i_end;
 
   sv = in_prod(s, u);
@@ -134,7 +134,7 @@ void Hqp_HL_DScale::update_b_Q(const VEC *s, const VEC *u, VEC *q)
 }
 
 //--------------------------------------------------------------------------
-void Hqp_HL_DScale::update(const VEC *s, const VEC *u, Real,
+void Hqp_HL_DScale::update(const VEC *s, const VEC *u, HQPReal,
 			   Hqp_SqpProgram *prg)
 {
   SPMAT	*Q = prg->qp()->Q;

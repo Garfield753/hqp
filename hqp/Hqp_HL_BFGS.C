@@ -110,9 +110,9 @@ void Hqp_HL_BFGS::setup(Hqp_SqpProgram *prg)
 
 #if 0
 //--------------------------------------------------------------------------
-static void restart_Q(MAT *Q, Real eps)
+static void restart_Q(MAT *Q, HQPReal eps)
 {
-  Real m_norm;
+  HQPReal m_norm;
 
   m_norm = m_norm_inf(Q);
   m_norm = max(m_norm, eps);
@@ -122,11 +122,11 @@ static void restart_Q(MAT *Q, Real eps)
 }
 #else
 //--------------------------------------------------------------------------
-static void restart_Q(MAT *Q, Real eps)
+static void restart_Q(MAT *Q, HQPReal eps)
 {
   int i, j, dim;
-  Real row_max, val;
-  Real *Q_re;
+  HQPReal row_max, val;
+  HQPReal *Q_re;
 
   dim = Q->m;
   if (dim < 1)
@@ -147,11 +147,11 @@ static void restart_Q(MAT *Q, Real eps)
 #endif
 
 //--------------------------------------------------------------------------
-void Hqp_HL_BFGS::update_b_Q(const VEC *s, const VEC *u, Real alpha, MAT *Q)
+void Hqp_HL_BFGS::update_b_Q(const VEC *s, const VEC *u, HQPReal alpha, MAT *Q)
 {
-  Real sv, sQs;
-  Real theta, gamma;
-  Real *v_ve, *Qs_ve, *sQ_ve, *Q_re;
+  HQPReal sv, sQs;
+  HQPReal theta, gamma;
+  HQPReal *v_ve, *Qs_ve, *sQ_ve, *Q_re;
   int i, i_end;
   int j, j_end;
 
@@ -222,7 +222,7 @@ void Hqp_HL_BFGS::update_b_Q(const VEC *s, const VEC *u, Real alpha, MAT *Q)
 }
 
 //--------------------------------------------------------------------------
-void Hqp_HL_BFGS::update(const VEC *s, const VEC *u, Real alpha,
+void Hqp_HL_BFGS::update(const VEC *s, const VEC *u, HQPReal alpha,
 			 Hqp_SqpProgram *prg)
 {
   SPMAT	*Q = prg->qp()->Q;

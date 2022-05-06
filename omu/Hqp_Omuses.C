@@ -462,7 +462,7 @@ void Hqp_Omuses::init_simulation(int k, VECP x, VECP u)
 
 //--------------------------------------------------------------------------
 void Hqp_Omuses::update_vals(int k, const VECP x, const VECP u,
-			     VECP f, Real &f0, VECP c)
+			     VECP f, HQPReal &f0, VECP c)
 {
   double val;
   int i, kk;
@@ -564,7 +564,7 @@ void Hqp_Omuses::update_vals(int k, const VECP x, const VECP u,
 
 //--------------------------------------------------------------------------
 void Hqp_Omuses::update_stage(int k, const VECP x, const VECP u,
-			      VECP f, Real &f0, VECP c,
+			      VECP f, HQPReal &f0, VECP c,
 			      MATP fx, MATP fu, VECP f0x, VECP f0u,
 			      MATP cx, MATP cu,
 			      const VECP rf, const VECP rc,

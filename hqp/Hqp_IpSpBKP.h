@@ -36,7 +36,7 @@ class Hqp_IpSpBKP: public Hqp_IpMatrix {
  protected:
   int		_n, _me, _m;	// dimensions
   int		_sbw;		// semi band width of _J
-  Real		_tol;		// tolerance for fill-in vs. stability
+  HQPReal		_tol;		// tolerance for fill-in vs. stability
   SPMAT		*_J;
   SPMAT		*_J_raw;
   PERM		*_QP2J;

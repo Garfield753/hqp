@@ -55,14 +55,14 @@ class Hqp_IpsFranke: public Hqp_Solver {
   VEC		*_dy;
   VEC		*_dz;
   VEC		*_dw;
-  Real		_mu0;		// used for cold start
-  Real		_Ltilde;
-  Real		_zeta;
-  Real		_alpha;		// step width
-  Real		_alphabar;
-  Real		_beta;
-  Real		_rhomin;
-  Real		_gap;		// duality gap
+  HQPReal		_mu0;		// used for cold start
+  HQPReal		_Ltilde;
+  HQPReal		_zeta;
+  HQPReal		_alpha;		// step width
+  HQPReal		_alphabar;
+  HQPReal		_beta;
+  HQPReal		_rhomin;
+  HQPReal		_gap;		// duality gap
 
   Hqp_IpMatrix	*_matrix;
 
@@ -86,8 +86,8 @@ class Hqp_IpsFranke: public Hqp_Solver {
   void	 	solve();
 
   // member access
-  Real		gap() {return _gap;}
-  Real		zeta() {return _zeta;}
+  HQPReal		gap() {return _gap;}
+  HQPReal		zeta() {return _zeta;}
 
   const char *name() {return "Franke";}
 };  

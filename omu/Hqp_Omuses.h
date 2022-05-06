@@ -124,10 +124,10 @@ class Hqp_Omuses: public Hqp_Docp {
 		       VECP x, VECP u);
 
   void update_vals(int k, const VECP x, const VECP u,
-		   VECP f, Real &f0, VECP c);
+		   VECP f, HQPReal &f0, VECP c);
 
   void update_stage(int k, const VECP x, const VECP u,
-		    VECP f, Real &f0, VECP c,
+		    VECP f, HQPReal &f0, VECP c,
 		    MATP fx, MATP fu, VECP f0x, VECP f0u,
 		    MATP cx, MATP cu,
 		    const VECP rf, const VECP rc,

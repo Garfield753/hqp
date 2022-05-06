@@ -77,13 +77,13 @@ public:
   virtual ~Omu_Dependent();
 
   /** Assign a new value */
-  const Omu_Dependent &operator = (const Real &value) {
+  const Omu_Dependent &operator = (const HQPReal &value) {
     _value = value;
     return *this;
   }
 
   /** Convert to ordinary Real */
-  operator Real&() {
+  operator HQPReal&() {
     return _value;
   }
 
@@ -103,7 +103,7 @@ public:
   }
 
 protected:
-  Real _value;
+  HQPReal _value;
   bool _required_g;
   // dismiss copy constructor and assignment operator
   Omu_Dependent(const Omu_Dependent &) {}

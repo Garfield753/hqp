@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
   // Assert that Hqp uses same data representation as this application
   // (might be different if different C++ compilers are used)
   assert(If_SizeOfInt() == sizeof(int));
-  assert(If_SizeOfReal() == sizeof(Real));
+  assert(If_SizeOfReal() == sizeof(HQPReal));
 
   // Initialize Hqp
   Hqp_Init(If_Interp());

@@ -51,24 +51,24 @@ int	m,n;
    matrix->m = m;		matrix->n = matrix->max_n = n;
    matrix->max_m = m;	matrix->max_size = m*n;
 #ifndef SEGMENTED
-   if ((matrix->base = NEW_A(m*n,Real)) == (Real *)NULL )
+   if ((matrix->base = NEW_A(m*n,HQPReal)) == (HQPReal *)NULL )
    {
       free(matrix);
       m_error(E_MEM,"m_get");
    }
    else if (mem_info_is_on()) {
-      mem_bytes(TYPE_MAT,0,m*n*sizeof(Real));
+      mem_bytes(TYPE_MAT,0,m*n*sizeof(HQPReal));
    }
 #else
-   matrix->base = (Real *)NULL;
+   matrix->base = (HQPReal *)NULL;
 #endif
-   if ((matrix->me = (Real **)calloc(m,sizeof(Real *))) == 
-       (Real **)NULL )
+   if ((matrix->me = (HQPReal **)calloc(m,sizeof(HQPReal *))) == 
+       (HQPReal **)NULL )
    {	free(matrix->base);	free(matrix);
 	m_error(E_MEM,"m_get");
      }
    else if (mem_info_is_on()) {
-      mem_bytes(TYPE_MAT,0,m*sizeof(Real *));
+      mem_bytes(TYPE_MAT,0,m*sizeof(HQPReal *));
    }
    
 #ifndef SEGMENTED
@@ -77,10 +77,10 @@ int	m,n;
      matrix->me[i] = &(matrix->base[i*n]);
 #else
    for ( i = 0; i < m; i++ )
-     if ( (matrix->me[i]=NEW_A(n,Real)) == (Real *)NULL )
+     if ( (matrix->me[i]=NEW_A(n,HQPReal)) == (HQPReal *)NULL )
        m_error(E_MEM,"m_get");
      else if (mem_info_is_on()) {
-	mem_bytes(TYPE_MAT,0,n*sizeof(Real));
+	mem_bytes(TYPE_MAT,0,n*sizeof(HQPReal));
        }
 #endif
    
@@ -137,13 +137,13 @@ int	size;
    }
    
    vector->dim = vector->max_dim = size;
-   if ((vector->ve=NEW_A(size,Real)) == (Real *)NULL )
+   if ((vector->ve=NEW_A(size,HQPReal)) == (HQPReal *)NULL )
    {
       free(vector);
       m_error(E_MEM,"v_get");
    }
    else if (mem_info_is_on()) {
-      mem_bytes(TYPE_VEC,0,size*sizeof(Real));
+      mem_bytes(TYPE_VEC,0,size*sizeof(HQPReal));
    }
    
    return (vector);
@@ -163,24 +163,24 @@ MAT	*mat;
      return (-1);
    
 #ifndef SEGMENTED
-   if ( mat->base != (Real *)NULL ) {
+   if ( mat->base != (HQPReal *)NULL ) {
       if (mem_info_is_on()) {
-	 mem_bytes(TYPE_MAT,mat->max_m*mat->max_n*sizeof(Real),0);
+	 mem_bytes(TYPE_MAT,mat->max_m*mat->max_n*sizeof(HQPReal),0);
       }
       free((char *)(mat->base));
    }
 #else
    for ( i = 0; i < mat->max_m; i++ )
-     if ( mat->me[i] != (Real *)NULL ) {
+     if ( mat->me[i] != (HQPReal *)NULL ) {
 	if (mem_info_is_on()) {
-	   mem_bytes(TYPE_MAT,mat->max_n*sizeof(Real),0);
+	   mem_bytes(TYPE_MAT,mat->max_n*sizeof(HQPReal),0);
 	}
 	free((char *)(mat->me[i]));
      }
 #endif
-   if ( mat->me != (Real **)NULL ) {
+   if ( mat->me != (HQPReal **)NULL ) {
       if (mem_info_is_on()) {
-	 mem_bytes(TYPE_MAT,mat->max_m*sizeof(Real *),0);
+	 mem_bytes(TYPE_MAT,mat->max_m*sizeof(HQPReal *),0);
       }
       free((char *)(mat->me));
    }
@@ -234,7 +234,7 @@ VEC	*vec;
      /* don't trust it */
      return (-1);
    
-   if ( vec->ve == (Real *)NULL ) {
+   if ( vec->ve == (HQPReal *)NULL ) {
       if (mem_info_is_on()) {
 	 mem_bytes(TYPE_VEC,sizeof(VEC),0);
 	 mem_numvar(TYPE_VEC,-1);
@@ -244,7 +244,7 @@ VEC	*vec;
    else
    {
       if (mem_info_is_on()) {
-	 mem_bytes(TYPE_VEC,sizeof(VEC)+vec->max_dim*sizeof(Real),0);
+	 mem_bytes(TYPE_VEC,sizeof(VEC)+vec->max_dim*sizeof(HQPReal),0);
 	 mem_numvar(TYPE_VEC,-1);
       }
       free((char *)vec->ve);
@@ -279,11 +279,11 @@ int	new_m, new_n;
    if ( new_m > (int) A->max_m )
    {	/* re-allocate A->me */
       if (mem_info_is_on()) {
-	 mem_bytes(TYPE_MAT,A->max_m*sizeof(Real *),
-		      new_m*sizeof(Real *));
+	 mem_bytes(TYPE_MAT,A->max_m*sizeof(HQPReal *),
+		      new_m*sizeof(HQPReal *));
       }
 
-      A->me = RENEW(A->me,new_m,Real *);
+      A->me = RENEW(A->me,new_m,HQPReal *);
       if ( ! A->me )
 	m_error(E_MEM,"m_resize");
    }
@@ -295,11 +295,11 @@ int	new_m, new_n;
    if ( new_size > (int) A->max_size )
    {	/* re-allocate A->base */
       if (mem_info_is_on()) {
-	 mem_bytes(TYPE_MAT,A->max_m*A->max_n*sizeof(Real),
-		      new_size*sizeof(Real));
+	 mem_bytes(TYPE_MAT,A->max_m*A->max_n*sizeof(HQPReal),
+		      new_size*sizeof(HQPReal));
       }
 
-      A->base = RENEW(A->base,new_size,Real);
+      A->base = RENEW(A->base,new_size,HQPReal);
       if ( ! A->base )
 	m_error(E_MEM,"m_resize");
       A->max_size = new_size;
@@ -315,7 +315,7 @@ int	new_m, new_n;
       for ( i = 1; i < hqp_min(old_m,new_m); i++ )
 	MEM_COPY((char *)&(A->base[i*old_n]),
 		 (char *)&(A->base[i*new_n]),
-		 sizeof(Real)*new_n);
+		 sizeof(HQPReal)*new_n);
    }
    else if ( old_n < new_n )
    {
@@ -323,7 +323,7 @@ int	new_m, new_n;
       {   /* copy & then zero extra space */
 	 MEM_COPY((char *)&(A->base[i*old_n]),
 		  (char *)&(A->base[i*new_n]),
-		  sizeof(Real)*old_n);
+		  sizeof(HQPReal)*old_n);
 	 __zero__(&(A->base[i*new_n+old_n]),(new_n-old_n));
       }
       __zero__(&(A->base[old_n]),(new_n-old_n));
@@ -335,16 +335,16 @@ int	new_m, new_n;
 #else
    if ( A->max_n < new_n )
    {
-      Real	*tmp;
+      HQPReal	*tmp;
       
       for ( i = 0; i < A->max_m; i++ )
       {
 	 if (mem_info_is_on()) {
-	    mem_bytes(TYPE_MAT,A->max_n*sizeof(Real),
-			 new_max_n*sizeof(Real));
+	    mem_bytes(TYPE_MAT,A->max_n*sizeof(HQPReal),
+			 new_max_n*sizeof(HQPReal));
 	 }	
 
-	 if ( (tmp = RENEW(A->me[i],new_max_n,Real)) == NULL )
+	 if ( (tmp = RENEW(A->me[i],new_max_n,HQPReal)) == NULL )
 	   m_error(E_MEM,"m_resize");
 	 else {	
 	    A->me[i] = tmp;
@@ -352,13 +352,13 @@ int	new_m, new_n;
       }
       for ( i = A->max_m; i < new_max_m; i++ )
       {
-	 if ( (tmp = NEW_A(new_max_n,Real)) == NULL )
+	 if ( (tmp = NEW_A(new_max_n,HQPReal)) == NULL )
 	   m_error(E_MEM,"m_resize");
 	 else {
 	    A->me[i] = tmp;
 
 	    if (mem_info_is_on()) {
-	       mem_bytes(TYPE_MAT,0,new_max_n*sizeof(Real));
+	       mem_bytes(TYPE_MAT,0,new_max_n*sizeof(HQPReal));
 	    }	    
 	 }
       }
@@ -366,10 +366,10 @@ int	new_m, new_n;
    else if ( A->max_m < new_m )
    {
       for ( i = A->max_m; i < new_m; i++ ) 
-	if ( (A->me[i] = NEW_A(new_max_n,Real)) == NULL )
+	if ( (A->me[i] = NEW_A(new_max_n,HQPReal)) == NULL )
 	  m_error(E_MEM,"m_resize");
 	else if (mem_info_is_on()) {
-	   mem_bytes(TYPE_MAT,0,new_max_n*sizeof(Real));
+	   mem_bytes(TYPE_MAT,0,new_max_n*sizeof(HQPReal));
 	}
       
    }
@@ -458,11 +458,11 @@ int	new_dim;
    if ( new_dim > (int) x->max_dim )
    {
       if (mem_info_is_on()) { 
-	 mem_bytes(TYPE_VEC,x->max_dim*sizeof(Real),
-			 new_dim*sizeof(Real));
+	 mem_bytes(TYPE_VEC,x->max_dim*sizeof(HQPReal),
+			 new_dim*sizeof(HQPReal));
       }
 
-      x->ve = RENEW(x->ve,new_dim,Real);
+      x->ve = RENEW(x->ve,new_dim,HQPReal);
       if ( ! x->ve )
 	m_error(E_MEM,"v_resize");
       x->max_dim = new_dim;

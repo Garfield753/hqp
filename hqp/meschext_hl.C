@@ -39,7 +39,7 @@
    -- derived frome sprow_set_val (Copyright D.E. Steward, Z. Leyk)
 */
 
-static Real sprow_ins_val(SPROW *r, int idx, Real val, int j, int type)
+static HQPReal sprow_ins_val(SPROW *r, int idx, HQPReal val, int j, int type)
 {
   int  new_len;
   
@@ -76,9 +76,9 @@ static Real sprow_ins_val(SPROW *r, int idx, Real val, int j, int type)
 /*
  * derived from sprow_inprod (Copyright Ruediger Franke)
  */
-Real sprow_inprod_full(const SPROW *r1, const SPROW *r2)
+HQPReal sprow_inprod_full(const SPROW *r1, const SPROW *r2)
 {
-  Real sum;
+  HQPReal sum;
   int j_idx1, j_idx2, j1, j2;
   int len1, len2;
   row_elt *elt1, *elt2;
@@ -299,7 +299,7 @@ SPROW	*sprow_smlt_idx(SPROW *r1, int idx, double alpha)
  * -- returns r_out
  */
 static SPROW *spbkp_mltadd(const SPROW *r1, const SPROW *r2, int r2_idx0,
-			   Real s, SPROW *r_out, int type)
+			   HQPReal s, SPROW *r_out, int type)
 {
   int	idx1, idx2, idx_out, len1, len2, len_out;
   row_elt	*elt1, *elt2, *elt_out;
@@ -375,7 +375,7 @@ double	sprow_ip(SPROW *row1, SPROW *row2, int lim)
 {
 	int	idx1, idx2, len1, len2, tmp;
 	row_elt	*elts1, *elts2;
-	Real	sum;
+	HQPReal	sum;
 
 	elts1 = row1->elt;	elts2 = row2->elt;
 	len1 = row1->len;	len2 = row2->len;
@@ -444,7 +444,7 @@ double	sprow_sqr_full(SPROW *row)
 {
 	row_elt	*elts;
 	int	idx, len;
-	Real	sum, tmp;
+	HQPReal	sum, tmp;
 
 	sum = 0.0;
 	elts = row->elt;	len = row->len;
@@ -464,7 +464,7 @@ SPMAT *sp_mmt_mlt(const SPMAT *A, SPMAT *AAT)
 
   int     i, i_min, i_max, j, j_min, j_max, m, hlen, vlen,
           rlen_aat, clen_aat;
-  Real    tmp;
+  HQPReal    tmp;
   SPROW   *hrow, *vrow, *c_aat, *r_aat;
   row_elt *helt, *velt, *celt_aat, *relt_aat;
   
@@ -555,7 +555,7 @@ SPMAT *sp_mmt2_mlt(const SPMAT *A,const SPMAT *AT, SPMAT *AAT)
 {
 
   int     i, idx, j, len, m;
-  Real    s;
+  HQPReal    s;
   SPMAT   *swap_mat;
   SPROW   *row, *swap, tmp_row;
   row_elt *elt;
@@ -617,7 +617,7 @@ SPMAT *sp_mmt2_mlt_u(const SPMAT *A,const SPMAT *AT, SPMAT *AAT)
 {
 
   int     i, idx, idx1, j, len, m;
-  Real    s;
+  HQPReal    s;
   SPMAT   *swap_mat;
   SPROW   *row, *row1, *swap, tmp_row;
   row_elt *elt;
@@ -755,7 +755,7 @@ VEC	*spLDLTsolve(SPMAT *L,const VEC *b,VEC *out)
   int	   col, i, j, j_idx, max_col, n;
   SPROW	   *row;
   row_elt  *elt;
-  Real	   diag_val, sum, *out_ve;
+  HQPReal	   diag_val, sum, *out_ve;
 
   if ( L == SMNULL || b == VNULL )
     m_error(E_NULL,"spCHsolve");
@@ -832,8 +832,8 @@ SPMAT *spCHOLfac(SPMAT *A)
 {
   int	i, j, n;
   int  	idx, len;
-  Real	aii;
-  Real	s;
+  HQPReal	aii;
+  HQPReal	s;
   SPMAT *swap_mat;
   SPROW *row, *swap, tmp_row;
   row_elt *elt;
@@ -918,8 +918,8 @@ SPMAT *spMODCHOLfac(SPMAT *A,VEC *b,double eps)
 {
   int	i, j, n;
   int  	idx, len;
-  Real	aii;
-  Real	s;
+  HQPReal	aii;
+  HQPReal	s;
   SPMAT *swap_mat;
   SPROW *row, *swap, tmp_row;
   row_elt *elt;
@@ -1022,7 +1022,7 @@ VEC	*spCHOLsol(SPMAT *L,VEC *b,VEC *x)
   int	   i, idx, len, n;
   SPROW	   *row;
   row_elt  *elt;
-  Real	   *x_ve, tmp;
+  HQPReal	   *x_ve, tmp;
 
   if ( L == SMNULL || b == VNULL )
     m_error(E_NULL,"spCHsolve");
@@ -1112,7 +1112,7 @@ SPMAT *spLTMsolve(SPMAT *L,SPMAT *B,SPMAT *OUT)
 {
 
   int	   i, idx, j, len, n;
-  Real     s;
+  HQPReal     s;
   SPMAT    *swap_mat;
   SPROW    *row, *swap, tmp_row;
   row_elt  *elt;
@@ -1191,7 +1191,7 @@ MAT  *spmm_mlt(SPMAT *A, MAT *B, MAT *OUT)
 {
 
   int	   i, j, m, n, idx, len;
-  Real	   **B_v, s;
+  HQPReal	   **B_v, s;
   SPROW    *row;
   row_elt  *elt;
 
@@ -1243,7 +1243,7 @@ MAT  *spm_m_spmtr_mlt(SPMAT *A, MAT *B, MAT *OUT)
   int	   i, j, k, m, n, idx, len;
   MAT      *mtmp;
   VEC      *vtmp;
-  Real	   **B_me, **mtmp_me,**OUT_me, *vtmp_ve,s;
+  HQPReal	   **B_me, **mtmp_me,**OUT_me, *vtmp_ve,s;
   SPROW    *row;
   row_elt  *elt;
 

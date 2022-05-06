@@ -54,7 +54,7 @@ class Hqp_HL {
   If_List	_ifList;
   int		_scale;         // initial scaling (0,1,2,3)
   bool 		_init_multipliers;       
-  Real		_eps;		// ensure positive definiteness
+  HQPReal		_eps;		// ensure positive definiteness
   bool          _logging;	// print status messages
   VEC		*_rowsum;				     
 
@@ -67,7 +67,7 @@ class Hqp_HL {
 
   virtual void	setup(Hqp_SqpProgram *) = 0;
   virtual void	init(const VEC *y, const VEC *z, Hqp_SqpProgram *);
-  virtual void	update(const VEC *s, const VEC *u, Real alpha,
+  virtual void	update(const VEC *s, const VEC *u, HQPReal alpha,
 		       Hqp_SqpProgram *) = 0;
 
   void est_y(Hqp_SqpProgram *, VEC *);

@@ -76,7 +76,7 @@ class Hqp_IpSpSC: public Hqp_IpMatrix {
   void	update(const Hqp_Program *);
 
   void	factor(const Hqp_Program *, const VEC *z, const VEC *w);
-  Real	solve(const Hqp_Program *, const VEC *z, const VEC *w,
+  HQPReal	solve(const Hqp_Program *, const VEC *z, const VEC *w,
 	      const VEC *r1, const VEC *r2, const VEC *r3, const VEC *r4,
 	      VEC *dx, VEC *dy, VEC *dz, VEC *dw);
 

@@ -45,9 +45,9 @@ static	char	rcsid[] = "$Id: givens.c,v 1.2 2002/12/09 10:57:47 e_arnold Exp $";
 		eliminate y in the vector [ x y ]' */
 void	givens(x,y,c,s)
 double  x,y;
-Real	*c,*s;
+HQPReal	*c,*s;
 {
-	Real	norm;
+	HQPReal	norm;
 
 	norm = sqrt(x*x+y*y);
 	if ( norm == 0.0 )
@@ -62,7 +62,7 @@ VEC	*x,*out;
 u_int	i,k;
 double	c,s;
 {
-	Real	temp;
+	HQPReal	temp;
 
 	if ( x==VNULL )
 		m_error(E_NULL,"rot_vec");
@@ -87,7 +87,7 @@ u_int	i,k;
 double	c,s;
 {
 	u_int	j;
-	Real	temp;
+	HQPReal	temp;
 
 	if ( mat==(MAT *)NULL )
 		m_error(E_NULL,"rot_rows");
@@ -115,7 +115,7 @@ u_int	i,k;
 double	c,s;
 {
 	u_int	j;
-	Real	temp;
+	HQPReal	temp;
 
 	if ( mat==(MAT *)NULL )
 		m_error(E_NULL,"rot_cols");

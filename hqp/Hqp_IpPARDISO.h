@@ -50,7 +50,7 @@ class Hqp_IpPARDISO: public Hqp_IpMatrix {
  protected:
   int		_n, _me, _m, _nnz; ///< dimensions
   int		_sbw;           ///< semi band width of _J
-  Real		_tol;           ///< tolerance for fill-in vs. stability
+  HQPReal		_tol;           ///< tolerance for fill-in vs. stability
   PERM		*_pivot;
   VEC		*_scale;
   VEC		*_r123;

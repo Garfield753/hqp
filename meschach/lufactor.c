@@ -48,8 +48,8 @@ PERM	*pivot;
 {
 	u_int	i, j, k, k_max, m, n;
 	int	i_max;
-	Real	**A_v, *A_piv, *A_row;
-	Real  max1, temp;
+	HQPReal	**A_v, *A_piv, *A_row;
+	HQPReal  max1, temp;
 	static	VEC	*scale = VNULL;
 
 	if ( A==(MAT *)NULL || pivot==(PERM *)NULL )
@@ -205,12 +205,12 @@ MAT	*A, *out;
 
 /* LUcondest -- returns an estimate of the condition number of LU given the
 	LU factorisation in compact form */
-Real	LUcondest(LU,pivot)
+HQPReal	LUcondest(LU,pivot)
 MAT	*LU;
 PERM	*pivot;
 {
     static	VEC	*y = VNULL, *z = VNULL;
-    Real	cond_est, L_norm, U_norm, sum;
+    HQPReal	cond_est, L_norm, U_norm, sum;
     int		i, j, n;
 
     if ( ! LU || ! pivot )

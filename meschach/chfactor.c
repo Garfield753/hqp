@@ -44,7 +44,7 @@ MAT	*CHfactor(A)
 MAT	*A;
 {
 	u_int	i, j, k, n;
-	Real	**A_ent, *A_piv, *A_row, sum, tmp;
+	HQPReal	**A_ent, *A_piv, *A_row, sum, tmp;
 
 	if ( A==(MAT *)NULL )
 		m_error(E_NULL,"CHfactor");
@@ -108,8 +108,8 @@ MAT	*LDLfactor(A)
 MAT	*A;
 {
 	u_int	i, k, n, p;
-	Real	**A_ent;
-	Real d, sum;
+	HQPReal	**A_ent;
+	HQPReal d, sum;
 	static VEC	*r = VNULL;
 
 	if ( ! A )
@@ -169,10 +169,10 @@ VEC	*b, *x;
 /* MCHfactor -- Modified Cholesky L.L' factorisation of A in-situ */
 MAT	*MCHfactor(A,tol)
 MAT	*A;
-Real	tol;
+HQPReal	tol;
 {
 	u_int	i, j, k, n;
-	Real	**A_ent, *A_piv, *A_row, sum, tmp;
+	HQPReal	**A_ent, *A_piv, *A_row, sum, tmp;
 
 	if ( A==(MAT *)NULL )
 		m_error(E_NULL,"MCHfactor");

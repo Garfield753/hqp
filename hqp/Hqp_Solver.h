@@ -48,7 +48,7 @@ class Hqp_Solver {
 
   int		_iter;
   int		_max_iters;
-  Real		_eps;
+  HQPReal		_eps;
 
   VEC		*_y;		// multiplicators for equalities
   VEC		*_z;		// multiplicators for inequalities
@@ -76,8 +76,8 @@ class Hqp_Solver {
   int		iter() {return _iter;}
   int		max_iters() {return _max_iters;}
   void		max_iters(int n_max_iters) {_max_iters = n_max_iters;}
-  Real		eps() {return _eps;}
-  void		eps(Real n_eps) {_eps = n_eps;}
+  HQPReal		eps() {return _eps;}
+  void		eps(HQPReal n_eps) {_eps = n_eps;}
   const VEC	*y() {return _y;}
   const VEC	*z() {return _z;}
 

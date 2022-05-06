@@ -109,7 +109,7 @@ SPMAT *Hqp_IpRedSpBKP::sub_CTC(const PERM *px, SPMAT *Q)
   int i, j, j_idx, j_end;
   int qi, qj, qj_idx;
   SPROW *crow, *qrow;
-  Real sum, val;
+  HQPReal sum, val;
   IVEC neigh_header;
   IVEC *neigh = &neigh_header;
 
@@ -188,7 +188,7 @@ void Hqp_IpRedSpBKP::init(const Hqp_Program *qp)
   SPROW *r1, *r2;
   int i, j;
   int len, dim;
-  Real sum;
+  HQPReal sum;
 
   _n = qp->c->dim;
   _me = qp->b->dim;
@@ -285,7 +285,7 @@ void Hqp_IpRedSpBKP::factor(const Hqp_Program *qp,
 
   int	i, i_end;
   int	j, j_end, k;
-  Real	scale;
+  HQPReal	scale;
   SPROW *row;
   row_elt *elt;
 

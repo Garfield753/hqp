@@ -54,7 +54,7 @@ class Hqp_DocpAssoc {
 
   void reset();
   void new_k();
-  void add_cns(Real val, int idx);
+  void add_cns(HQPReal val, int idx);
 
   void sp_insert_mat(int k, SPMAT *J, int joffs,
 		     const MATP mat, int mat_offs);
@@ -63,7 +63,7 @@ class Hqp_DocpAssoc {
   void sp_update_mat(int k, SPMAT *J, int joffs,
 		     const MATP mat, int mat_offs, const IVECP lin);
 
-  void sv_mltadd_vec(int k, Real s, const VECP z,
+  void sv_mltadd_vec(int k, HQPReal s, const VECP z,
 		     VECP vec, int vec_offs);
 };
 
@@ -106,7 +106,7 @@ void Hqp_DocpAssoc::new_k()
 }
 
 //-------------------------------------------------------------------------
-void Hqp_DocpAssoc::add_cns(Real val, int idx)
+void Hqp_DocpAssoc::add_cns(HQPReal val, int idx)
 {
   v_expand(vals, 1, granul);
   iv_expand(idxs, 1, granul);
@@ -163,13 +163,13 @@ void Hqp_DocpAssoc::sp_update_mat(int k, SPMAT *J, int joffs,
 }
 
 //-------------------------------------------------------------------------
-void Hqp_DocpAssoc::sv_mltadd_vec(int k, Real s, const VECP z,
+void Hqp_DocpAssoc::sv_mltadd_vec(int k, HQPReal s, const VECP z,
 				  VECP vec, int vec_offs)
 {
   int i, iend;
   int ioffs = offs + start[k];
-  Real *z_ve = z->ve;
-  Real *v_ve = vec->ve;
+  HQPReal *z_ve = z->ve;
+  HQPReal *v_ve = vec->ve;
 
   iend = start[k+1];
   for (i = start[k]; i < iend; i++, ioffs++) {
@@ -794,7 +794,7 @@ void Hqp_Docp::simulate()
 {
   int k, kxu;
   int nx, nu, nf, nc;
-  Real f0k;
+  HQPReal f0k;
   VECP c;
   int K = _kf - _k0;
 
@@ -865,7 +865,7 @@ void Hqp_Docp::update_fbd()
     //  break;
 
     int offs = _cns_start[k];
-    Real *v_ve = _qp->b->ve + _cns_eq->offs;
+    HQPReal *v_ve = _qp->b->ve + _cns_eq->offs;
     int i, iend = _cns_eq->start[k+1];
     for (i = _cns_eq->start[k]; i < iend; i++)
       v_ve[i] = ck[_cns_eq->idxs[i]-offs] - _cns_eq->vals[i];
@@ -895,7 +895,7 @@ void Hqp_Docp::update_bounds()
 {
   int i, iend, offs;
   int K = _kf - _k0;
-  Real *x_ve, *v_ve;
+  HQPReal *x_ve, *v_ve;
   int *idxs_ive;
   VEC v_head;
   VECP v = &v_head;
@@ -1029,7 +1029,7 @@ void Hqp_Docp::update(const VECP y, const VECP z)
     //  break;
 
     int offs = _cns_start[k];
-    Real *v_ve = _qp->b->ve + _cns_eq->offs;
+    HQPReal *v_ve = _qp->b->ve + _cns_eq->offs;
     int iend = _cns_eq->start[k+1];
     for (i = _cns_eq->start[k]; i < iend; i++)
       v_ve[i] = ck[_cns_eq->idxs[i]-offs] - _cns_eq->vals[i];
@@ -1080,7 +1080,7 @@ void Hqp_Docp::update(const VECP y, const VECP z)
 //     update_grds(), and update_hela()
 //
 void Hqp_Docp::update_stage(int k, const VECP x, const VECP u,
-			    VECP f, Real &f0, VECP c,
+			    VECP f, HQPReal &f0, VECP c,
 			    MATP fx, MATP fu, VECP f0x, VECP f0u,
 			    MATP cx, MATP cu,
 			    const VECP vf, const VECP vc,
@@ -1101,8 +1101,8 @@ void Hqp_Docp::update_grds(int k, const VECP x, const VECP u,
 {
   int i, j;
   int nx, nu, nf, nc;
-  Real vj_bak, dvj;
-  Real f0, df0;
+  HQPReal vj_bak, dvj;
+  HQPReal f0, df0;
   VECP f, df;
   VECP c, dc;
 

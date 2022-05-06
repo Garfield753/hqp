@@ -40,10 +40,10 @@ static char rcsid[] = "$Id: schur.c,v 1.2 2002/12/09 10:57:47 e_arnold Exp $";
 
 
 
-static	void	hhldr3(Real x, Real y, Real z,
-		       Real *nu1, Real *beta, Real *newval)
+static	void	hhldr3(HQPReal x, HQPReal y, HQPReal z,
+		       HQPReal *nu1, HQPReal *beta, HQPReal *newval)
 {
-	Real	alpha;
+	HQPReal	alpha;
 
 	if ( x >= 0.0 )
 		alpha = sqrt(x*x+y*y+z*z);
@@ -54,10 +54,10 @@ static	void	hhldr3(Real x, Real y, Real z,
 	*newval = alpha;
 }
 
-static	void	hhldr3cols(MAT *A, int k, int j0, Real beta,
-			   Real nu1, Real nu2, Real nu3)
+static	void	hhldr3cols(MAT *A, int k, int j0, HQPReal beta,
+			   HQPReal nu1, HQPReal nu2, HQPReal nu3)
 {
-	Real	**A_me, ip, prod;
+	HQPReal	**A_me, ip, prod;
 	int	j, n;
 
 	if ( k < 0 || k+3 > (int) A->m || j0 < 0 )
@@ -96,10 +96,10 @@ static	void	hhldr3cols(MAT *A, int k, int j0, Real beta,
 	/* putc('\n',stdout); */
 }
 
-static	void	hhldr3rows(MAT *A, int k, int i0, Real beta,
-			   Real nu1, Real nu2, Real nu3)
+static	void	hhldr3rows(MAT *A, int k, int i0, HQPReal beta,
+			   HQPReal nu1, HQPReal nu2, HQPReal nu3)
 {
-	Real	**A_me, ip, prod;
+	HQPReal	**A_me, ip, prod;
 	int	i, m;
 
 	/* printf("hhldr3rows:(l.%d) A at 0x%lx\n", __LINE__, (long)A); */
@@ -107,7 +107,7 @@ static	void	hhldr3rows(MAT *A, int k, int i0, Real beta,
 	if ( k < 0 || k+3 > (int) A->n )
 		m_error(E_BOUNDS,"hhldr3rows");
 	A_me = A->me;		m = A->m;
-	i0 = min(i0,m-1);
+	i0 = hqp_min(i0,m-1);
 
 	for ( i = 0; i <= i0; i++ )
 	{
@@ -135,9 +135,9 @@ MAT	*schur(A,Q)
 MAT	*A, *Q;
 {
     int		i, j, iter, k, k_min, k_max, k_tmp, n, split;
-    Real	beta2, c, discrim, dummy, nu1, s, t, tmp, x, y, z;
-    Real	**A_me;
-    Real	sqrt_macheps;
+    HQPReal	beta2, c, discrim, dummy, nu1, s, t, tmp, x, y, z;
+    HQPReal	**A_me;
+    HQPReal	sqrt_macheps;
     static	VEC	*diag=VNULL, *beta=VNULL;
     
     if ( ! A )
@@ -165,8 +165,8 @@ MAT	*A, *Q;
 
     while ( k_min < n )
     {
-	Real	a00, a01, a10, a11;
-	Real	scale, t, numer, denom;
+	HQPReal	a00, a01, a10, a11;
+	HQPReal	scale, t, numer, denom;
 
 	/* find k_max to suit:
 	   submatrix k_min..k_max should be irreducible */
@@ -343,9 +343,9 @@ MAT	*A, *Q;
 		if ( k < k_max - 1 )
 		{
 		    hhldr3(x,y,z,&nu1,&beta2,&dummy);
-		    m_tracecatch(hhldr3cols(A,k,max(k-1,0),  beta2,nu1,y,z),
+		    m_tracecatch(hhldr3cols(A,k,hqp_max(k-1,0),  beta2,nu1,y,z),
 				 "schur");
-		    m_tracecatch(hhldr3rows(A,k,min(n-1,k+3),beta2,nu1,y,z),
+		    m_tracecatch(hhldr3rows(A,k,hqp_min(n-1,k+3),beta2,nu1,y,z),
 				 "schur");
 		    if ( Q != MNULL )
 			hhldr3rows(Q,k,n-1,beta2,nu1,y,z);
@@ -415,8 +415,8 @@ MAT	*T;
 VEC	*real_pt, *imag_pt;
 {
 	int	i, n;
-	Real	discrim, **T_me;
-	Real	diff, sum, tmp;
+	HQPReal	discrim, **T_me;
+	HQPReal	diff, sum, tmp;
 
 	if ( ! T || ! real_pt || ! imag_pt )
 		m_error(E_NULL,"schur_evals");
@@ -470,11 +470,11 @@ MAT	*schur_vecs(T,Q,X_re,X_im)
 MAT	*T, *Q, *X_re, *X_im;
 {
 	int	i, j, limit;
-	Real	t11_re, t11_im, t12, t21, t22_re, t22_im;
-	Real	l_re, l_im, det_re, det_im, invdet_re, invdet_im,
+	HQPReal	t11_re, t11_im, t12, t21, t22_re, t22_im;
+	HQPReal	l_re, l_im, det_re, det_im, invdet_re, invdet_im,
 		val1_re, val1_im, val2_re, val2_im,
 		tmp_val1_re, tmp_val1_im, tmp_val2_re, tmp_val2_im, **T_me;
-	Real	sum, diff, discrim, magdet, norm, scale;
+	HQPReal	sum, diff, discrim, magdet, norm, scale;
 	static VEC	*tmp1_re=VNULL, *tmp1_im=VNULL,
 			*tmp2_re=VNULL, *tmp2_im=VNULL;
 

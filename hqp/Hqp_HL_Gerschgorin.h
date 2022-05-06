@@ -41,7 +41,7 @@ class Hqp_HL_Gerschgorin: public Hqp_HL {
   ~Hqp_HL_Gerschgorin();
 
   void setup(Hqp_SqpProgram *);
-  void update(const VEC *s, const VEC *u, Real alpha, Hqp_SqpProgram *);
+  void update(const VEC *s, const VEC *u, HQPReal alpha, Hqp_SqpProgram *);
 
   const char *name() {return "Gerschgorin";}
 };  

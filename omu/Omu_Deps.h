@@ -36,7 +36,7 @@ public:
   Omu_Dep();
 
   /** Assign a new value */
-  const Omu_Dep &operator = (const Real &value) {
+  const Omu_Dep &operator = (const HQPReal &value) {
     _value = value;
     return *this;
   }

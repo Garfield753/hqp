@@ -42,8 +42,8 @@ static	char	rcsid[] = "$Id: bkpfacto.c,v 1.3 2006/02/21 14:08:56 rfranke Exp $";
 #define alpha	0.6403882032022076 /* = (1+sqrt(17))/8 */
 
 /* sqr -- returns square of x -- utility function */
-static Real	sqr(x)
-Real	x;
+static HQPReal	sqr(x)
+HQPReal	x;
 {	return x*x;	}
 
 /* interchange -- a row/column swap routine */
@@ -51,7 +51,7 @@ static void interchange(A,i,j)
 MAT	*A;	/* assumed != NULL & also SQUARE */
 int	i, j;	/* assumed in range */
 {
-	Real	**A_me, tmp;
+	HQPReal	**A_me, tmp;
 	int	k, n;
 
 	A_me = A->me;	n = A->n;
@@ -104,8 +104,8 @@ MAT	*A;
 PERM	*pivot, *blocks;
 {
 	int	i, j, k, n, onebyone, r;
-	Real	**A_me, aii, aip1, aip1i, lambda, sigma, tmp;
-	Real	det, s, t;
+	HQPReal	**A_me, aii, aip1, aip1i, lambda, sigma, tmp;
+	HQPReal	det, s, t;
 
 	if ( ! A || ! pivot || ! blocks )
 		m_error(E_NULL,"BKPfactor");
@@ -234,7 +234,7 @@ VEC	*b, *x;
 {
 	static VEC	*tmp=VNULL;	/* dummy storage needed */
 	int	i, j, n, onebyone;
-	Real	**A_me, a11, a12, a22, b1, b2, det, sum, *tmp_ve, tmp_diag;
+	HQPReal	**A_me, a11, a12, a22, b1, b2, det, sum, *tmp_ve, tmp_diag;
 
 	if ( ! A || ! pivot || ! block || ! b )
 		m_error(E_NULL,"BKPsolve");

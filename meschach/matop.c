@@ -91,7 +91,7 @@ const MAT *A,*B;
 MAT       *OUT;
 {
 	u_int	i, /* j, */ k, m, n, p;
-	Real	**A_v, **B_v /*, *B_row, *OUT_row, sum, tmp */;
+	HQPReal	**A_v, **B_v /*, *B_row, *OUT_row, sum, tmp */;
 
 	if ( A==(MAT *)NULL || B==(MAT *)NULL )
 		m_error(E_NULL,"m_mlt");
@@ -138,7 +138,7 @@ const MAT *A, *B;
 MAT       *OUT;
 {
 	int	i, j, limit;
-	/* Real	*A_row, *B_row, sum; */
+	/* HQPReal	*A_row, *B_row, sum; */
 
 	if ( ! A || ! B )
 		m_error(E_NULL,"mmtr_mlt");
@@ -174,7 +174,7 @@ const MAT *A, *B;
 MAT       *OUT;
 {
 	int	i, k, limit;
-	/* Real	*B_row, *OUT_row, multiplier; */
+	/* HQPReal	*B_row, *OUT_row, multiplier; */
 
 	if ( ! A || ! B )
 		m_error(E_NULL,"mmtr_mlt");
@@ -212,8 +212,8 @@ const VEC *b;
 VEC       *out;
 {
 	u_int	i, m, n;
-	Real	**A_v, *b_v /*, *A_row */;
-	/* register Real	sum; */
+	HQPReal	**A_v, *b_v /*, *A_row */;
+	/* register HQPReal	sum; */
 
 	if ( A==(MAT *)NULL || b==(VEC *)NULL )
 		m_error(E_NULL,"mv_mlt");
@@ -244,7 +244,7 @@ VEC       *out;
 
 /* sm_mlt -- scalar-matrix multiply -- may be in-situ */
 MAT	*sm_mlt(scalar,matrix,out)
-Real	  scalar;
+HQPReal	  scalar;
 const MAT *matrix;
 MAT       *out;
 {
@@ -256,7 +256,7 @@ MAT       *out;
 		out = m_resize(out,matrix->m,matrix->n);
 	m = matrix->m;	n = matrix->n;
 	for ( i=0; i<m; i++ )
-		__smlt__(matrix->me[i],(Real)scalar,out->me[i],(int)n);
+		__smlt__(matrix->me[i],(HQPReal)scalar,out->me[i],(int)n);
 		/**************************************************
 		for ( j=0; j<n; j++ )
 			out->me[i][j] = scalar*matrix->me[i][j];
@@ -272,7 +272,7 @@ const VEC *b;
 VEC       *out;
 {
 	u_int	j,m,n;
-	/* Real	sum,**A_v,*b_v; */
+	/* HQPReal	sum,**A_v,*b_v; */
 
 	if ( A==(MAT *)NULL || b==(VEC *)NULL )
 		m_error(E_NULL,"vm_mlt");
@@ -310,7 +310,7 @@ MAT       *out;
 {
 	int	i, j;
 	int	in_situ;
-	Real	tmp;
+	HQPReal	tmp;
 
 	if ( in == (MAT *)NULL )
 		m_error(E_NULL,"m_transp");
@@ -341,7 +341,7 @@ MAT	*A;
 int	i, j, lo, hi;
 {
 	int	k;
-	Real	**A_me, tmp;
+	HQPReal	**A_me, tmp;
 
 	if ( ! A )
 		m_error(E_NULL,"swap_rows");
@@ -366,7 +366,7 @@ MAT	*A;
 int	i, j, lo, hi;
 {
 	int	k;
-	Real	**A_me, tmp;
+	HQPReal	**A_me, tmp;
 
 	if ( ! A )
 		m_error(E_NULL,"swap_cols");
@@ -391,9 +391,9 @@ int	i, j, lo, hi;
 MAT	*ms_mltadd(A1,A2,s,out)
 const MAT *A1, *A2;
 MAT       *out;
-Real	  s;
+HQPReal	  s;
 {
-	/* register Real	*A1_e, *A2_e, *out_e; */
+	/* register HQPReal	*A1_e, *A2_e, *out_e; */
 	/* register int	j; */
 	int	i, m, n;
 
@@ -440,11 +440,11 @@ VEC	*mv_mltadd(v1,v2,A,alpha,out)
 const VEC *v1, *v2;
 VEC       *out;
 const MAT *A;
-Real	  alpha;
+HQPReal	  alpha;
 {
 	/* register	int	j; */
 	int	i, m, n;
-	Real	*v2_ve, *out_ve;
+	HQPReal	*v2_ve, *out_ve;
 
 	if ( ! v1 || ! v2 || ! A )
 		m_error(E_NULL,"mv_mltadd");
@@ -490,10 +490,10 @@ VEC	*vm_mltadd(v1,v2,A,alpha,out)
 const VEC *v1, *v2;
 VEC       *out;
 const MAT *A;
-Real	  alpha;
+HQPReal	  alpha;
 {
 	int	/* i, */ j, m, n;
-	Real	tmp, /* *A_e, */ *out_ve;
+	HQPReal	tmp, /* *A_e, */ *out_ve;
 
 	if ( ! v1 || ! v2 || ! A )
 		m_error(E_NULL,"vm_mltadd");

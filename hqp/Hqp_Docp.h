@@ -73,7 +73,7 @@ class HQP_API Hqp_Docp: public Hqp_SqpProgram {
 			       VECP x, VECP u);
 
   virtual void update_vals(int k, const VECP x, const VECP u,
-			   VECP f, Real &f0, VECP c) = 0;
+			   VECP f, HQPReal &f0, VECP c) = 0;
 
   /** Update Jacobians.
    *  The default implementation obtains finite differences.
@@ -87,7 +87,7 @@ class HQP_API Hqp_Docp: public Hqp_SqpProgram {
 			   MATP Lxx, MATP Luu, MATP Lxu);
 
   virtual void update_stage(int k, const VECP x, const VECP u,
-			    VECP f, Real &f0, VECP c,
+			    VECP f, HQPReal &f0, VECP c,
 			    MATP fx, MATP fu, VECP f0x, VECP f0u,
 			    MATP cx, MATP cu,
 			    const VECP rf, const VECP rc,

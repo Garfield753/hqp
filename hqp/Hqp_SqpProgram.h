@@ -43,7 +43,7 @@ class HQP_API Hqp_SqpProgram {
 
   Hqp_Program	*_qp;		///< quadratic approximation
   VECP		_x;		///< vector of optimization variables
-  Real		_f;		///< objective function value
+  HQPReal		_f;		///< objective function value
 
  public:
   Hqp_SqpProgram(); 		///< constructor
@@ -53,7 +53,7 @@ class HQP_API Hqp_SqpProgram {
       linear approximation in qp and return maximum deviation. The finite
       difference approximation is done at the current solution x and the
       obtained deviations are stored in _qp->c, _qp->A, and _qp->C. */
-  virtual Real	test();
+  virtual HQPReal	test();
 
   /** Write current linear quadratic appoximation in _qp to the file 
       prg_qp_dump.out. */
@@ -96,11 +96,11 @@ class HQP_API Hqp_SqpProgram {
   virtual void set_x(const VECP); ///< set vector of optimization variables
 
   /** current value of objective function */
-  virtual Real f() const {return _f;}
-  virtual void set_f(Real f) {_f = f;} ///< set objective function value
+  virtual HQPReal f() const {return _f;}
+  virtual void set_f(HQPReal f) {_f = f;} ///< set objective function value
 
   /** current violation of constraints */
-  virtual Real norm_inf() const;
+  virtual HQPReal norm_inf() const;
 
   //@}
 

@@ -63,13 +63,13 @@ void Hqp_HL_Gerschgorin::setup(Hqp_SqpProgram *prg)
 }
 
 //--------------------------------------------------------------------------
-void Hqp_HL_Gerschgorin::update(const VEC *, const VEC *, Real,
+void Hqp_HL_Gerschgorin::update(const VEC *, const VEC *, HQPReal,
 				Hqp_SqpProgram *prg)
 {
   SPMAT *Q;
   SPROW *row;
   row_elt *elt;
-  Real *rs_ve, val;
+  HQPReal *rs_ve, val;
   int i, i_end;
   int j, j_idx, j_end;
 

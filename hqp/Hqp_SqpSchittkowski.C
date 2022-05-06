@@ -116,15 +116,15 @@ void Hqp_SqpSchittkowski::init()
 VEC *Hqp_SqpSchittkowski::update_sgm(const VEC *r, VEC *sgm)
 {
   int i, m;
-  const Real *r_ve;
-  Real *sgm_ve;
-  Real val;
+  const HQPReal *r_ve;
+  HQPReal *sgm_ve;
+  HQPReal val;
 
   m = sgm->dim;
   r_ve = r->ve;
   sgm_ve = sgm->ve;
   for (i=0; i<m; i++, r_ve++, sgm_ve++) {
-    val = (Real)_iter / sqrt(*r_ve);
+    val = (HQPReal)_iter / sqrt(*r_ve);
     *sgm_ve = hqp_min(1.0, val);
   }
 
@@ -133,13 +133,13 @@ VEC *Hqp_SqpSchittkowski::update_sgm(const VEC *r, VEC *sgm)
 
 //--------------------------------------------------------------------------
 VEC *Hqp_SqpSchittkowski::update_r(const VEC *u, const VEC *v, const VEC *sgm,
-				   Real dQd, VEC *r)
+				   HQPReal dQd, VEC *r)
 {
   int i, i_end;
-  const Real *u_ve, *v_ve, *sgm_ve;
-  Real *r_ve;
-  Real m2, uv;
-  Real val1, val2;
+  const HQPReal *u_ve, *v_ve, *sgm_ve;
+  HQPReal *r_ve;
+  HQPReal m2, uv;
+  HQPReal val1, val2;
 
   m2 = 2.0 * (_re->dim + _r->dim);
   i_end = u->dim;
@@ -161,12 +161,12 @@ VEC *Hqp_SqpSchittkowski::update_r(const VEC *u, const VEC *v, const VEC *sgm,
 }
 
 //--------------------------------------------------------------------------
-Real Hqp_SqpSchittkowski::phi()
+HQPReal Hqp_SqpSchittkowski::phi()
 {
   int i, i_end;
-  const Real *v_ve, *r_ve, *g_ve;
-  Real g, v;
-  Real ret;
+  const HQPReal *v_ve, *r_ve, *g_ve;
+  HQPReal g, v;
+  HQPReal ret;
 
   ret = _prg->f();
 
@@ -200,15 +200,15 @@ Real Hqp_SqpSchittkowski::phi()
 //   Preconditions:
 //    - _u_v, _ue_ve must be initialized
 //
-Real Hqp_SqpSchittkowski::dphi()
+HQPReal Hqp_SqpSchittkowski::dphi()
 {
   Hqp_Program *qp = _prg->qp();
   int i, i_end;
-  const Real *v_ve, *r_ve, *g_ve;
-  Real val, *phiv_ve;
+  const HQPReal *v_ve, *r_ve, *g_ve;
+  HQPReal val, *phiv_ve;
   VEC *phix, *phive, *phiv;
   VEC *v_rg = VNULL;
-  Real ret;
+  HQPReal ret;
 
   // (d Phi / d ve) belongs completely to intex set J
 
@@ -262,8 +262,8 @@ Real Hqp_SqpSchittkowski::dphi()
 void Hqp_SqpSchittkowski::update_vals()
 {
   Hqp_Program *qp = _prg->qp();
-  Real dphi0, phi0, phik;
-  Real n_alpha;
+  HQPReal dphi0, phi0, phik;
+  HQPReal n_alpha;
 
   // update penalty coeffizients
 

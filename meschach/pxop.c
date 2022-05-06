@@ -105,7 +105,7 @@ const VEC  *vector;
 VEC        *out;
 {
     u_int	old_i, i, size, start;
-    Real	tmp;
+    HQPReal	tmp;
     
     if ( px==(PERM *)NULL || vector==(VEC *)NULL )
 	m_error(E_NULL,"px_vec");
@@ -218,7 +218,7 @@ const VEC  *src;
 VEC        *dst;
 {
   int start, size, i, i_new, dim;
-  Real tmp, tmp_new;
+  HQPReal tmp, tmp_new;
 
   if (!px || !src)
     m_error(E_NULL, "pxinv_vec");
@@ -356,7 +356,7 @@ const MAT  *A;
 MAT        *out;
 {
 	int	i, j, m, n, px_j;
-	Real	**A_me, **out_me;
+	HQPReal	**A_me, **out_me;
 	/*MAT	*m_get(int, int);*/
 
 	if ( ! A || ! px )
@@ -390,7 +390,7 @@ const MAT  *A;
 MAT        *out;
 {
 	int	i, j, m, n, px_i;
-	Real	**A_me, **out_me;
+	HQPReal	**A_me, **out_me;
 	/*MAT	*m_get(int, int);*/
 
 	if ( ! A || ! px )

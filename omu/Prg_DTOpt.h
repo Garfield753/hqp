@@ -153,10 +153,10 @@ class Prg_DTOpt: public Hqp_Docp, public Omu_Model {
 		       VECP x, VECP u);
 
   void update_vals(int k, const VECP x, const VECP u,
-		   VECP f, Real &f0, VECP c);
+		   VECP f, HQPReal &f0, VECP c);
 
   void update_stage(int k, const VECP x, const VECP u,
-		    VECP f, Real &f0, VECP c,
+		    VECP f, HQPReal &f0, VECP c,
 		    MATP fx, MATP fu, VECP f0x, VECP f0u,
 		    MATP cx, MATP cu,
 		    const VECP rf, const VECP rc,

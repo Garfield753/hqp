@@ -65,8 +65,8 @@ Hqp_SqpProgram::Hqp_SqpProgram()
   if (theMipSolver)
     theMipSolver->set_prg(this);
 
-  _ifList.append(new If_Real(GET_CB(Real, "prg_", f)));
-  _ifList.append(new If_Real(GET_CB(Real, "prg_", norm_inf)));
+  _ifList.append(new If_Real(GET_CB(HQPReal, "prg_", f)));
+  _ifList.append(new If_Real(GET_CB(HQPReal, "prg_", norm_inf)));
   _ifList.append(new If_RealVec(GET_SET_CB(const VECP, "prg_", x)));
   _ifList.append(new If_RealVec(GET_SET_CB(const VECP, "prg_", s)));
   _ifList.append(new If_Cmd("prg_setup", &Hqp_SqpProgram::setup, this));
@@ -113,17 +113,17 @@ void Hqp_SqpProgram::reinit_bd()
 //    (--> program should be reinitialzed afterwards)
 // -- returns maximal found error
 //
-Real Hqp_SqpProgram::test()
+HQPReal Hqp_SqpProgram::test()
 {
   int i, j, idx;
   int xdim = _x->dim;
   int bdim = _qp->b->dim;
   int ddim = _qp->d->dim;
-  Real xi_bak, dxi, f_bak;
+  HQPReal xi_bak, dxi, f_bak;
   VECP dc, b_bak, d_bak;
-  Real *ve;
+  HQPReal *ve;
   SPROW *row;
-  Real val, maxval = 0.0;
+  HQPReal val, maxval = 0.0;
 
   f_bak = _f;
   dc = v_get(xdim);
@@ -200,9 +200,9 @@ void Hqp_SqpProgram::qp_dump()
 }
 
 //--------------------------------------------------------------------------
-Real Hqp_SqpProgram::norm_inf() const
+HQPReal Hqp_SqpProgram::norm_inf() const
 {
-  Real ret, tmp;
+  HQPReal ret, tmp;
 
   if ((VEC *)(_qp->b) != VNULL && _qp->b->dim > 0)
     ret = v_norm_inf(_qp->b);

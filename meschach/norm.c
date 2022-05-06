@@ -35,11 +35,11 @@ static	char	rcsid[] = "$Id: norm.c,v 1.3 2002/12/09 10:57:47 e_arnold Exp $";
 
 
 /* _v_norm1 -- computes (scaled) 1-norms of vectors */
-Real	_v_norm1(x,scale)
+HQPReal	_v_norm1(x,scale)
 const VEC *x, *scale;
 {
 	int	i, dim;
-	Real	s, sum;
+	HQPReal	s, sum;
 
 	if ( x == (VEC *)NULL )
 		m_error(E_NULL,"_v_norm1");
@@ -61,23 +61,23 @@ const VEC *x, *scale;
 }
 
 /* square -- returns x^2 */
-Real	square(x)
-Real	x;
+HQPReal	square(x)
+HQPReal	x;
 {	return x*x;	}
 
 #if 0
 /* cube -- returns x^3 */
-Real cube(x)
-Real x;
+HQPReal cube(x)
+HQPReal x;
 {  return x*x*x;   }
 #endif
 
 /* _v_norm2 -- computes (scaled) 2-norm (Euclidean norm) of vectors */
-Real	_v_norm2(x,scale)
+HQPReal	_v_norm2(x,scale)
 const VEC *x, *scale;
 {
 	int	i, dim;
-	Real	s, sum;
+	HQPReal	s, sum;
 
 	if ( x == (VEC *)NULL )
 		m_error(E_NULL,"_v_norm2");
@@ -100,11 +100,11 @@ const VEC *x, *scale;
 }
 
 /* _v_norm_inf -- computes (scaled) infinity-norm (supremum norm) of vectors */
-Real	_v_norm_inf(x,scale)
+HQPReal	_v_norm_inf(x,scale)
 const VEC *x, *scale;
 {
 	int	i, dim;
-	Real	s, maxval, tmp;
+	HQPReal	s, maxval, tmp;
 
 	if ( x == (VEC *)NULL )
 		m_error(E_NULL,"_v_norm_inf");
@@ -129,11 +129,11 @@ const VEC *x, *scale;
 }
 
 /* m_norm1 -- compute matrix 1-norm -- unscaled */
-Real	m_norm1(A)
+HQPReal	m_norm1(A)
 const MAT *A;
 {
 	int	i, j, m, n;
-	Real	maxval, sum;
+	HQPReal	maxval, sum;
 
 	if ( A == (MAT *)NULL )
 		m_error(E_NULL,"m_norm1");
@@ -153,11 +153,11 @@ const MAT *A;
 }
 
 /* m_norm_inf -- compute matrix infinity-norm -- unscaled */
-Real	m_norm_inf(A)
+HQPReal	m_norm_inf(A)
 const MAT *A;
 {
 	int	i, j, m, n;
-	Real	maxval, sum;
+	HQPReal	maxval, sum;
 
 	if ( A == (MAT *)NULL )
 		m_error(E_NULL,"m_norm_inf");
@@ -177,11 +177,11 @@ const MAT *A;
 }
 
 /* m_norm_frob -- compute matrix frobenius-norm -- unscaled */
-Real	m_norm_frob(A)
+HQPReal	m_norm_frob(A)
 const MAT *A;
 {
 	int	i, j, m, n;
-	Real	sum;
+	HQPReal	sum;
 
 	if ( A == (MAT *)NULL )
 		m_error(E_NULL,"m_norm_frob");

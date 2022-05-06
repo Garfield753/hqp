@@ -100,10 +100,10 @@ extern "C" {
   IF_API int If_SizeOfReal();
 
   /** Set a Real value. */
-  IF_API int If_SetReal(const char *name, Real val);
+  IF_API int If_SetReal(const char *name, HQPReal val);
 
   /** Get a Real value. */
-  IF_API int If_GetReal(const char *name, Real *val);
+  IF_API int If_GetReal(const char *name, HQPReal *val);
 
   /** Set a variables value from a string representation. */
   IF_API int If_SetString(const char *name, const char *val);

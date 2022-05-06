@@ -95,7 +95,7 @@ BAND *A;
 int new_lb,new_ub,new_n;
 {
    int lb,ub,i,j,l,shift,umin;
-   Real **Av;
+   HQPReal **Av;
 
    if (new_lb < 0 || new_ub < 0 || new_n <= 0)
      m_error(E_NEG,"bd_resize");
@@ -134,7 +134,7 @@ int new_lb,new_ub,new_n;
       shift = new_lb-lb;
 
       for (i=lb+umin, l=i+shift; i >= 0; i--,l--)
-	MEM_COPY(Av[i],Av[l],new_n*sizeof(Real));
+	MEM_COPY(Av[i],Av[l],new_n*sizeof(HQPReal));
       for (l=shift-1; l >= 0; l--)
 	__zero__(Av[l],new_n);
    }
@@ -143,7 +143,7 @@ int new_lb,new_ub,new_n;
       shift = lb - new_lb;
 
       for (i=shift, l=0; i <= lb+umin; i++,l++)
-	MEM_COPY(Av[i],Av[l],new_n*sizeof(Real));
+	MEM_COPY(Av[i],Av[l],new_n*sizeof(HQPReal));
       for (i=lb+umin-shift+1; i < new_lb+new_ub+1; i++)
 	__zero__(Av[i],new_n);
    }
@@ -177,10 +177,10 @@ BAND       *B;
    lb = B->lb = A->lb;
 
    for ( i=0, j=n-lb; i <= lb; i++, j++ )
-     MEM_COPY(A->mat->me[i],B->mat->me[i],j*sizeof(Real));   
+     MEM_COPY(A->mat->me[i],B->mat->me[i],j*sizeof(HQPReal));   
 
    for ( i=lb+1, j=1; i <= lb+ub; i++, j++ )
-     MEM_COPY(A->mat->me[i]+j,B->mat->me[i]+j,(n - j)*sizeof(Real));     
+     MEM_COPY(A->mat->me[i]+j,B->mat->me[i]+j,(n - j)*sizeof(HQPReal));     
 
    return B;
 }
@@ -193,7 +193,7 @@ MAT        *A;
 {
    int i,j,l,n,n1;
    int lb, ub;
-   Real **bmat;
+   HQPReal **bmat;
 
    if ( !bA || !A)
      m_error(E_NULL,"band2mat");
@@ -224,7 +224,7 @@ const MAT *A;
 int       lb, ub;
 {
    int i, j, l, n1;
-   Real **bmat;
+   HQPReal **bmat;
    
    if (! A || ! bA)
      m_error(E_NULL,"mat2band");
@@ -259,7 +259,7 @@ BAND       *out;
 {
    int i, j, jj, l, k, lb, ub, lub, n, n1;
    int in_situ;
-   Real  **in_v, **out_v;
+   HQPReal  **in_v, **out_v;
    
    if ( in == (BAND *)NULL || in->mat == (MAT *)NULL )
      m_error(E_NULL,"bd_transp");
@@ -288,7 +288,7 @@ BAND       *out;
       for (i=0, l=lub, k=lb-i; i <= lub; i++,l--,k--) {
 	 sh_in = hqp_max(-k,0);
 	 sh_out = hqp_max(k,0);
-	 MEM_COPY(&(in_v[i][sh_in]),&(out_v[l][sh_out]),(n-sh_in-sh_out)*sizeof(Real));
+	 MEM_COPY(&(in_v[i][sh_in]),&(out_v[l][sh_out]),(n-sh_in-sh_out)*sizeof(HQPReal));
 	 /**********************************
 	 for (j=n1-sh_out, jj=n1-sh_in; j >= sh_in; j--,jj--) {
 	    out_v[l][jj] = in_v[i][j];
@@ -297,7 +297,7 @@ BAND       *out;
       }
    }
    else if (ub == lb) {
-      Real tmp;
+      HQPReal tmp;
 
       for (i=0, l=lub, k=lb-i; i < lb; i++,l--,k--) {
 	 for (j=n1-k, jj=n1; j >= 0; j--,jj--) {
@@ -372,8 +372,8 @@ PERM	*pivot;
 {
    int	i, j, k, l, n, n1, lb, ub, lub, k_end, k_lub;
    int	i_max, shift;
-   Real	**bA_v;
-   Real max1, temp;
+   HQPReal	**bA_v;
+   HQPReal max1, temp;
    
    if ( bA==(BAND *)NULL || pivot==(PERM *)NULL )
      m_error(E_NULL,"bdLUfactor");
@@ -455,8 +455,8 @@ PERM	*pivot;
 VEC	*b,*x;
 {
    int i,j,l,n,n1,pi,lb,ub,jmin, maxj;
-   Real c;
-   Real **bA_v;
+   HQPReal c;
+   HQPReal **bA_v;
 
    if ( bA==(BAND *)NULL || b==(VEC *)NULL || pivot==(PERM *)NULL )
      m_error(E_NULL,"bdLUsolve");
@@ -511,8 +511,8 @@ BAND *bdLDLfactor(A)
 BAND *A;
 {
    int i,j,k,n,n1,lb,ki,jk,ji,lbkm,lbkp;
-   Real **Av;
-   Real c, cc;
+   HQPReal **Av;
+   HQPReal c, cc;
 
    if ( ! A )
      m_error(E_NULL,"bdLDLfactor");
@@ -559,8 +559,8 @@ BAND   *A;
 VEC    *b, *x;
 {
    int i,j,l,n,n1,lb,ilb;
-   Real **Av, *Avlb;
-   Real c;
+   HQPReal **Av, *Avlb;
+   HQPReal c;
 
    if ( ! A || ! b )
      m_error(E_NULL,"bdLDLsolve");

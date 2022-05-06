@@ -33,13 +33,13 @@ static	char	rcsid[] = "$Id: vecop.c,v 1.2 2002/12/09 10:57:47 e_arnold Exp $";
 
 
 /* _in_prod -- inner product of two vectors from i0 downwards */
-Real	_in_prod(a,b,i0)
+HQPReal	_in_prod(a,b,i0)
 const VEC *a,*b;
 u_int	  i0;
 {
 	u_int	limit;
-	/* Real	*a_v, *b_v; */
-	/* register Real	sum; */
+	/* HQPReal	*a_v, *b_v; */
+	/* register HQPReal	sum; */
 
 	if ( a==(VEC *)NULL || b==(VEC *)NULL )
 		m_error(E_NULL,"_in_prod");
@@ -60,12 +60,12 @@ u_int	  i0;
 
 /* sv_mlt -- scalar-vector multiply -- may be in-situ */
 VEC	*sv_mlt(scalar,vector,out)
-Real	  scalar;
+HQPReal	  scalar;
 const VEC *vector;
 VEC       *out;
 {
 	/* u_int	dim, i; */
-	/* Real	*out_ve, *vec_ve; */
+	/* HQPReal	*out_ve, *vec_ve; */
 
 	if ( vector==(VEC *)NULL )
 		m_error(E_NULL,"sv_mlt");
@@ -76,7 +76,7 @@ VEC       *out;
 	if ( scalar == 1.0 )
 		return v_copy(vector,out);
 
-	__smlt__(vector->ve,(Real)scalar,out->ve,(int)(vector->dim));
+	__smlt__(vector->ve,(HQPReal)scalar,out->ve,(int)(vector->dim));
 	/**************************************************
 	dim = vector->dim;
 	out_ve = out->ve;	vec_ve = vector->ve;
@@ -93,7 +93,7 @@ const VEC *vec1,*vec2;
 VEC       *out;
 {
 	u_int	dim;
-	/* Real	*out_ve, *vec1_ve, *vec2_ve; */
+	/* HQPReal	*out_ve, *vec1_ve, *vec2_ve; */
 
 	if ( vec1==(VEC *)NULL || vec2==(VEC *)NULL )
 		m_error(E_NULL,"v_add");
@@ -118,10 +118,10 @@ VEC       *out;
 VEC	*v_mltadd(v1,v2,scale,out)
 const VEC *v1,*v2;
 VEC       *out;
-Real	  scale;
+HQPReal	  scale;
 {
 	/* register u_int	dim, i; */
-	/* Real	*out_ve, *v1_ve, *v2_ve; */
+	/* HQPReal	*out_ve, *v1_ve, *v2_ve; */
 
 	if ( v1==(VEC *)NULL || v2==(VEC *)NULL )
 		m_error(E_NULL,"v_mltadd");
@@ -164,7 +164,7 @@ const VEC *vec1,*vec2;
 VEC       *out;
 {
 	/* u_int	i, dim; */
-	/* Real	*out_ve, *vec1_ve, *vec2_ve; */
+	/* HQPReal	*out_ve, *vec1_ve, *vec2_ve; */
 
 	if ( vec1==(VEC *)NULL || vec2==(VEC *)NULL )
 		m_error(E_NULL,"v_sub");
@@ -189,14 +189,14 @@ VEC       *out;
 	-- _v_map sets out[i] = f(params,x[i]) */
 VEC	*v_map(f,x,out)
 #ifdef PROTOTYPES_IN_STRUCT
-Real	(*f)(Real);
+HQPReal	(*f)(HQPReal);
 #else
-Real	(*f)();
+HQPReal	(*f)();
 #endif
 const VEC *x;
 VEC       *out;
 {
-	Real	*x_ve, *out_ve;
+	HQPReal	*x_ve, *out_ve;
 	int	i, dim;
 
 	if ( ! x || ! f )
@@ -213,15 +213,15 @@ VEC       *out;
 
 VEC	*_v_map(f,params,x,out)
 #ifdef PROTOTYPES_IN_STRUCT
-Real	(*f)(void *,Real);
+HQPReal	(*f)(void *,HQPReal);
 #else
-Real	(*f)();
+HQPReal	(*f)();
 #endif
 const VEC *x;
 VEC       *out;
 void	  *params;
 {
-	Real	*x_ve, *out_ve;
+	HQPReal	*x_ve, *out_ve;
 	int	i, dim;
 
 	if ( ! x || ! f )
@@ -239,7 +239,7 @@ void	  *params;
 /* v_lincomb -- returns sum_i a[i].v[i], a[i] real, v[i] vectors */
 VEC	*v_lincomb(n,v,a,out)
 int	   n;	/* number of a's and v's */
-const Real a[];
+const HQPReal a[];
 const VEC  *v[];
 VEC        *out;
 {
@@ -272,11 +272,11 @@ VEC        *out;
       v_linlist(out,v1,a1,v2,a2,...,vn,an,NULL);
    where vi are vectors (VEC *) and ai are numbers (double)
 */
-VEC  *v_linlist(VEC *out,const VEC *v1,Real a1,...)
+VEC  *v_linlist(VEC *out,const VEC *v1,HQPReal a1,...)
 {
    va_list ap;
    VEC *par;
-   Real a_par;
+   HQPReal a_par;
 
    if ( ! v1 )
      return VNULL;
@@ -285,7 +285,7 @@ VEC  *v_linlist(VEC *out,const VEC *v1,Real a1,...)
    out = sv_mlt(a1,v1,out);
    
    while ((par = va_arg(ap,VEC *)) != NULL) {   /* NULL ends the list*/
-      a_par = va_arg(ap,Real);
+      a_par = va_arg(ap,HQPReal);
       if (a_par == 0.0) continue;
       if ( out == par )		
 	m_error(E_INSITU,"v_linlist");
@@ -333,7 +333,7 @@ const VEC *x1, *x2;
 VEC       *out;
 {
     int		i;
-    Real	tmp;
+    HQPReal	tmp;
 
     if ( ! x1 || ! x2 )
 	m_error(E_NULL,"v_slash");
@@ -354,12 +354,12 @@ VEC       *out;
 
 /* v_min -- computes minimum component of x, which is returned
 	-- also sets min_idx to the index of this minimum */
-Real	v_min(x, min_idx)
+HQPReal	v_min(x, min_idx)
 const VEC *x;
 int	  *min_idx;
 {
     int		i, i_min;
-    Real	min_val, tmp;
+    HQPReal	min_val, tmp;
 
     if ( ! x )
 	m_error(E_NULL,"v_min");
@@ -384,12 +384,12 @@ int	  *min_idx;
 
 /* v_max -- computes maximum component of x, which is returned
 	-- also sets max_idx to the index of this maximum */
-Real	v_max(x, max_idx)
+HQPReal	v_max(x, max_idx)
 const VEC *x;
 int	  *max_idx;
 {
     int		i, i_max;
-    Real	max_val, tmp;
+    HQPReal	max_val, tmp;
 
     if ( ! x )
 	m_error(E_NULL,"v_max");
@@ -424,7 +424,7 @@ VEC	*v_sort(x, order)
 VEC	*x;
 PERM	*order;
 {
-    Real	*x_ve, tmp, v;
+    HQPReal	*x_ve, tmp, v;
     /* int		*order_pe; */
     int		dim, i, j, l, r, tmp_i;
     int		stack[MAX_STACK], sp;
@@ -499,11 +499,11 @@ PERM	*order;
 }
 
 /* v_sum -- returns sum of entries of a vector */
-Real	v_sum(x)
+HQPReal	v_sum(x)
 const VEC *x;
 {
     int		i;
-    Real	sum;
+    HQPReal	sum;
 
     if ( ! x )
 	m_error(E_NULL,"v_sum");

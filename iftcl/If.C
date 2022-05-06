@@ -128,11 +128,11 @@ extern "C" int If_GetInt(const char *name, int *val)
 //-----------------------------------------------------------------------
 extern "C" int If_SizeOfReal()
 {
-  return sizeof(Real);
+  return sizeof(HQPReal);
 }
 
 //-----------------------------------------------------------------------
-extern "C" int If_SetReal(const char *name, Real val)
+extern "C" int If_SetReal(const char *name, HQPReal val)
 {
   if (!theInterp)
     return IF_ERROR;
@@ -164,7 +164,7 @@ extern "C" int If_SetReal(const char *name, Real val)
 }
 
 //-----------------------------------------------------------------------
-extern "C" int If_GetReal(const char *name, Real *val)
+extern "C" int If_GetReal(const char *name, HQPReal *val)
 {
   if (!theInterp)
     return IF_ERROR;

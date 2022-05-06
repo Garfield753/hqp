@@ -60,8 +60,8 @@ MESCH_API VEC	*sp_lsqr(SPMAT *,VEC *,double,VEC *);
 MESCH_API int	cg_set_maxiter(int);
 
 MESCH_API void	lanczos(VEC *(*A)(),void *A_par,int m,VEC *x0,VEC *a,VEC *b,
-			Real *beta_m1,MAT *Q);
-MESCH_API void	sp_lanczos(SPMAT *,int,VEC *,VEC *,VEC *,Real *,MAT *);
+			HQPReal *beta_m1,MAT *Q);
+MESCH_API void	sp_lanczos(SPMAT *,int,VEC *,VEC *,VEC *,HQPReal *,MAT *);
 MESCH_API VEC	*lanczos2(VEC *(*A)(),void *A_par,int m,VEC *x0,VEC *evals,
 			  VEC *err_est);
 MESCH_API VEC	*sp_lanczos2(SPMAT *,int,VEC *,VEC *,VEC *);

@@ -70,11 +70,11 @@ char    *name;
 	/* write actual data */
 #if ORDER == ROW_ORDER
 	for ( i = 0; i < (int) A->m; i++ )
-		fwrite(A->me[i],sizeof(Real),(int)(A->n),fp);
+		fwrite(A->me[i],sizeof(HQPReal),(int)(A->n),fp);
 #else /* column major order: ORDER == COL_ORDER */
 	for ( j = 0; j < (int) A->n; j++ )
 	  for ( i = 0; i < (int) A->m; i++ )
-	    fwrite(&(A->me[i][j]),sizeof(Real),1,fp);
+	    fwrite(&(A->me[i][j]),sizeof(HQPReal),1,fp);
 #endif
 
 	return A;
@@ -108,7 +108,7 @@ char    *name;
 	else
 		fwrite(name,sizeof(char),(int)(mat.namlen),fp);
 	/* write actual data */
-	fwrite(x->ve,sizeof(Real),(int)(x->dim),fp);
+	fwrite(x->ve,sizeof(HQPReal),(int)(x->dim),fp);
 
 	return x;
 }
@@ -122,7 +122,7 @@ double	x;
 char    *name;
 {
 	matlab  mat;
-	Real x1 = x;
+	HQPReal x1 = x;
 
 	mat.type = 1000*MACH_ID + 100*ORDER + 10*PRECISION + 0;
 	mat.m = 1;
@@ -138,7 +138,7 @@ char    *name;
 	else
 		fwrite(name,sizeof(char),(int)(mat.namlen),fp);
 	/* write actual data */
-	fwrite(&x1,sizeof(Real),1,fp);
+	fwrite(&x1,sizeof(HQPReal),1,fp);
 
 	return x;
 }
@@ -153,7 +153,7 @@ char    **name;
 	int     i;
 	int     m_flag, o_flag, p_flag, t_flag, dummy;
 	float   f_temp;
-	Real    d_temp;
+	HQPReal    d_temp;
 	matlab  mat;
 
 	if ( fread(&mat,sizeof(matlab),1,fp) != 1 )

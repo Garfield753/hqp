@@ -518,7 +518,7 @@ void Prg_DTEst::init_simulation(int k, VECP x, VECP u)
 
 //--------------------------------------------------------------------------
 void Prg_DTEst::update_vals(int k, const VECP x, const VECP u,
-			    VECP f, Real &f0, VECP c)
+			    VECP f, HQPReal &f0, VECP c)
 {
   int i, j, idx;
   int ex = _exs[k];
@@ -704,7 +704,7 @@ void Prg_DTEst::update_vals(int k, const VECP x, const VECP u,
 
 //--------------------------------------------------------------------------
 void Prg_DTEst::update_stage(int k, const VECP x, const VECP u,
-			     VECP f, Real &f0, VECP c,
+			     VECP f, HQPReal &f0, VECP c,
 			     MATP fx, MATP fu, VECP f0x, VECP f0u,
 			     MATP cx, MATP cu,
 			     const VECP rf, const VECP rc,
@@ -744,7 +744,7 @@ void Prg_DTEst::update_stage(int k, const VECP x, const VECP u,
     m_zero(cx);
     m_zero(cu);
     // obtain Jacobian wrt parameters numerically
-    Real vj_bak, dvj, df0;
+    HQPReal vj_bak, dvj, df0;
     int nf = f->dim;
     int nc = c->dim;
     VECP df = v_get(nf);

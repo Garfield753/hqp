@@ -157,7 +157,7 @@ void Hqp_IpsFranke::update()
 void Hqp_IpsFranke::cold_start()
 {
 //  Real Ltilde;
-  Real min_d;
+  HQPReal min_d;
   int  i;
 
   if (_m > 0) {
@@ -166,15 +166,15 @@ void Hqp_IpsFranke::cold_start()
 
     if (_mu0 > 0) {
       // choose Ltilde according _mu0
-      Real mean_d_h;
-      mean_d_h = 0.5 * v_sum(_qp->d) / (Real) _m;
-      _Ltilde = - mean_d_h + sqrt(mean_d_h*mean_d_h + (Real)_m*_rhomin*_mu0);
+      HQPReal mean_d_h;
+      mean_d_h = 0.5 * v_sum(_qp->d) / (HQPReal) _m;
+      _Ltilde = - mean_d_h + sqrt(mean_d_h*mean_d_h + (HQPReal)_m*_rhomin*_mu0);
       _Ltilde = hqp_max(_Ltilde, -min_d);
     }
     else {
       // choose Ltilde according Wright
       // (rf, 10/29/95: let Ltilde be greater than 1e2*_m)
-      Real norm_d;
+      HQPReal norm_d;
       norm_d = v_norm_inf(_qp->d);
 //      norm_d = hqp_max(1.0, norm_d);
       _Ltilde = hqp_max(norm_d, -min_d);	// actually useless with v_norm_inf()
@@ -184,7 +184,7 @@ void Hqp_IpsFranke::cold_start()
 
     v_zero(_qp->x);
     v_zero(_y);
-    v_set(_z, _Ltilde / ((Real)_m * _m));
+    v_set(_z, _Ltilde / ((HQPReal)_m * _m));
     v_set(_w, _Ltilde);
     v_add(_w, _qp->d, _w);
     for (i=0; i<_m; i++)
@@ -271,10 +271,10 @@ void Hqp_IpsFranke::hot_start()
 void Hqp_IpsFranke::step()
 {
   int	i, i_end;
-  Real 	mu;
-  Real	val1, val2;
-  Real	*ve1, *ve2;
-  Real 	residuum;
+  HQPReal 	mu;
+  HQPReal	val1, val2;
+  HQPReal	*ve1, *ve2;
+  HQPReal 	residuum;
 
   // determine mu according current duality _gap and _zeta
   if (_iter == 0)
@@ -283,7 +283,7 @@ void Hqp_IpsFranke::step()
   val1 = _gap;
   if (1.0 / val1 < _rhomin || _alpha < 1.0) {
     mu = _alphabar * val1 / _rhomin;	   	// potential reduction
-    mu += (1.0 - _alphabar) * val1 / (Real)_m;	// centering
+    mu += (1.0 - _alphabar) * val1 / (HQPReal)_m;	// centering
   } else {
     mu = val1 * val1;				// quadratic converence
   }
@@ -380,7 +380,7 @@ void Hqp_IpsFranke::step()
 //--------------------------------------------------------------------------
 void Hqp_IpsFranke::solve()
 {
-  Real 	gap1 = 0.0;
+  HQPReal 	gap1 = 0.0;
 
   _fail_iters = 0;
 

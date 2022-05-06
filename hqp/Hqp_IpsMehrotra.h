@@ -61,13 +61,13 @@ class Hqp_IpsMehrotra: public Hqp_Solver {
   VEC           *_phimin;       // convergence check
   VEC		*_d1;
   VEC		*_d2;
-  Real		_mu0;		// used for cold start
-  Real		_alpha;		// step length
-  Real          _gammaf;
-  Real		_gap;		// duality gap
-  Real          _test;          // KKT residual
-  Real          _norm_r0;
-  Real          _norm_data;
+  HQPReal		_mu0;		// used for cold start
+  HQPReal		_alpha;		// step length
+  HQPReal          _gammaf;
+  HQPReal		_gap;		// duality gap
+  HQPReal          _test;          // KKT residual
+  HQPReal          _norm_r0;
+  HQPReal          _norm_data;
 
   Hqp_IpMatrix	*_matrix;
 
@@ -93,8 +93,8 @@ class Hqp_IpsMehrotra: public Hqp_Solver {
   void	 	solve();
 
   // member access
-  Real		gap() {return _gap;}
-  //  Real		zeta() {return _zeta;}
+  HQPReal		gap() {return _gap;}
+  //  HQPReal		zeta() {return _zeta;}
 
   const char *name() {return "Mehrotra";}
 };  

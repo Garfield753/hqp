@@ -46,9 +46,9 @@ static	char	rcsid[] = "$Id: hsehldr.c,v 1.2 2002/12/09 10:57:47 e_arnold Exp $";
 VEC	*hhvec(vec,i0,beta,out,newval)
 VEC	*vec,*out;
 u_int	i0;
-Real	*beta,*newval;
+HQPReal	*beta,*newval;
 {
-	Real	norm;
+	HQPReal	norm;
 
 	out = _v_copy(vec,out,i0);
 	norm = sqrt(_in_prod(out,out,i0));
@@ -73,7 +73,7 @@ VEC	*hh,*in,*out;	/* hh = Householder vector */
 u_int	i0;
 double	beta;
 {
-	Real	scale;
+	HQPReal	scale;
 	/* u_int	i; */
 
 	if ( hh==(VEC *)NULL || in==(VEC *)NULL )
@@ -102,7 +102,7 @@ u_int	i0, j0;
 VEC	*hh;
 double	beta;
 {
-	Real	ip, scale;
+	HQPReal	ip, scale;
 	int	i /*, j */;
 
 	if ( M==(MAT *)NULL || hh==(VEC *)NULL )
@@ -148,7 +148,7 @@ u_int	i0, j0;
 VEC	*hh;
 double	beta;
 {
-	/* Real	ip, scale; */
+	/* HQPReal	ip, scale; */
 	int	i /*, k */;
 	static	VEC	*w = VNULL;
 

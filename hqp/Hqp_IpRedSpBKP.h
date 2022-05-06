@@ -37,7 +37,7 @@ class Hqp_IpRedSpBKP: public Hqp_IpMatrix {
  protected:
   int		_n, _me, _m;	// dimensions
   int		_sbw;
-  Real		_tol;		// tolerance for fill-in vs. stability
+  HQPReal		_tol;		// tolerance for fill-in vs. stability
   SPMAT		*_CT;
   SPMAT		*_J;
   SPMAT		*_J_raw;

@@ -191,7 +191,7 @@ FILE    *fp;
 {
 	int     i, len, ret_val;
 	int     col, curr_col, m, n, tmp, tty, dummy;
-	Real  val;
+	HQPReal  val;
 	SPMAT  *A;
 	SPROW  *rows;
 
@@ -227,9 +227,9 @@ FILE    *fp;
 				m_error(E_INPUT,"sp_finput");
 			    if ( *line == 'e' || *line == 'E' )
 				break;
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 			} while ( sscanf(line,"%u %lf",&col,&val) != 2 ||
-#elif REAL == FLOAT
+#elif HQPREAL == FLOAT
 			} while ( sscanf(line,"%u %f",&col,&val) != 2 ||
 #endif
 				    col >= n || col <= curr_col );
@@ -287,9 +287,9 @@ FILE    *fp;
 		    curr_col = -1;
 		    for ( len = 0; len < MAXSCRATCH; len++ )
 		    {
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 			if ( (ret_val=fscanf(fp,"%u : %lf",&col,&val)) != 2 )
-#elif REAL == FLOAT
+#elif HQPREAL == FLOAT
 			if ( (ret_val=fscanf(fp,"%u : %f",&col,&val)) != 2 )
 #endif
 			    break;

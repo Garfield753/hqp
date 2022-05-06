@@ -62,13 +62,13 @@ Hqp_IpMatrix::~Hqp_IpMatrix()
 }
 
 //--------------------------------------------------------------------------
-Real Hqp_IpMatrix::solve(const Hqp_Program *qp, const VEC *z, const VEC *w,
+HQPReal Hqp_IpMatrix::solve(const Hqp_Program *qp, const VEC *z, const VEC *w,
 			 const VEC *r1, const VEC *r2, const VEC *r3,
 			 const VEC *r4, VEC *dx, VEC *dy, VEC *dz, VEC *dw)
 {
   int i;
-  Real res, res_last;
-  Real alpha;
+  HQPReal res, res_last;
+  HQPReal alpha;
 
   if (_dx->dim != dx->dim) {
     v_resize(_dx, dx->dim);
@@ -128,13 +128,13 @@ Real Hqp_IpMatrix::solve(const Hqp_Program *qp, const VEC *z, const VEC *w,
 }
 
 //--------------------------------------------------------------------------
-Real Hqp_IpMatrix::residuum(const Hqp_Program *qp,
+HQPReal Hqp_IpMatrix::residuum(const Hqp_Program *qp,
 			    const VEC *z, const VEC *w,
 			    const VEC *r1, const VEC *r2, const VEC *r3,
 			    const VEC *r4,
 			    VEC *dx, VEC *dy, VEC *dz, VEC *dw)
 {
-  Real res, res_part;
+  HQPReal res, res_part;
 
   if (_dx->dim != dx->dim) {
     v_resize(_dx, dx->dim);

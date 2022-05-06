@@ -45,10 +45,10 @@ void    fft(x_re,x_im)
 VEC     *x_re, *x_im;
 {
     u_int     i, ip, j, k, li, n, length;
-    Real      *xr, *xi;
-    Real	theta, pi = 3.1415926535897932384;
-    Real      w_re, w_im, u_re, u_im, t_re, t_im;
-    Real      tmp, tmpr, tmpi;
+    HQPReal      *xr, *xi;
+    HQPReal	theta, pi = 3.1415926535897932384;
+    HQPReal      w_re, w_im, u_re, u_im, t_re, t_im;
+    HQPReal      tmp, tmpr, tmpi;
 
     if ( ! x_re || ! x_im )
         m_error(E_NULL,"fft");
@@ -140,6 +140,6 @@ VEC	*x_re, *x_im;
 
     sv_mlt(-1.0,x_im,x_im);
     fft(x_re,x_im);
-    sv_mlt(-1.0/((Real)(x_re->dim)),x_im,x_im);
-    sv_mlt(-1.0/((Real)(x_re->dim)),x_re,x_re);
+    sv_mlt(-1.0/((HQPReal)(x_re->dim)),x_im,x_im);
+    sv_mlt(-1.0/((HQPReal)(x_re->dim)),x_re,x_re);
 }

@@ -56,7 +56,7 @@ typedef struct Iter_data {
    unsigned k;   /* no. of direction (search) vectors; =0 - none */
    int limit;    /* upper bound on the no. of iter. steps */
    int steps;    /* no. of iter. steps done */
-   Real eps;     /* accuracy required */
+   HQPReal eps;     /* accuracy required */
    
    VEC *x;       /* input: initial guess;
 		    output: approximate solution */
@@ -89,7 +89,7 @@ typedef struct Iter_data {
 #endif /* PROTOTYPES_IN_STRUCT */
 
 
-   Real init_res;   /* the norm of the initial residual */
+   HQPReal init_res;   /* the norm of the initial residual */
 
 }  ITER;
 
@@ -163,15 +163,15 @@ MESCH_API VEC  *iter_splsqr(SPMAT *A,VEC *b,double tol,VEC *x,
 MESCH_API VEC  *iter_gmres(ITER *ip);
 MESCH_API VEC  *iter_spgmres(SPMAT *A,SPMAT *B,VEC *b,double tol,VEC *x,int k,
 			     int limit, int *steps);
-MESCH_API MAT  *iter_arnoldi_iref(ITER *ip,Real *h,MAT *Q,MAT *H);
-MESCH_API MAT  *iter_arnoldi(ITER *ip,Real *h,MAT *Q,MAT *H);
-MESCH_API MAT  *iter_sparnoldi(SPMAT *A,VEC *x0,int k,Real *h,MAT *Q,MAT *H);
+MESCH_API MAT  *iter_arnoldi_iref(ITER *ip,HQPReal *h,MAT *Q,MAT *H);
+MESCH_API MAT  *iter_arnoldi(ITER *ip,HQPReal *h,MAT *Q,MAT *H);
+MESCH_API MAT  *iter_sparnoldi(SPMAT *A,VEC *x0,int k,HQPReal *h,MAT *Q,MAT *H);
 MESCH_API VEC  *iter_mgcr(ITER *ip);
 MESCH_API VEC  *iter_spmgcr(SPMAT *A,SPMAT *B,VEC *b,double tol,VEC *x,int k,
 			    int limit, int *steps);
-MESCH_API void	iter_lanczos(ITER *ip,VEC *a,VEC *b,Real *beta2,MAT *Q);
+MESCH_API void	iter_lanczos(ITER *ip,VEC *a,VEC *b,HQPReal *beta2,MAT *Q);
 MESCH_API void    iter_splanczos(SPMAT *A,int m,VEC *x0,VEC *a,VEC *b,
-				 Real *beta2,MAT *Q);
+				 HQPReal *beta2,MAT *Q);
 MESCH_API VEC  *iter_lanczos2(ITER *ip,VEC *evals,VEC *err_est);
 MESCH_API VEC  *iter_splanczos2(SPMAT *A,int m,VEC *x0,VEC *evals,
 				VEC *err_est);

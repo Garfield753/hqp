@@ -90,13 +90,13 @@ void Hqp_HL::init(const VEC *y, const VEC *z, Hqp_SqpProgram *prg)
   }
 
   Hqp_Program 	*qp = prg->qp();
-  Real		f_bak;
+  HQPReal		f_bak;
   VEC	      	*c_bak=VNULL, *x_bak=VNULL;
   VEC	      	*b_bak=VNULL, *d_bak=VNULL;
   SPMAT		*A_bak, *C_bak;
   VEC		*dx, *x_mod, *dgL, *gL;
   int		i, n = qp->c->dim;
-  Real		val;
+  HQPReal		val;
   VEC		*y_appr=VNULL;
 
   if ( _scale <= 0 ) {
@@ -180,7 +180,7 @@ void Hqp_HL::est_y(Hqp_SqpProgram *prg, VEC *y)
     PERM  *QP2J, *J2QP, *pivot;
     VEC	  *r12, *xy, v;
     int   i, n, me, dim, len;
-    Real	val;
+    HQPReal	val;
     SPROW       *row;
 
     if ( y == VNULL )
@@ -258,7 +258,7 @@ void Hqp_HL::posdef(Hqp_SqpProgram *prg)
   SPMAT *Q;
   SPROW *row;
   row_elt *elt;
-  Real *rs_ve, val;
+  HQPReal *rs_ve, val;
   int i, i_end;
   int j, j_idx, j_end;
 

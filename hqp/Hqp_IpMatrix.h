@@ -54,7 +54,7 @@ class Hqp_IpMatrix {
   VEC	*_dz;
   VEC	*_dw;
 
-  Real 	_eps;
+  HQPReal 	_eps;
 
  public:
   Hqp_IpMatrix();
@@ -67,13 +67,13 @@ class Hqp_IpMatrix {
 		       const VEC *z, const VEC *w) = 0;
 
   // default solve() implements iterative refinement
-  virtual Real	solve(const Hqp_Program *,
+  virtual HQPReal	solve(const Hqp_Program *,
 		      const VEC *z, const VEC *w,
 		      const VEC *r1, const VEC *r2, const VEC *r3,
 		      const VEC *r4,
 		      VEC *dx, VEC *dy, VEC *dz, VEC *dw);
 
-  virtual Real	residuum(const Hqp_Program *,
+  virtual HQPReal	residuum(const Hqp_Program *,
 			 const VEC *z, const VEC *w,
 			 const VEC *r1, const VEC *r2, const VEC *r3,
 			 const VEC *r4,

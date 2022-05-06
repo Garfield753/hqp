@@ -834,7 +834,7 @@ void Prg_DTOpt::init_simulation(int k,
 
 //--------------------------------------------------------------------------
 void Prg_DTOpt::update_vals(int k, const VECP x, const VECP u,
-			    VECP f, Real &f0, VECP c)
+			    VECP f, HQPReal &f0, VECP c)
 {
   int i, j, idx, is, isc, is0, isc0, isf, iscf;
   int nxk = k < _K? _nx: _nu - _ndu + _nx;
@@ -1245,7 +1245,7 @@ void Prg_DTOpt::update_vals(int k, const VECP x, const VECP u,
 
 //--------------------------------------------------------------------------
 void Prg_DTOpt::update_stage(int k, const VECP x, const VECP u,
-			     VECP f, Real &f0, VECP c,
+			     VECP f, HQPReal &f0, VECP c,
 			     MATP fx, MATP fu, VECP f0x, VECP f0u,
 			     MATP cx, MATP cu,
 			     const VECP rf, const VECP rc,

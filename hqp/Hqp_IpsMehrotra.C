@@ -209,7 +209,7 @@ void Hqp_IpsMehrotra::update()
 void Hqp_IpsMehrotra::cold_start()
 {
   int  i, izmin, iwmin, code;
-  Real delz, delw, residuum;
+  HQPReal delz, delw, residuum;
 
   _iter = 0;
   v_zero(_phimin);
@@ -355,8 +355,8 @@ void Hqp_IpsMehrotra::hot_start()
 void Hqp_IpsMehrotra::step()
 {
   int	i, izmin, iwmin;
-  Real 	residuum, smm, phi, pcost, norm_r, pm, pm30, t, gamma;
-  Real  alpha_aff, alpha_corr, mu_aff, mu, sigma, zmin, wmin, fpd, mu_pl;
+  HQPReal 	residuum, smm, phi, pcost, norm_r, pm, pm30, t, gamma;
+  HQPReal  alpha_aff, alpha_corr, mu_aff, mu, sigma, zmin, wmin, fpd, mu_pl;
   int 	code, mod_terlaky = 1;
 
   // solve a program without inequality constraints
@@ -695,7 +695,7 @@ void Hqp_IpsMehrotra::step()
 //--------------------------------------------------------------------------
 void Hqp_IpsMehrotra::solve()
 {
-  Real test1 = 0.0;
+  HQPReal test1 = 0.0;
 
   _fail_iters = 0;
 

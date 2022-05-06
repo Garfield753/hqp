@@ -266,7 +266,7 @@ int	n, nrow;
 {
    SPMAT	*A;
    VEC	        *u;
-   Real       s1;
+   HQPReal       s1;
    int		i, j, k, k_max;
    
    if (nrow <= 1) nrow = 2;
@@ -309,7 +309,7 @@ double diag;
    SPMAT	*A;
    PERM		*px;
    int		i, j, k, k_max;
-   Real		s1;
+   HQPReal		s1;
    
    if (nrow <= 1) nrow = 2;
    if (diag == 0.0) diag = 1.0;
@@ -351,7 +351,7 @@ int	n, nrow;
    PERM		*px;
    VEC          *u;
    int		i, j, k, k_max;
-   Real		s1;
+   HQPReal		s1;
    
    if (nrow <= 1) nrow = 2;
    A = sp_get(n,n,nrow);

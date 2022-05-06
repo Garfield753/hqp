@@ -46,11 +46,11 @@ static	char	rcsid[] = "$Id: solve.c,v 1.2 2002/12/09 10:57:47 e_arnold Exp $";
 VEC	*Usolve(matrix,b,out,diag)
 MAT	*matrix;
 VEC	*b, *out;
-Real	diag;
+HQPReal	diag;
 {
 	u_int	dim /* , j */;
 	int	i, i_lim;
-	Real	**mat_ent, *mat_row, *b_ent, *out_ent, *out_col, sum;
+	HQPReal	**mat_ent, *mat_row, *b_ent, *out_ent, *out_col, sum;
 
 	if ( matrix==(MAT *)NULL || b==(VEC *)NULL )
 		m_error(E_NULL,"Usolve");
@@ -97,10 +97,10 @@ Real	diag;
 VEC	*Lsolve(matrix,b,out,diag)
 MAT	*matrix;
 VEC	*b,*out;
-Real	diag;
+HQPReal	diag;
 {
 	u_int	dim, i, i_lim /* , j */;
-	Real	**mat_ent, *mat_row, *b_ent, *out_ent, *out_col, sum;
+	HQPReal	**mat_ent, *mat_row, *b_ent, *out_ent, *out_col, sum;
 
 	if ( matrix==(MAT *)NULL || b==(VEC *)NULL )
 		m_error(E_NULL,"Lsolve");
@@ -149,10 +149,10 @@ Real	diag;
 VEC	*UTsolve(U,b,out,diag)
 MAT	*U;
 VEC	*b,*out;
-Real	diag;
+HQPReal	diag;
 {
     u_int	dim, i, i_lim;
-    Real	**U_me, *b_ve, *out_ve, tmp, invdiag;
+    HQPReal	**U_me, *b_ve, *out_ve, tmp, invdiag;
     
     if ( ! U || ! b )
 	m_error(E_NULL,"UTsolve");
@@ -171,7 +171,7 @@ Real	diag;
     if ( b != out )
     {
 	__zero__(out_ve,out->dim);
-	MEM_COPY(&(b_ve[i_lim]),&(out_ve[i_lim]),(dim-i_lim)*sizeof(Real));
+	MEM_COPY(&(b_ve[i_lim]),&(out_ve[i_lim]),(dim-i_lim)*sizeof(HQPReal));
     }
 
     if ( diag == 0.0 )
@@ -227,11 +227,11 @@ VEC	*b,*x;
 VEC	*LTsolve(L,b,out,diag)
 MAT	*L;
 VEC	*b, *out;
-Real	diag;
+HQPReal	diag;
 {
     u_int	dim;
     int		i, i_lim;
-    Real	**L_me, *b_ve, *out_ve, tmp, invdiag;
+    HQPReal	**L_me, *b_ve, *out_ve, tmp, invdiag;
     
     if ( ! L || ! b )
 	m_error(E_NULL,"LTsolve");
@@ -249,7 +249,7 @@ Real	diag;
     if ( b != out )
     {
 	__zero__(out_ve,out->dim);
-	MEM_COPY(b_ve,out_ve,(i_lim+1)*sizeof(Real));
+	MEM_COPY(b_ve,out_ve,(i_lim+1)*sizeof(HQPReal));
     }
 
     if ( diag == 0.0 )

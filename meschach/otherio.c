@@ -125,14 +125,14 @@ FILE	   *fp;
 const char *s;
 double	   low, high;
 {
-	Real	retcode, x;
+	HQPReal	retcode, x;
 
 	if ( ! isatty(fileno(fp)) )
 	{
 		skipjunk(fp);
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 		if ( (retcode=fscanf(fp,"%lf",&x)) == EOF )
-#elif REAL == FLOAT
+#elif HQPREAL == FLOAT
 		if ( (retcode=fscanf(fp,"%f",&x)) == EOF )
 #endif
 			m_error(E_INPUT,"fin_double");
@@ -148,9 +148,9 @@ double	   low, high;
 		fprintf(stderr,"%s: ",s);
 		if ( fgets(scratch,MAXLINE,stdin)==NULL )
 			m_error(E_INPUT,"fin_double");
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 		retcode = sscanf(scratch,"%lf",&x);
-#elif REAL == FLOAT 
+#elif HQPREAL == FLOAT 
 		retcode = sscanf(scratch,"%f",&x);
 #endif
 		if ( ( retcode==1 && low > high ) ||

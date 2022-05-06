@@ -47,7 +47,7 @@ u_int	  i0,j0;
 
 	for ( i=i0; i < in->m; i++ )
 		MEM_COPY(&(in->me[i][j0]),&(out->me[i][j0]),
-				(in->n - j0)*sizeof(Real));
+				(in->n - j0)*sizeof(HQPReal));
 		/* for ( j=j0; j < in->n; j++ )
 			out->me[i][j] = in->me[i][j]; */
 
@@ -69,7 +69,7 @@ u_int	  i0;
 	if ( out==VNULL || out->dim != in->dim )
 		out = v_resize(out,in->dim);
 
-	MEM_COPY(&(in->ve[i0]),&(out->ve[i0]),(in->dim - i0)*sizeof(Real));
+	MEM_COPY(&(in->ve[i0]),&(out->ve[i0]),(in->dim - i0)*sizeof(HQPReal));
 	/* for ( i=i0; i < in->dim; i++ )
 		out->ve[i] = in->ve[i]; */
 
@@ -132,7 +132,7 @@ int	  i0, j0, m0, n0, i1, j1;
 
     for ( i = 0; i < m0; i++ )
 	MEM_COPY(&(in->me[i0+i][j0]),&(out->me[i1+i][j1]),
-		 n0*sizeof(Real));
+		 n0*sizeof(HQPReal));
 
     return out;
 }
@@ -155,7 +155,7 @@ int	  i0, dim0, i1;
     if ( (! out) || i1+dim0 > (int) out->dim )
 	out = v_resize(out,i1+dim0);
 
-    MEM_COPY(&(in->ve[i0]),&(out->ve[i1]),dim0*sizeof(Real));
+    MEM_COPY(&(in->ve[i0]),&(out->ve[i1]),dim0*sizeof(HQPReal));
 
     return out;
 }
@@ -183,7 +183,7 @@ int	  i0, j0, m0, n0, i1;
 	out = v_resize(out,i1+dim1);
 
     for ( i = 0; i < m0; i++ )
-	MEM_COPY(&(in->me[i0+i][j0]),&(out->ve[i1+i*n0]),n0*sizeof(Real));
+	MEM_COPY(&(in->me[i0+i][j0]),&(out->ve[i1+i*n0]),n0*sizeof(HQPReal));
 
     return out;
 }
@@ -213,7 +213,7 @@ int	  i0, i1, j1, m1, n1;
 
     dim0 = m1*n1;
     for ( i = 0; i < m1; i++ )
-	MEM_COPY(&(in->ve[i0+i*n1]),&(out->me[i1+i][j1]),n1*sizeof(Real));
+	MEM_COPY(&(in->ve[i0+i*n1]),&(out->me[i1+i][j1]),n1*sizeof(HQPReal));
 
     return out;
 }

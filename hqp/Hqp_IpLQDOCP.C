@@ -71,7 +71,7 @@ SPMAT *CTDC(const SPMAT *CT, const VEC *yny, SPMAT *CTC)
   int j;
   SPROW *r;
   row_elt *elt;
-  Real sum;
+  HQPReal sum;
 
   if ( ( CT == SMNULL ) || ( yny == VNULL) || ( CTC == SMNULL ) )
     m_error(E_NULL, "CTDC");
@@ -1489,7 +1489,7 @@ void Hqp_IpLQDOCP::ExRiccatiFactor(void)
 	CD_p[k] = px_resize(CD_p[k], CD[k]->m);
 	CD[k] = LUfactor(CD[k], CD_p[k]);
 	{
-	  Real cond = LUcondest(CD[k], CD_p[k]);
+	  HQPReal cond = LUcondest(CD[k], CD_p[k]);
 	  if ( _logging && cond > 1.0e10 )
 	    fprintf(stderr, "LQDOCP: cond(CD[%d]): %g\n", k, cond);
 	}

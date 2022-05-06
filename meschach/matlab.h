@@ -65,9 +65,9 @@ typedef struct {
 
 #define ORDER           ROW_ORDER
 
-#if REAL == DOUBLE
+#if HQPREAL == DOUBLE
 #define PRECISION       DOUBLE_PREC
-#elif REAL == FLOAT
+#elif HQPREAL == FLOAT
 #define PRECISION  	SINGLE_PREC
 #endif
 

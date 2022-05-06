@@ -74,7 +74,7 @@ void Prg_DID::setup_vars(int k,
 //--------------------------------------------------------------------------
 void Prg_DID::update_vals(int k,
 			  const VECP x, const VECP u,
-			  VECP f, Real &f0, VECP c)
+			  VECP f, HQPReal &f0, VECP c)
 {
   double dt = 1.0/_kmax;
 
@@ -136,7 +136,7 @@ void Prg_DID::setup_struct(int k,
 //--------------------------------------------------------------------------
 void Prg_DID::update_stage(int k,
 			   const VECP x, const VECP u,
-			   VECP f, Real &f0, VECP c,
+			   VECP f, HQPReal &f0, VECP c,
 			   MATP fx, MATP fu,
 			   VECP f0x, VECP f0u,
 			   MATP cx, MATP cu,

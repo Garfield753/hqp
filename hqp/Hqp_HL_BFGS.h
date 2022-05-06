@@ -34,7 +34,7 @@
 class Hqp_HL_BFGS: public Hqp_HL {
 
  protected:
-  Real _gamma;
+  HQPReal _gamma;
   bool _eigen_control;
   int  _bsize;
   int  _max_bsize;
@@ -46,7 +46,7 @@ class Hqp_HL_BFGS: public Hqp_HL {
   MAT	*_b_Q;
   int 	_b_begin;
 
-  void	update_b_Q(const VEC *s, const VEC *u, Real alpha, MAT *Q);
+  void	update_b_Q(const VEC *s, const VEC *u, HQPReal alpha, MAT *Q);
   int	next_block(const SPMAT *, int *offs, int *size);
   
  public:
@@ -54,7 +54,7 @@ class Hqp_HL_BFGS: public Hqp_HL {
   ~Hqp_HL_BFGS();
 
   void setup(Hqp_SqpProgram *);
-  void update(const VEC *s, const VEC *u, Real alpha, Hqp_SqpProgram *);
+  void update(const VEC *s, const VEC *u, HQPReal alpha, Hqp_SqpProgram *);
 
   const char *name() {return "BFGS";}
 };  

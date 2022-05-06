@@ -46,7 +46,7 @@ static void interchange(MAT *A, int i, int j)
  * - A is the reduced matrix of order n-i+1
  */
 {
-  Real	tmp;
+  HQPReal	tmp;
   int	n;
   int	k;
 
@@ -74,8 +74,8 @@ MAT *matBKPfactor(MAT *A, PERM *pivot)
  */
 {
   int	i, ip1, ip2, j, k, n;
-  Real	aii, aip1, aiip1, lambda, sigma, tmp;
-  Real	det, s, t;
+  HQPReal	aii, aip1, aiip1, lambda, sigma, tmp;
+  HQPReal	det, s, t;
 
   if (!A || !pivot)
     m_error(E_NULL,"matBKPfactor");
@@ -184,9 +184,9 @@ VEC *matBKPsolve(const MAT *A, const PERM *pivot, const VEC *b, VEC *x)
 {
   int i, ii, j, k, ip1;
   int n;
-  Real det, tmp, save;
-  Real aiip1, aii, aip1;
-  Real *x_ve;
+  HQPReal det, tmp, save;
+  HQPReal aiip1, aii, aip1;
+  HQPReal *x_ve;
   u_int *p_pe;
 
   if (!A || !pivot || !b) 

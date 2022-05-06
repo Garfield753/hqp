@@ -50,9 +50,9 @@ VEC	*a, *b;
 MAT	*Q;
 {
 	int	i, i_min, i_max, n, split;
-	Real	*a_ve, *b_ve;
-	Real	b_sqr, bk, ak1, bk1, ak2, bk2, z;
-	Real	c, c2, cs, s, s2, d, mu;
+	HQPReal	*a_ve, *b_ve;
+	HQPReal	b_sqr, bk, ak1, bk1, ak2, bk2, z;
+	HQPReal	c, c2, cs, s, s2, d, mu;
 
 	if ( ! a || ! b )
 		m_error(E_NULL,"trieig");

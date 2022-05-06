@@ -149,10 +149,10 @@ static int  inext = 0, inextp = 31;
 
 
 /* mrand -- pseudo-random number generator */
-Real mrand(void)
+HQPReal mrand(void)
 {
     long	lval;
-    static Real  factor = 1.0/((Real)MODULUS);
+    static HQPReal  factor = 1.0/((HQPReal)MODULUS);
     
     if ( ! started )
 	smrand(3127);
@@ -165,17 +165,17 @@ Real mrand(void)
 	lval += MODULUS;
     mrand_list[inext] = lval;
     
-    return (Real)lval*factor;
+    return (HQPReal)lval*factor;
 }
 
 /* mrandlist -- fills the array a[] with len random numbers */
 void	mrandlist(a, len)
-Real	a[];
+HQPReal	a[];
 int	len;
 {
     int		i;
     long	lval;
-    static Real  factor = 1.0/((Real)MODULUS);
+    static HQPReal  factor = 1.0/((HQPReal)MODULUS);
     
     if ( ! started )
 	smrand(3127);
@@ -190,7 +190,7 @@ int	len;
 	    lval += MODULUS;
 	mrand_list[inext] = lval;
 	
-	a[i] = (Real)lval*factor;
+	a[i] = (HQPReal)lval*factor;
     }
 }
 
@@ -227,7 +227,7 @@ VEC	*x;
 		m_error(E_NULL,"v_rand");
 
 	/* for ( i = 0; i < x->dim; i++ ) */
-	    /* x->ve[i] = rand()/((Real)MAX_RAND); */
+	    /* x->ve[i] = rand()/((HQPReal)MAX_RAND); */
 	    /* x->ve[i] = mrand(); */
 	mrandlist(x->ve,x->dim);
 
@@ -246,7 +246,7 @@ MAT	*A;
 
 	for ( i = 0; i < (int) A->m; i++ )
 		/* for ( j = 0; j < A->n; j++ ) */
-		    /* A->me[i][j] = rand()/((Real)MAX_RAND); */
+		    /* A->me[i][j] = rand()/((HQPReal)MAX_RAND); */
 		    /* A->me[i][j] = mrand(); */
 	    mrandlist(A->me[i],A->n);
 
@@ -294,7 +294,7 @@ VEC	*x;
 	    m_error(E_NULL,"v_count");
 
 	for ( i = 0; i < (int) x->dim; i++ )
-	    x->ve[i] = (Real)i;
+	    x->ve[i] = (HQPReal)i;
 
 	return x;
 }
