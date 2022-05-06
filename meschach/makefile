@@ -30,7 +30,7 @@ LIBS =  -lm
 RANLIB = ranlib
 
 
-CFLAGS = $(MES_CFLAGS)
+#CFLAGS = $(MES_CFLAGS)
 
 
 .c$O:
